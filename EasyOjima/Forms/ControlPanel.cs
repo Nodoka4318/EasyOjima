@@ -4,7 +4,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Diagnostics;
 using System.Windows.Forms;
+using EasyOjima.Enums;
+using EasyOjima.Utils;
 
 namespace EasyOjima.Forms {
     public partial class ControlPanel : Form {
@@ -70,6 +73,10 @@ namespace EasyOjima.Forms {
             } catch {
                 EndFrameBox.Text = "2";
             }
+        }
+
+        private void openFolderButton_Click(object sender, EventArgs e) {
+            Process.Start("EXPLORER.EXE", Loc.SCORES);
         }
     }
 }

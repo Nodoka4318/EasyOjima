@@ -36,7 +36,7 @@ namespace EasyOjima.Video {
                 FrameSize = vcap.FrameCount;
                 FrameRate = vcap.Fps;
                 var frameCounter = 0;
-                LoadingDialog loadingDialog = new LoadingDialog(FrameSize);
+                var loadingDialog = new LoadingDialog(FrameSize);
                 loadingDialog.Show();
 
                 while (vcap.IsOpened()) {

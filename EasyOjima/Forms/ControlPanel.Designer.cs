@@ -33,8 +33,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.BeginFrameBox = new System.Windows.Forms.TextBox();
             this.frameLabel = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.openFolderButton = new System.Windows.Forms.Button();
+            this.selectScoreButton = new System.Windows.Forms.Button();
+            this.launchButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // trackBar
@@ -133,11 +141,80 @@
             this.frameLabel.TabIndex = 3;
             this.frameLabel.Text = "(0 / 0)";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.openFolderButton);
+            this.groupBox2.Controls.Add(this.selectScoreButton);
+            this.groupBox2.Location = new System.Drawing.Point(162, 60);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(214, 89);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "楽譜設定";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(44, 51);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(56, 23);
+            this.textBox1.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 54);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 15);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "BPM";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(118, 15);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "何も選択されていません";
+            // 
+            // openFolderButton
+            // 
+            this.openFolderButton.Location = new System.Drawing.Point(106, 51);
+            this.openFolderButton.Name = "openFolderButton";
+            this.openFolderButton.Size = new System.Drawing.Size(102, 23);
+            this.openFolderButton.TabIndex = 0;
+            this.openFolderButton.Text = "楽譜フォルダを開く";
+            this.openFolderButton.UseVisualStyleBackColor = true;
+            this.openFolderButton.Click += new System.EventHandler(this.openFolderButton_Click);
+            // 
+            // selectScoreButton
+            // 
+            this.selectScoreButton.Location = new System.Drawing.Point(134, 22);
+            this.selectScoreButton.Name = "selectScoreButton";
+            this.selectScoreButton.Size = new System.Drawing.Size(74, 23);
+            this.selectScoreButton.TabIndex = 0;
+            this.selectScoreButton.Text = "楽譜を選択";
+            this.selectScoreButton.UseVisualStyleBackColor = true;
+            // 
+            // launchButton
+            // 
+            this.launchButton.Location = new System.Drawing.Point(382, 82);
+            this.launchButton.Name = "launchButton";
+            this.launchButton.Size = new System.Drawing.Size(90, 65);
+            this.launchButton.TabIndex = 5;
+            this.launchButton.Text = "実行";
+            this.launchButton.UseVisualStyleBackColor = true;
+            // 
             // ControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 161);
+            this.Controls.Add(this.launchButton);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.frameLabel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pauseButton);
@@ -153,6 +230,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,5 +248,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox BeginFrameBox;
         private System.Windows.Forms.Label frameLabel;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button openFolderButton;
+        private System.Windows.Forms.Button selectScoreButton;
+        private System.Windows.Forms.Button launchButton;
     }
 }
