@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using EasyOshima.Forms;
+using EasyOjima.Forms;
 
-namespace EasyOshima {
+namespace EasyOjima {
     internal static class Program {
         public static MainView mainView = new MainView();
         /// <summary>

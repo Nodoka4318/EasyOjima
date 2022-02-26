@@ -6,13 +6,19 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace EasyOshima.Forms {
+namespace EasyOjima.Forms {
     public partial class ControlPanel : Form {
 
         public ControlPanel() {
             InitializeComponent();
             trackBar.Minimum = 0;
             trackBar.Enabled = false;
+            this.FormClosing += ControlPanel_FormClosing;
+        }
+
+        private void ControlPanel_FormClosing(object sender, FormClosingEventArgs e) {
+            if (e.CloseReason == CloseReason.UserClosing)
+                e.Cancel = true;
         }
 
         private void playButton_Click(object sender, EventArgs e) {
@@ -30,7 +36,7 @@ namespace EasyOshima.Forms {
         private void trackBar_Scroll(object sender, EventArgs e) {
             var val = trackBar.Value;
             Program.mainView.SetFrame(val);
-            SetFrameLabelText(val, Program.mainView.video.FrameSize);
+            SetFrameLabelText(val + 1, Program.mainView.video.FrameSize);
         }
 
         public void SetFrameLabelText(int v1, int v2) {

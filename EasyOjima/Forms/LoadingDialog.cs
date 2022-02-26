@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace EasyOshima.Forms {
+namespace EasyOjima.Forms {
     public partial class LoadingDialog : Form {
         public LoadingDialog(string message, int maxFrame) {
             InitializeComponent();

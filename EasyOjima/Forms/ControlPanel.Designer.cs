@@ -1,4 +1,4 @@
-﻿namespace EasyOshima.Forms {
+﻿namespace EasyOjima.Forms {
     partial class ControlPanel {
         /// <summary>
         /// Required designer variable.

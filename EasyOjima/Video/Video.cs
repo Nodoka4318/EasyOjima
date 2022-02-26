@@ -6,9 +6,9 @@ using System.Linq;
 using System.Windows.Forms;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
-using EasyOshima.Forms;
+using EasyOjima.Forms;
 
-namespace EasyOshima.Video {
+namespace EasyOjima.Video {
     public class Video : IDisposable {
         public string path;
         public List<Bitmap> frames = new List<Bitmap>();
@@ -22,19 +22,19 @@ namespace EasyOshima.Video {
 
         public Video(List<Bitmap> frames) {
             this.frames = frames.ToList();
-            this.FrameSize = frames.Count;
+            FrameSize = frames.Count;
         }
 
         /// <summary>
         /// 非常に頭の悪い読み込み方
         /// </summary>
         public void Init() {
-            if (this.path == null)
+            if (path == null)
                 return;
 
             using (VideoCapture vcap = new VideoCapture(path)) {
-                this.FrameSize = vcap.FrameCount;
-                this.FrameRate = vcap.Fps;
+                FrameSize = vcap.FrameCount;
+                FrameRate = vcap.Fps;
                 var frameCounter = 0;
                 LoadingDialog loadingDialog = new LoadingDialog(FrameSize);
                 loadingDialog.Show();
@@ -43,7 +43,7 @@ namespace EasyOshima.Video {
                     using (Mat mat = new Mat()) {
                         if (vcap.Read(mat)) {
                             if (mat.IsContinuous()) {
-                                this.frames.Add(BitmapConverter.ToBitmap(mat));
+                                frames.Add(mat.ToBitmap());
                             } else {
                                 break;
                             }
@@ -56,18 +56,18 @@ namespace EasyOshima.Video {
                 }
                 loadingDialog.Close();
                 loadingDialog.Dispose();
-                this.FrameSize = frames.Count;
+                FrameSize = frames.Count;
             }
         }
 
         public Bitmap GetFrame(int index) {
-            if (this.frames.Count < 1)
+            if (frames.Count < 1)
                 return null;
             return frames[index];
         }
 
         public Bitmap GetCurrentFrame() {
-            if (this.frames.Count < 1)
+            if (frames.Count < 1)
                 return null;
             return frames[CurrentFrame];
         }
@@ -76,8 +76,8 @@ namespace EasyOshima.Video {
         /// エセDispose
         /// </summary>
         public void Dispose() {
-            this.frames = null;
-            this.path = null;
+            frames = null;
+            path = null;
         }
     }
 }

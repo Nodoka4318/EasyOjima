@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
-using EasyOshima.Video;
+using EasyOjima.Video;
 
-namespace EasyOshima.Forms {
+namespace EasyOjima.Forms {
     public partial class MainView : Form {
         public ControlPanel controls = new ControlPanel();
         public string VideoPath { get; set; } //動画のパス
@@ -49,6 +49,7 @@ namespace EasyOshima.Forms {
             if (video.CurrentFrame < video.FrameSize - 1) {
                 ViewBox.Image = video.GetCurrentFrame();
                 controls.trackBar.Value = video.CurrentFrame;
+                controls.SetFrameLabelText(video.CurrentFrame + 1, video.FrameSize);
                 video.CurrentFrame++;
             } else {
                 video.CurrentFrame = 0;

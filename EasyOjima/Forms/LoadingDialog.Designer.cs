@@ -1,4 +1,4 @@
-﻿namespace EasyOshima.Forms {
+﻿namespace EasyOjima.Forms {
     partial class LoadingDialog {
         /// <summary>
         /// Required designer variable.

@@ -1,4 +1,4 @@
-﻿namespace EasyOshima.Forms {
+﻿namespace EasyOjima.Forms {
     partial class MainView {
         /// <summary>
         ///  Required designer variable.
