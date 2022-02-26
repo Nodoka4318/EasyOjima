@@ -1,0 +1,69 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace EasyOshima.Forms {
+    public partial class ControlPanel : Form {
+
+        public ControlPanel() {
+            InitializeComponent();
+            trackBar.Minimum = 0;
+            trackBar.Enabled = false;
+        }
+
+        private void playButton_Click(object sender, EventArgs e) {
+            Program.mainView.PlayVideo();
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e) {
+            Program.mainView.PauseVideo();
+        }
+
+        private void stopButton_Click(object sender, EventArgs e) {
+            Program.mainView.StopVideo();
+        }
+
+        private void trackBar_Scroll(object sender, EventArgs e) {
+            var val = trackBar.Value;
+            Program.mainView.SetFrame(val);
+            SetFrameLabelText(val, Program.mainView.video.FrameSize);
+        }
+
+        public void SetFrameLabelText(int v1, int v2) {
+            frameLabel.Text = $"({v1} / {v2})";
+            frameLabel.Update();
+        }
+
+        private void BeginFrameBox_TextChanged(object sender, EventArgs e) {
+            var maxframe = Program.mainView.video.FrameSize;
+            try {
+                if (BeginFrameBox.Text == "") {
+                    BeginFrameBox.Text = "1";
+                }                
+                BeginFrameBox.Text = int.Parse(BeginFrameBox.Text) < maxframe ? BeginFrameBox.Text : maxframe.ToString();
+                BeginFrameBox.Text = int.Parse(BeginFrameBox.Text) > 0 ? BeginFrameBox.Text : "1";
+                BeginFrameBox.Text = int.Parse(EndFrameBox.Text) > int.Parse(BeginFrameBox.Text) ? BeginFrameBox.Text : (int.Parse(EndFrameBox.Text) - 1).ToString();
+            } catch {
+                BeginFrameBox.Text = "1";
+            } 
+        }
+
+        private void EndFrameBox_TextChanged(object sender, EventArgs e) {
+            var maxframe = Program.mainView.video.FrameSize;
+            try {               
+                if (BeginFrameBox.Text == "") {
+                    BeginFrameBox.Text = maxframe.ToString();
+                }               
+                EndFrameBox.Text = int.Parse(BeginFrameBox.Text) > 0 ? EndFrameBox.Text : "1";
+                BeginFrameBox.Text = int.Parse(EndFrameBox.Text) < int.Parse(BeginFrameBox.Text) ? EndFrameBox.Text : (int.Parse(BeginFrameBox.Text) + 1).ToString();
+                EndFrameBox.Text = int.Parse(BeginFrameBox.Text) < maxframe ? EndFrameBox.Text : maxframe.ToString();
+            } catch {
+                EndFrameBox.Text = "2";
+            }
+        }
+    }
+}
