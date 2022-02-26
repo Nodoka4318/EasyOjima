@@ -8,5 +8,9 @@ namespace EasyOjima.Utils {
         public static void ErrorMessage(string msg) {
             MessageBox.Show($"エラーが発生しました。\n\nErrorMessage: {msg}", "かんたん大島", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        public static void InfoMessage(string msg) {
+            MessageBox.Show(msg, "かんたん大島", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

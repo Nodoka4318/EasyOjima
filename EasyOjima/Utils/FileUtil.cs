@@ -23,5 +23,14 @@ namespace EasyOjima.Utils {
                 MessageUtil.ErrorMessage(ex.Message);
             }
         }
+
+        public static string ReadTextFile(string path) {
+            try {
+                return File.ReadAllText(path);
+            } catch (Exception ex) {
+                MessageUtil.ErrorMessage(ex.Message);
+                return null;
+            }
+        }
     }
 }

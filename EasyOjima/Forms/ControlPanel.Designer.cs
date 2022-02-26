@@ -36,7 +36,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.selectedScoreLabel = new System.Windows.Forms.Label();
             this.openFolderButton = new System.Windows.Forms.Button();
             this.selectScoreButton = new System.Windows.Forms.Button();
             this.launchButton = new System.Windows.Forms.Button();
@@ -145,7 +145,7 @@
             // 
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.selectedScoreLabel);
             this.groupBox2.Controls.Add(this.openFolderButton);
             this.groupBox2.Controls.Add(this.selectScoreButton);
             this.groupBox2.Location = new System.Drawing.Point(162, 60);
@@ -171,14 +171,14 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "BPM";
             // 
-            // label3
+            // selectedScoreLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 26);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 15);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "何も選択されていません";
+            this.selectedScoreLabel.AutoSize = true;
+            this.selectedScoreLabel.Location = new System.Drawing.Point(6, 26);
+            this.selectedScoreLabel.Name = "selectedScoreLabel";
+            this.selectedScoreLabel.Size = new System.Drawing.Size(118, 15);
+            this.selectedScoreLabel.TabIndex = 1;
+            this.selectedScoreLabel.Text = "何も選択されていません";
             // 
             // openFolderButton
             // 
@@ -198,6 +198,7 @@
             this.selectScoreButton.TabIndex = 0;
             this.selectScoreButton.Text = "楽譜を選択";
             this.selectScoreButton.UseVisualStyleBackColor = true;
+            this.selectScoreButton.Click += new System.EventHandler(this.selectScoreButton_Click);
             // 
             // launchButton
             // 
@@ -251,7 +252,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label selectedScoreLabel;
         private System.Windows.Forms.Button openFolderButton;
         private System.Windows.Forms.Button selectScoreButton;
         private System.Windows.Forms.Button launchButton;

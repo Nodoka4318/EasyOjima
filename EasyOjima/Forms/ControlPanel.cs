@@ -11,6 +11,7 @@ using EasyOjima.Utils;
 
 namespace EasyOjima.Forms {
     public partial class ControlPanel : Form {
+        public string ScoreText { get; private set; }
 
         public ControlPanel() {
             InitializeComponent();
@@ -77,6 +78,23 @@ namespace EasyOjima.Forms {
 
         private void openFolderButton_Click(object sender, EventArgs e) {
             Process.Start("EXPLORER.EXE", Loc.SCORES);
+        }
+
+        private void selectScoreButton_Click(object sender, EventArgs e) {
+            var selectDialog = new SelectScoreDialog();
+            selectDialog.ShowDialog();
+
+            if (selectDialog.ResultScore == null || selectDialog.ResultScore == "") {
+                if (selectDialog.ResultScore == "")
+                    MessageUtil.InfoMessage("楽譜が不正です。");
+                selectedScoreLabel.Text = "何も選択されていません";
+                selectedScoreLabel.Update();
+                return;
+            }
+            this.ScoreText = selectDialog.ResultScore;
+            selectedScoreLabel.Text = selectDialog.ResultFileName.Replace(".score", "");
+            selectedScoreLabel.Update();
+            selectDialog.Dispose();
         }
     }
 }
