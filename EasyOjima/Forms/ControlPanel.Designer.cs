@@ -208,6 +208,7 @@
             this.launchButton.TabIndex = 5;
             this.launchButton.Text = "実行";
             this.launchButton.UseVisualStyleBackColor = true;
+            this.launchButton.Click += new System.EventHandler(this.launchButton_Click);
             // 
             // ControlPanel
             // 

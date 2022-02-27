@@ -16,8 +16,10 @@ namespace EasyOjima {
         /// </summary>
         [STAThread]
         static void Main() {
-            if (!Directory.Exists(Loc.SCORES)) {
-                FileUtil.CreateDirectory(Loc.SCORES);
+            foreach (string path in Loc.Locs) {
+                if (!Directory.Exists(path)) {
+                    FileUtil.CreateDirectory(path);
+                }
             }
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();

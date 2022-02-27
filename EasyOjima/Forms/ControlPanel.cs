@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using EasyOjima.Enums;
 using EasyOjima.Utils;
+using EasyOjima.Video;
 
 namespace EasyOjima.Forms {
     public partial class ControlPanel : Form {
@@ -95,6 +96,10 @@ namespace EasyOjima.Forms {
             selectedScoreLabel.Text = selectDialog.ResultFileName.Replace(".score", "");
             selectedScoreLabel.Update();
             selectDialog.Dispose();
+        }
+
+        private void launchButton_Click(object sender, EventArgs e) {
+            VideoExporter ve = new VideoExporter(Program.mainView.video, @"data\vi.mp4");
         }
     }
 }
