@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.IO;
-using EasyOjima.Utils;
 
 namespace EasyOjima.Utils {
     internal class FileUtil {

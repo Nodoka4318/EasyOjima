@@ -69,7 +69,7 @@ namespace EasyOjima.Forms {
                     BeginFrameBox.Text = maxframe.ToString();
                 }               
                 EndFrameBox.Text = int.Parse(BeginFrameBox.Text) > 0 ? EndFrameBox.Text : "1";
-                BeginFrameBox.Text = int.Parse(EndFrameBox.Text) < int.Parse(BeginFrameBox.Text) ? EndFrameBox.Text : (int.Parse(BeginFrameBox.Text) + 1).ToString();
+                EndFrameBox.Text = int.Parse(EndFrameBox.Text) < int.Parse(BeginFrameBox.Text) ? EndFrameBox.Text : (int.Parse(BeginFrameBox.Text) + 1).ToString();
                 EndFrameBox.Text = int.Parse(BeginFrameBox.Text) < maxframe ? EndFrameBox.Text : maxframe.ToString();
             } catch {
                 EndFrameBox.Text = "2";

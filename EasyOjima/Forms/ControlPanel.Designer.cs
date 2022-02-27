@@ -227,7 +227,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(500, 200);
             this.Name = "ControlPanel";
-            this.Text = "ControlPanel";
+            this.Text = "コントロール";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
