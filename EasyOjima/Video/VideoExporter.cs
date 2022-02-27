@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
-using System.Reflection;
-using System.Diagnostics;
 using System.Linq;
 using FFMpegCore;
-using FFMpegCore.Enums;
 using EasyOjima.Enums;
 using EasyOjima.Forms;
+using EasyOjima.Utils;
+using Splicer.Timeline;
+using Splicer.Renderer;
+using Splicer.WindowsMedia;
 
 namespace EasyOjima.Video {
     internal class VideoExporter {
@@ -19,7 +18,7 @@ namespace EasyOjima.Video {
         public string ExportPath { get; set; }
 
         //動画について
-        private double frameRate = 60d;
+        private double frameRate = 30d;
 
         //ローディング画面についてのデータ
         private LoadingDialog loadingDialog;
@@ -33,13 +32,13 @@ namespace EasyOjima.Video {
 
         public VideoExporter(Video video, string exportPath) {
             this.ExportPath = exportPath;
-            //this.frameRate = video.FrameRate;
+            this.frameRate = video.FrameRate;
             Process(video);
         }
 
         public void Process(Video video) {
-            MakeCache(video);
-            ExportVideo();
+            //MakeCache(video);
+            ExportVideo(video);
         }
 
         private void MakeCache(Video video) {
@@ -57,6 +56,7 @@ namespace EasyOjima.Video {
             this.loadingDialog.Dispose();
         }
 
+        /*
         private void ExportVideo() {
             //var appPath = Directory.GetCurrentDirectory();
             var counter = 1;
@@ -76,6 +76,75 @@ namespace EasyOjima.Video {
             this.loadingDialog.UpdateDialog($"[{processLevel}] 動画ファイル作成中", counter);
             FFMpeg.JoinImageSequence(ExportPath, frameRate, imageInfos.Distinct().ToArray());
             this.loadingDialog.Dispose();
+        }
+        */
+
+        private void ExportVideo(Video video) {
+            
+            //var appPath = Directory.GetCurrentDirectory();
+            var counter = 1;
+            var frames = video.frames.ToList();
+            
+            this.loadingDialog = new LoadingDialog($"[{processLevel}] 動画ファイル出力中 ({counter}/{frames.Count})", frames.Count);
+            loadingDialog.Show();
+
+
+            //MessageBox.Show($"{imageInfos.Count}");
+            
+            int width = 1280;
+            int height = 720;
+            if (frames == null || frames.Count == 0)
+                return;
+            try {
+                using (ITimeline timeline = new DefaultTimeline(frameRate)) {
+                    IGroup group = timeline.AddVideoGroup(32, width, height);
+                    ITrack videoTrack = group.AddTrack();
+
+                    int i = 0;
+                    double miniDuration = 1.0 / frameRate;
+                    foreach (var bmp in frames) {
+                        IClip clip = videoTrack.AddImage(bmp, 0, i * miniDuration, (i + 1) * miniDuration);
+                        this.loadingDialog.UpdateDialog($"動画ファイル出力中 ({counter}/{frames.Count})", counter);
+                        i++;
+                        counter++;
+                    }
+
+                    this.loadingDialog.UpdateDialog($"[{processLevel}] 仕上げ中…", counter - 1);
+                    timeline.AddAudioGroup();
+                    IRenderer renderer = new WindowsMediaRenderer(timeline, ExportPath, WindowsMediaProfiles.HighQualityVideo);
+                    renderer.Render();
+                }
+            } catch (Exception ex) {
+                MessageUtil.ErrorMessage(ex.Message);
+                this.loadingDialog.Dispose();
+                return;
+            }
+
+            this.loadingDialog.Dispose();
+        }
+
+        public void CreateVideo(List<Bitmap> bitmaps, string outputFile, double fps) {
+            int width = 640;
+            int height = 480;
+            if (bitmaps == null || bitmaps.Count == 0) 
+                return;
+            try {
+                using (ITimeline timeline = new DefaultTimeline(fps)) {
+                    IGroup group = timeline.AddVideoGroup(32, width, height);
+                    ITrack videoTrack = group.AddTrack();
+
+                    int i = 0;
+                    double miniDuration = 1.0 / fps;
+                    foreach (var bmp in bitmaps) {
+                        IClip clip = videoTrack.AddImage(bmp, 0, i * miniDuration, (i + 1) * miniDuration);
+                    }
+                    timeline.AddAudioGroup();
+                    IRenderer renderer = new WindowsMediaRenderer(timeline, outputFile, WindowsMediaProfiles.HighQualityVideo);
+                    renderer.Render();
+                }
+            } catch { 
+                return; 
+            }
         }
     }
 }
