@@ -20,12 +20,10 @@ namespace EasyOjima.Video {
 
         //ローディング画面についてのデータ
         private LoadingDialog loadingDialog;
-        private int processLevel = 1;
 
-        public VideoExporter(Video video, string exportPath, LoadingDialog loadingDialog, int processLevel) {
+        public VideoExporter(Video video, string exportPath, LoadingDialog loadingDialog) {
             this.ExportPath = exportPath;
             this.loadingDialog = loadingDialog;
-            this.processLevel = processLevel;
         }
 
         public VideoExporter(Video video, string exportPath) {
@@ -42,22 +40,22 @@ namespace EasyOjima.Video {
         //使わなくなったやつ
         private void MakeCache(Video video) {
             var counter = 1;
-            this.loadingDialog = new LoadingDialog($"[{processLevel}] フレーム処理中 ({counter}/{video.FrameSize})", video.FrameSize);
+            this.loadingDialog = new LoadingDialog($"フレーム処理中 ({counter}/{video.FrameSize})", video.FrameSize);
             loadingDialog.Show();
             foreach (Bitmap img in video.frames) {
-                loadingDialog.UpdateDialog($"[{processLevel}] フレーム処理中 ({counter}/{video.FrameSize})", counter);
+                loadingDialog.UpdateDialog($"フレーム処理中 ({counter}/{video.FrameSize})", counter);
                 var _path = @$"{Loc.EXPORT_CACHE}\{counter}.png";
                 img.Save(_path, System.Drawing.Imaging.ImageFormat.Png);
                 counter++;
             }
             //frameRate = video.FrameRate;
-            processLevel++;
+            //processLevel++;
             this.loadingDialog.Dispose();
         }
 
         private void ExportVideo(Video video) {
             var counter = 1;
-            this.loadingDialog = new LoadingDialog($"[{processLevel}] 動画ファイル出力中… ({counter}/{video.FrameSize})", video.FrameSize);
+            this.loadingDialog = new LoadingDialog($"動画ファイル出力中… ({counter}/{video.FrameSize})", video.FrameSize);
             loadingDialog.Show();
             using (var Writer = new VideoWriter(ExportPath, FourCC.H264, frameRate, new OpenCvSharp.Size(video.Width, video.Heigth))) {                
                 foreach (var img in video.frames) {
@@ -69,7 +67,7 @@ namespace EasyOjima.Video {
                     }));
                     //var image = Mat.FromStream(File.OpenRead(img), ImreadModes.Color);
                     Writer.Write(image);
-                    loadingDialog.UpdateDialog($"[{processLevel}] 動画ファイル出力中… ({counter}/{video.FrameSize})", counter);
+                    loadingDialog.UpdateDialog($"動画ファイル出力中… ({counter}/{video.FrameSize})", counter);
                     counter++;
                 }
             }

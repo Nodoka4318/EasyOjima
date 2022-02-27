@@ -58,7 +58,6 @@ namespace EasyOjima.Video {
                     frameCounter++;
                     loadingDialog.UpdateDialog($"動画を読み込み中… ({frameCounter}/{FrameSize})", frameCounter);
                 }
-                loadingDialog.Close();
                 loadingDialog.Dispose();
                 FrameSize = frames.Count;
             }

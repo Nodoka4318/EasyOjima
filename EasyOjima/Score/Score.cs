@@ -8,12 +8,14 @@ namespace EasyOjima.Score {
         public List<char> Source { get; private set; }
         public int Length { get; private set; }
         public int CurrentIndex { get; set; } = 0;
+        public int Bpm { get; private set; }
 
-        public Score(string source) {
+        public Score(string source, int bpm) {
             this.Source = source.ToCharArray().Where(
                 c => AllowedToken.Contains(c)
                 ).ToList();
             this.Length = source.Length;
+            this.Bpm = bpm;
         }
 
         public char GetCurrentChar() {
