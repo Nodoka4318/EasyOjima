@@ -15,6 +15,8 @@ namespace EasyOjima.Video {
         public int CurrentFrame { get; set; } = 0;
         public int FrameSize { get; private set; }
         public double FrameRate { get; private set; }
+        public int Width { get; private set; }
+        public int Heigth { get; private set; }
 
         public Video(string path) {
             this.path = path;
@@ -33,8 +35,10 @@ namespace EasyOjima.Video {
                 return;
 
             using (VideoCapture vcap = new VideoCapture(path)) {
-                FrameSize = vcap.FrameCount;
-                FrameRate = vcap.Fps;
+                this.FrameSize = vcap.FrameCount;
+                this.FrameRate = vcap.Fps;
+                this.Width = vcap.FrameWidth;
+                this.Heigth = vcap.FrameHeight;
                 var frameCounter = 0;
                 var loadingDialog = new LoadingDialog(FrameSize);
                 loadingDialog.Show();
@@ -52,7 +56,7 @@ namespace EasyOjima.Video {
                         }
                     }
                     frameCounter++;
-                    loadingDialog.UpdateDialog($"動画を読み込み中 ({frameCounter}/{FrameSize})", frameCounter);
+                    loadingDialog.UpdateDialog($"動画を読み込み中… ({frameCounter}/{FrameSize})", frameCounter);
                 }
                 loadingDialog.Close();
                 loadingDialog.Dispose();

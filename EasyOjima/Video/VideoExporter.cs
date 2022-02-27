@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
-using System.Reflection;
-using System.Diagnostics;
 using System.Linq;
-using FFMpegCore;
-using FFMpegCore.Enums;
 using EasyOjima.Enums;
 using EasyOjima.Forms;
+using OpenCvSharp;
+using System.Drawing.Imaging;
 
 namespace EasyOjima.Video {
     internal class VideoExporter {
@@ -33,15 +30,16 @@ namespace EasyOjima.Video {
 
         public VideoExporter(Video video, string exportPath) {
             this.ExportPath = exportPath;
-            //this.frameRate = video.FrameRate;
+            this.frameRate = video.FrameRate;
             Process(video);
         }
 
         public void Process(Video video) {
-            MakeCache(video);
-            ExportVideo();
+            //MakeCache(video);
+            ExportVideo(video);
         }
 
+        //使わなくなったやつ
         private void MakeCache(Video video) {
             var counter = 1;
             this.loadingDialog = new LoadingDialog($"[{processLevel}] フレーム処理中 ({counter}/{video.FrameSize})", video.FrameSize);
@@ -57,25 +55,35 @@ namespace EasyOjima.Video {
             this.loadingDialog.Dispose();
         }
 
-        private void ExportVideo() {
-            //var appPath = Directory.GetCurrentDirectory();
+        private void ExportVideo(Video video) {
             var counter = 1;
-            var _caches = Directory.GetFiles(Loc.EXPORT_CACHE).OrderBy(
-                c => int.Parse(c.Replace(@$"{Loc.EXPORT_CACHE}\", "").Replace(".png", ""))
-                ).ToArray();
-            this.loadingDialog = new LoadingDialog($"[{processLevel}] 出力中 ({counter}/{_caches.Length})", _caches.Length * 2);
+            this.loadingDialog = new LoadingDialog($"[{processLevel}] 動画ファイル出力中… ({counter}/{video.FrameSize})", video.FrameSize);
             loadingDialog.Show();
-            var imageInfos = new List<ImageInfo>();
-            foreach (var _cache in _caches) {
-                //MessageBox.Show(@$"{appPath}\{_cache}");
-                loadingDialog.UpdateDialog($"[{processLevel}] 出力中 ({counter}/{_caches.Length})", counter);
-                imageInfos.Add(ImageInfo.FromPath(@$"{_cache}"));
-                counter++;
+            using (var Writer = new VideoWriter(ExportPath, FourCC.H264, frameRate, new OpenCvSharp.Size(video.Width, video.Heigth))) {                
+                foreach (var img in video.frames) {
+                    var image = Mat.FromImageData(Delegate(() => {
+                        using (var ms = new MemoryStream()) {
+                            img.Save(ms, ImageFormat.Png);
+                            return ms.GetBuffer();
+                        }
+                    }));
+                    //var image = Mat.FromStream(File.OpenRead(img), ImreadModes.Color);
+                    Writer.Write(image);
+                    loadingDialog.UpdateDialog($"[{processLevel}] 動画ファイル出力中… ({counter}/{video.FrameSize})", counter);
+                    counter++;
+                }
             }
-            //MessageBox.Show($"{imageInfos.Count}");
-            this.loadingDialog.UpdateDialog($"[{processLevel}] 動画ファイル作成中", counter);
-            FFMpeg.JoinImageSequence(ExportPath, frameRate, imageInfos.Distinct().ToArray());
-            this.loadingDialog.Dispose();
+            loadingDialog.Dispose();
+        }
+
+        /// <summary>
+        /// なんか迷走してる
+        /// これいる?
+        /// </summary>
+        /// <param name="func">byte[]を返すデリゲート</param>
+        /// <returns>引数のデリゲートの返り値そのまま</returns>
+        public static byte[] Delegate(Func<byte[]> func) {
+            return func();
         }
     }
 }
