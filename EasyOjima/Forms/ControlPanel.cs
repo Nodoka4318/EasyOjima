@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using EasyOjima.Enums;
 using EasyOjima.Utils;
 using EasyOjima.Video;
+using EasyOjima.Score;
+using EasyOjima.Score.Processing;
 
 namespace EasyOjima.Forms {
     public partial class ControlPanel : Form {
@@ -99,7 +101,16 @@ namespace EasyOjima.Forms {
         }
 
         private void launchButton_Click(object sender, EventArgs e) {
+            //VideoExporter ve = new VideoExporter(Program.mainView.video, @"data\vi.mp4");
+            Score.Score s = new Score.Score("dddddddd", 120);           
+            Parser p = new Parser(s, (int)Program.mainView.video.FrameRate);
+            
+            FrameProcessor fp = new FrameProcessor(p, Program.mainView.video, 1, 70);
+            Program.mainView.video.Dispose();
+            Program.mainView.video = new Video.Video(fp.Frames, (int)Program.mainView.video.FrameRate);
+            trackBar.Maximum = Program.mainView.video.FrameSize;
             VideoExporter ve = new VideoExporter(Program.mainView.video, @"data\vi.mp4");
+
         }
     }
 }

@@ -22,9 +22,12 @@ namespace EasyOjima.Video {
             this.path = path;
         }
 
-        public Video(List<Bitmap> frames) {
+        public Video(List<Bitmap> frames, int frameRate) {
             this.frames = frames.ToList();
             FrameSize = frames.Count;
+            FrameRate = frameRate;
+            Width = frames[0].Width;
+            Heigth = frames[0].Height;
         }
 
         /// <summary>

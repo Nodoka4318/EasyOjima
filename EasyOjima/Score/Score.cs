@@ -38,7 +38,7 @@ namespace EasyOjima.Score {
                 _temp.Add('q'); //八分音符
                 _temp.Add('p'); //八分音符逆
                 _temp.Add('-'); //伸ばし
-                _temp.Add('~'); //休符
+                //_temp.Add('~'); //休符
                 return _temp;
             } 
         }

@@ -4,12 +4,10 @@ using System.Text;
 
 namespace EasyOjima.Enums {
     public enum NoteType {
-        SHIBU_SEI,
-        SHIBU_FU,
-        HACHIBU_SEI,
-        HACHIBU_FU,
-        NOBASHI,
-        YASUMI,
+        SEI,
+        FU,
+        YASUMI_ATAMA,
+        YASUMI_USHIRO,
         ILLEGAL
     }
 }

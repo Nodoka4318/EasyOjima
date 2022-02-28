@@ -18,7 +18,7 @@ namespace EasyOjima.Video {
         //動画について
         private double frameRate = 60d;
 
-        //ローディング画面についてのデータ
+        //ローディング画面について
         private LoadingDialog loadingDialog;
 
         public VideoExporter(Video video, string exportPath, LoadingDialog loadingDialog) {
