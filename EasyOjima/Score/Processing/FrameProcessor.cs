@@ -35,27 +35,31 @@ namespace EasyOjima.Score.Processing {
 
                 if (_type == NoteType.SEI) {
                     var _frameCounter = 0;
-                    for (int i = 0; i < _reqFrame; i++) {
+                    for (int i = 0; i < _frameBase.Count; i++) {
                         Debug.WriteLine($"Process SEI {_frameCounter}, {i}/{_reqFrame}");
                         var _currentVideoFrame = startFrame - 1 + _frameCounter;
-                        if (_frameBase[i] == 1) {
+                        if (_frameBase[i] != 0) {
                             this.Frames.Add(video.GetFrame(_currentVideoFrame));
-                            _frameCounter++;
-                        } else if (_frameBase[i] == 2) {
-                            this.Frames.Add(this.Frames[this.Frames.Count - 1]);
                         }
+
+                        if (_frameBase[i] == 2) {
+                            continue;
+                        }
+                        _frameCounter++;
                     }
                 } else if (_type == NoteType.FU) {
-                    var _frameCounter = _reqFrame;
-                    for (int i = _reqFrame; i >= 0; i--) {
+                    var _frameCounter = _frameRange;
+                    for (int i = 0; i < _frameBase.Count; i++) {
                         Debug.WriteLine($"Process FU {_frameCounter}, {i}/{_reqFrame}");
                         var _currentVideoFrame = startFrame - 1 + _frameCounter;
-                        if (_frameBase[i] == 1) {
+                        if (_frameBase[i] != 0) {
                             this.Frames.Add(video.GetFrame(_currentVideoFrame));
-                            _frameCounter--;
-                        } else if (_frameBase[i] == 2) {
-                            this.Frames.Add(this.Frames[this.Frames.Count - 1]);
                         }
+
+                        if (_frameBase[i] == 2) {
+                            continue;
+                        }
+                        _frameCounter--;
                     }
                 }
             }
@@ -76,14 +80,14 @@ namespace EasyOjima.Score.Processing {
             if (actualSize == reqSize)
                 return _base;
             if (actualSize > reqSize) {
-                while (_base.Where(c => c == 1).Count() > reqSize) {
+                while (_base.Where(c => c == 1).Count() != reqSize) {
                     Debug.WriteLine($"confs<< {actualSize}, {reqSize}, {_base.Where(c => c == 1).Count()}");
-                    _base[RandomInt(1, _base.Count - 1)] = 0;
+                    _base[RandomInt(1, _base.Count - 2)] = 0;
                 }
             } else {
-                while (_base.Count < reqSize) {
+                while (_base.Count != reqSize) {
                     Debug.WriteLine($"confs>> {actualSize}, {reqSize}, {_base.Count}");
-                    _base.Insert(RandomInt(1, _base.Count - 1), 2);
+                    _base.Insert(RandomInt(1, _base.Count - 2), 2);
                 }
             }
             return _base.ToList();

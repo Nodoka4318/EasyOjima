@@ -102,14 +102,20 @@ namespace EasyOjima.Forms {
 
         private void launchButton_Click(object sender, EventArgs e) {
             //VideoExporter ve = new VideoExporter(Program.mainView.video, @"data\vi.mp4");
-            Score.Score s = new Score.Score("dddddddd", 120);           
+            Score.Score s = new Score.Score("dbqpdb", 120);           
             Parser p = new Parser(s, (int)Program.mainView.video.FrameRate);
+
+            foreach (var i in p.Tokens) {
+                Debug.WriteLine(i.ActualFrameLength);
+            }
             
-            FrameProcessor fp = new FrameProcessor(p, Program.mainView.video, 1, 70);
+            
+            FrameProcessor fp = new FrameProcessor(p, Program.mainView.video, 1, 88);
             Program.mainView.video.Dispose();
-            Program.mainView.video = new Video.Video(fp.Frames, (int)Program.mainView.video.FrameRate);
+            Program.mainView.video = new Video.Video(fp.Frames, p.Fps);
             trackBar.Maximum = Program.mainView.video.FrameSize;
             VideoExporter ve = new VideoExporter(Program.mainView.video, @"data\vi.mp4");
+            
 
         }
     }
