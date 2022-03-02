@@ -57,7 +57,7 @@ namespace EasyOjima.Video {
             var counter = 1;
             this.loadingDialog = new LoadingDialog($"動画ファイル出力中… ({counter}/{video.FrameSize})", video.FrameSize);
             loadingDialog.Show();
-            using (var Writer = new VideoWriter(ExportPath, FourCC.H264, frameRate, new OpenCvSharp.Size(video.Width, video.Heigth))) {                
+            using (var writer = new VideoWriter(ExportPath, FourCC.H264, frameRate, new OpenCvSharp.Size(video.Width, video.Heigth))) {                
                 foreach (var img in video.frames) {
                     var image = Mat.FromImageData(Delegate(() => {
                         using (var ms = new MemoryStream()) {
@@ -66,7 +66,7 @@ namespace EasyOjima.Video {
                         }
                     }));
                     //var image = Mat.FromStream(File.OpenRead(img), ImreadModes.Color);
-                    Writer.Write(image);
+                    writer.Write(image);
                     loadingDialog.UpdateDialog($"動画ファイル出力中… ({counter}/{video.FrameSize})", counter);
                     counter++;
                 }

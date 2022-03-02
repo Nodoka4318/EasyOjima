@@ -102,7 +102,7 @@ namespace EasyOjima.Forms {
 
         private void launchButton_Click(object sender, EventArgs e) {
             //VideoExporter ve = new VideoExporter(Program.mainView.video, @"data\vi.mp4");
-            Score.Score s = new Score.Score("dbqpdb", 120);           
+            Score.Score s = new Score.Score("dbdbqpqbqpqpqbdbqpqbqpqbdbdpqpdpqpqpqpdbqpq-----", 330);           
             Parser p = new Parser(s, (int)Program.mainView.video.FrameRate);
 
             foreach (var i in p.Tokens) {

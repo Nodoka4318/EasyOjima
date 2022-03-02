@@ -49,7 +49,7 @@ namespace EasyOjima.Score.Processing {
                 _type = GetType(_lit);
                 _relLength += GetRelLength(_lit);
 
-                Tokens.Add(new Token(_type, ToActualFrameLength(_relLength)));
+                Tokens.Add(new Token(_type, ToActualFrameLength(_relLength), _relLength));
             }
         }
 
@@ -86,16 +86,6 @@ namespace EasyOjima.Score.Processing {
         private int ToActualFrameLength(double relLength) {
             double _framePerBeat = Fps * 60 / Score.Bpm;
             return (int)(_framePerBeat * relLength);
-        }
-    }
-
-    public class Token {
-        public NoteType Type { get; set; }
-        public int ActualFrameLength { get; set; }
-
-        public Token(NoteType type, int actualFrameLength) {
-            this.Type = type;
-            this.ActualFrameLength = actualFrameLength;
         }
     }
 }
