@@ -29,10 +29,9 @@ namespace EasyOjima.Video {
         public VideoExporter(Video video, string exportPath) {
             this.ExportPath = exportPath;
             this.frameRate = video.FrameRate;
-            Process(video);
         }
 
-        public void Process(Video video) {
+        public void Export(Video video) {
             //MakeCache(video);
             ExportVideo(video);
         }

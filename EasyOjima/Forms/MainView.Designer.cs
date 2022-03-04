@@ -29,6 +29,7 @@
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.動画を読み込むToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerTick = new System.Windows.Forms.Timer(this.components);
+            this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ViewBox)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -56,7 +57,8 @@
             // ファイルToolStripMenuItem
             // 
             this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.動画を読み込むToolStripMenuItem});
+            this.動画を読み込むToolStripMenuItem,
+            this.エクスポートToolStripMenuItem});
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ファイルToolStripMenuItem.Text = "ファイル";
@@ -64,13 +66,20 @@
             // 動画を読み込むToolStripMenuItem
             // 
             this.動画を読み込むToolStripMenuItem.Name = "動画を読み込むToolStripMenuItem";
-            this.動画を読み込むToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.動画を読み込むToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.動画を読み込むToolStripMenuItem.Text = "動画を読み込む";
             this.動画を読み込むToolStripMenuItem.Click += new System.EventHandler(this.動画を読み込むToolStripMenuItem_Click);
             // 
             // playerTick
             // 
             this.playerTick.Tick += new System.EventHandler(this.playerTick_Tick);
+            // 
+            // エクスポートToolStripMenuItem
+            // 
+            this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
+            this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.エクスポートToolStripMenuItem.Text = "エクスポート";
+            this.エクスポートToolStripMenuItem.Click += new System.EventHandler(this.エクスポートToolStripMenuItem_Click);
             // 
             // MainView
             // 
@@ -97,5 +106,6 @@
         private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 動画を読み込むToolStripMenuItem;
         private System.Windows.Forms.Timer playerTick;
+        private System.Windows.Forms.ToolStripMenuItem エクスポートToolStripMenuItem;
     }
 }

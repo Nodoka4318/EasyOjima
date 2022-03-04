@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using EasyOjima.Video;
+using EasyOjima.Utils;
 
 namespace EasyOjima.Forms {
     public partial class MainView : Form {
@@ -87,6 +88,23 @@ namespace EasyOjima.Forms {
             video.CurrentFrame = frame;
             controls.trackBar.Value = video.CurrentFrame;
             ViewBox.Image = video.GetCurrentFrame();
+        }
+
+        private void エクスポートToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (this.video == null) {
+                MessageUtil.WarnMessage("エクスポートできません。");
+                return;
+            }
+            using (var dlg = new SaveFileDialog() {
+                Title = "エクスポート",
+                Filter = "MP4動画|*.mp4"
+            }) { 
+                var result = dlg.ShowDialog();
+                if (result == DialogResult.OK) {
+                    VideoExporter ve = new VideoExporter(this.video, dlg.FileName);
+                    ve.Export(this.video);
+                }
+            }
         }
     }
 }

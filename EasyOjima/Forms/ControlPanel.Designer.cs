@@ -114,7 +114,7 @@
             this.EndFrameBox.Name = "EndFrameBox";
             this.EndFrameBox.Size = new System.Drawing.Size(58, 23);
             this.EndFrameBox.TabIndex = 0;
-            this.EndFrameBox.Text = "2";
+            this.EndFrameBox.Text = "50";
             this.EndFrameBox.TextChanged += new System.EventHandler(this.EndFrameBox_TextChanged);
             // 
             // label1
@@ -164,6 +164,7 @@
             this.bpmBox.Name = "bpmBox";
             this.bpmBox.Size = new System.Drawing.Size(56, 23);
             this.bpmBox.TabIndex = 3;
+            this.bpmBox.Text = "120";
             // 
             // label4
             // 
