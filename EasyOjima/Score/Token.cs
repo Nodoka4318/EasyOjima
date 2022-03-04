@@ -5,9 +5,9 @@ using System.Text;
 
 namespace EasyOjima.Score {
     public class Token {
-        public NoteType Type { get; set; }
-        public int ActualFrameLength { get; set; }
-        public double BeatLength { get; set; }
+        public NoteType Type { get; private set; }
+        public int ActualFrameLength { get; private set; }
+        public double BeatLength { get; private set; }
 
         //後付けてbeatlengthつけたせいでぐちゃぐちゃ
         public Token(NoteType type, int actualFrameLength, double beatLength) {

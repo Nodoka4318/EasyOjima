@@ -6,7 +6,11 @@ using System.Windows.Forms;
 namespace EasyOjima.Utils {
     internal class MessageUtil {
         public static void ErrorMessage(string msg) {
-            MessageBox.Show($"エラーが発生しました。\n\nErrorMessage: {msg}", "かんたん大島", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"エラーが発生しました。\n\nInfo: {msg}", "かんたん大島", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static void WarnMessage(string msg) {
+            MessageBox.Show(msg, "かんたん大島", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         public static void InfoMessage(string msg) {

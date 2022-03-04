@@ -52,6 +52,7 @@ namespace EasyOjima.Forms {
         }
 
         private void BeginFrameBox_TextChanged(object sender, EventArgs e) {
+            /*
             var maxframe = Program.mainView.video.FrameSize;
             try {
                 if (BeginFrameBox.Text == "") {
@@ -63,9 +64,11 @@ namespace EasyOjima.Forms {
             } catch {
                 BeginFrameBox.Text = "1";
             } 
+            */
         }
 
         private void EndFrameBox_TextChanged(object sender, EventArgs e) {
+            /*
             var maxframe = Program.mainView.video.FrameSize;
             try {               
                 if (BeginFrameBox.Text == "") {
@@ -77,6 +80,7 @@ namespace EasyOjima.Forms {
             } catch {
                 EndFrameBox.Text = "2";
             }
+            */
         }
 
         private void openFolderButton_Click(object sender, EventArgs e) {
@@ -101,22 +105,32 @@ namespace EasyOjima.Forms {
         }
 
         private void launchButton_Click(object sender, EventArgs e) {
-            //VideoExporter ve = new VideoExporter(Program.mainView.video, @"data\vi.mp4");
-            Score.Score s = new Score.Score("dbdbqpqbqpqpqbdbqpqbqpqbdbdpqpdpqpqpqpdbqpq-----", 330);           
-            Parser p = new Parser(s, (int)Program.mainView.video.FrameRate);
+            ProcessManager process;
+            try {
+                var bpm = int.Parse(bpmBox.Text);
+                var beginFrame = int.Parse(BeginFrameBox.Text);
+                var endFrame = int.Parse(EndFrameBox.Text);
+                var fps = Program.mainView.video.FrameRate;
 
-            foreach (var i in p.Tokens) {
-                Debug.WriteLine(i.ActualFrameLength);
-            }
-            
-            
-            FrameProcessor fp = new FrameProcessor(p, Program.mainView.video, 1, 88);
-            Program.mainView.video.Dispose();
-            Program.mainView.video = new Video.Video(fp.Frames, p.Fps);
-            trackBar.Maximum = Program.mainView.video.FrameSize;
-            VideoExporter ve = new VideoExporter(Program.mainView.video, @"data\vi.mp4");
-            
+                bool flag1 = bpm == 0;
+                bool flag2 = beginFrame > endFrame;
+                bool flag3 = beginFrame > Program.mainView.video.FrameSize || beginFrame <= 0;
+                bool flag4 = endFrame > Program.mainView.video.FrameSize || endFrame <= 0;
+                bool flag5 = ScoreText == "" || ScoreText == null;
 
+                if (flag1 || flag2 || flag3 || flag4 || flag5) {
+                    MessageUtil.WarnMessage("入力内容が不正です。");
+                    return;
+                }
+
+                process = new ProcessManager(ScoreText, bpm, beginFrame, endFrame);
+                process.Process(Program.mainView.video);
+                Program.mainView.video.Dispose();
+                Program.mainView.video = new Video.Video(process.Processor.Frames, (int)fps);
+                this.trackBar.Maximum = Program.mainView.video.FrameSize;
+            } catch (Exception ex) {
+                MessageUtil.ErrorMessage(ex.Message);
+            }           
         }
     }
 }

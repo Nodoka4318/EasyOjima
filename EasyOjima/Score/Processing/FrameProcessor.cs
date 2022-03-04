@@ -14,15 +14,13 @@ namespace EasyOjima.Score.Processing {
         private int startFrame;
         private int endFrame;
 
-        public FrameProcessor(Parser parser, Video.Video video, int startFrame, int endFrame) { 
+        public FrameProcessor(Parser parser, int startFrame, int endFrame) { 
             this.Score = parser;
             this.startFrame = startFrame;
             this.endFrame = endFrame;
             this.Frames = new List<Bitmap>();
 
             Debug.WriteLine("frameprocessorはいったよ");
-
-            this.Process(video);
         }
 
         public void Process(Video.Video video) { 
@@ -75,7 +73,7 @@ namespace EasyOjima.Score.Processing {
         /// <param name="reqSize">ほしいおおきさ</param>
         /// <returns>消すのを0, 残すのを1, 直前のを繰り返すのを2</returns>
         //TODO: フレーム数変換の改良
-        public List<int> ConvertFrameSize(int actualSize, int reqSize) {
+        private static List<int> ConvertFrameSize(int actualSize, int reqSize) {
             var _base = Enumerable.Repeat(1, actualSize).ToList();
             if (actualSize == reqSize)
                 return _base;
@@ -90,6 +88,36 @@ namespace EasyOjima.Score.Processing {
                     _base.Insert(RandomInt(1, _base.Count - 2), 2);
                 }
             }
+            return _base.ToList();
+        }
+
+        public static List<int> GetFrameBase(int size, int easeRate) {
+            var _base = Enumerable.Repeat(0, size).ToArray();
+            double _rate = 1 - Math.Abs(easeRate) / 100;
+            if (easeRate > 0) {
+                var _counter = _base.Length - 1;
+                for (int i = 0; _counter > 1; i++) {
+                    _base[_counter] = 1;
+                    _counter -= i + (int)(i * _rate);
+                    //Debug.WriteLine($"{_counter} {i}");
+                }
+            } else if (easeRate < 0) {
+                var _counter = 0;
+                for (int i = 0; _counter < _base.Length - 1; i++) {
+                    _base[_counter] = 1;
+                    _counter += i + (int)(i * _rate);
+                    //Debug.WriteLine(_counter);
+                }
+            } else {
+                _base = _base.Select((number, index) => {
+                    if (index == 0 || index == size - 1 || index % 2 == 0) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }).ToArray();
+            }
+            (_base[0], _base[_base.Length - 1]) = (1, 1);
             return _base.ToList();
         }
 

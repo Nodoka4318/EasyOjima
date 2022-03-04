@@ -21,7 +21,6 @@ namespace EasyOjima.Forms {
 
         public MainView() {
             InitializeComponent();
-            controls.Show(this);
         }
 
         private void 動画を読み込むToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -38,6 +37,10 @@ namespace EasyOjima.Forms {
                     playerTick.Interval = (int)(1000 / video.FrameRate);
                     controls.trackBar.Enabled = true;
                     controls.trackBar.Maximum = video.FrameSize - 1;
+
+                    try {
+                        this.controls.Show(this);
+                    } catch { }
                 }
             }
         }

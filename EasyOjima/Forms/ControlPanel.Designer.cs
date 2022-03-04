@@ -34,15 +34,18 @@
             this.BeginFrameBox = new System.Windows.Forms.TextBox();
             this.frameLabel = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.bpmBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.selectedScoreLabel = new System.Windows.Forms.Label();
             this.openFolderButton = new System.Windows.Forms.Button();
             this.selectScoreButton = new System.Windows.Forms.Button();
             this.launchButton = new System.Windows.Forms.Button();
+            this.easingRateUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.easingRateUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // trackBar
@@ -143,7 +146,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.bpmBox);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.selectedScoreLabel);
             this.groupBox2.Controls.Add(this.openFolderButton);
@@ -155,12 +158,12 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "楽譜設定";
             // 
-            // textBox1
+            // bpmBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(44, 51);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(56, 23);
-            this.textBox1.TabIndex = 3;
+            this.bpmBox.Location = new System.Drawing.Point(44, 51);
+            this.bpmBox.Name = "bpmBox";
+            this.bpmBox.Size = new System.Drawing.Size(56, 23);
+            this.bpmBox.TabIndex = 3;
             // 
             // label4
             // 
@@ -202,19 +205,42 @@
             // 
             // launchButton
             // 
-            this.launchButton.Location = new System.Drawing.Point(382, 82);
+            this.launchButton.Location = new System.Drawing.Point(382, 114);
             this.launchButton.Name = "launchButton";
-            this.launchButton.Size = new System.Drawing.Size(90, 65);
+            this.launchButton.Size = new System.Drawing.Size(90, 33);
             this.launchButton.TabIndex = 5;
             this.launchButton.Text = "実行";
             this.launchButton.UseVisualStyleBackColor = true;
             this.launchButton.Click += new System.EventHandler(this.launchButton_Click);
+            // 
+            // easingRateUpDown
+            // 
+            this.easingRateUpDown.Location = new System.Drawing.Point(382, 86);
+            this.easingRateUpDown.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.easingRateUpDown.Name = "easingRateUpDown";
+            this.easingRateUpDown.Size = new System.Drawing.Size(90, 23);
+            this.easingRateUpDown.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(382, 68);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 15);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "イージング設定";
             // 
             // ControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 161);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.easingRateUpDown);
             this.Controls.Add(this.launchButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.frameLabel);
@@ -234,6 +260,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.easingRateUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,11 +278,13 @@
         private System.Windows.Forms.TextBox BeginFrameBox;
         private System.Windows.Forms.Label frameLabel;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox bpmBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label selectedScoreLabel;
         private System.Windows.Forms.Button openFolderButton;
         private System.Windows.Forms.Button selectScoreButton;
         private System.Windows.Forms.Button launchButton;
+        private System.Windows.Forms.NumericUpDown easingRateUpDown;
+        private System.Windows.Forms.Label label3;
     }
 }

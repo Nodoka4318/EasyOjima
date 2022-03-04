@@ -14,7 +14,7 @@ namespace EasyOjima.Score {
             this.Source = source.ToCharArray().Where(
                 c => AllowedToken.Contains(c)
                 ).ToList();
-            this.Length = source.Length;
+            this.Length = this.Source.Count;
             this.Bpm = bpm;
         }
 

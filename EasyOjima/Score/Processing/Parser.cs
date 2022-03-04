@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using EasyOjima.Enums;
 
@@ -19,24 +20,31 @@ namespace EasyOjima.Score.Processing {
         }
 
         private void ParseNotes() {
-            for (int i = 0; i < Score.Length; i++) { 
+            for (int i = 0; i < Score.Length; i++) {
+                //Debug.WriteLine("a");
                 var _lit = Score.GetChar(i);
                 double _relLength = 0;
                 NoteType _type;
                 //ハイフン先読み
                 if (_lit != '-' && i != Score.Length - 1) {
+                    //Debug.WriteLine("b");
                     char _temp = Score.GetChar(i + 1);
                     var _hCounter = 0;
                     if (_temp == '-') {
                         _hCounter++;
-                        while (_temp == '-' && i + _hCounter + 1 != Score.Length - 1) {
+                        while (_temp == '-' && i + _hCounter + 1 < Score.Length) {
+                            //Debug.WriteLine("c");
                             _temp = Score.GetChar(i + _hCounter + 1);
                             if (_temp == '-')
                                 _hCounter++;
                         }
 
                         _relLength += _hCounter * GetRelLength(_lit);
-                        i += _hCounter + 1;
+                        i += _hCounter;
+                    }
+                } else {
+                    if (_lit == '-') {
+                        throw new Exception($"楽譜の解析に失敗しました\nindex: {i}");
                     }
                 }
 
