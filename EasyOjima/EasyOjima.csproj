@@ -4,6 +4,16 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <DebugType>embedded</DebugType>
+    <SignAssembly>False</SignAssembly>
+    <Authors>Nodoka</Authors>
+    <Description>大島テクニック作成支援ツール</Description>
+    <PackageProjectUrl>https://www.kankantari.net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Nodoka4318/EasyOjima</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon></PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
