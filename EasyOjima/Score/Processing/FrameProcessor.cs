@@ -78,9 +78,15 @@ namespace EasyOjima.Score.Processing {
             if (actualSize == reqSize)
                 return _base;
             if (actualSize > reqSize) {
+                _base = GetFrameBase(actualSize, 0);
                 while (_base.Where(c => c == 1).Count() != reqSize) {
-                    Debug.WriteLine($"confs<< {actualSize}, {reqSize}, {_base.Where(c => c == 1).Count()}");
-                    _base[RandomInt(1, _base.Count - 2)] = 0;
+                    if (_base.Where(c => c == 1).Count() > reqSize) {
+                        Debug.WriteLine($"confs><< {actualSize}, {reqSize}, {_base.Where(c => c == 1).Count()}");
+                        _base[RandomInt(1, _base.Count - 2)] = 0;
+                    } else {
+                        Debug.WriteLine($"confs<<< {actualSize}, {reqSize}, {_base.Where(c => c == 1).Count()}");
+                        _base[RandomInt(1, _base.Count - 2)] = 1;
+                    }
                 }
             } else {
                 while (_base.Count != reqSize) {
@@ -91,7 +97,7 @@ namespace EasyOjima.Score.Processing {
             return _base.ToList();
         }
 
-        public static List<int> GetFrameBase(int size, int easeRate) {
+        public static List<int> GetFrameBase(int size, int easeRate) { //TODO: イージング
             var _base = Enumerable.Repeat(0, size).ToArray();
             double _rate = 1 - Math.Abs(easeRate) / 100;
             if (easeRate > 0) {

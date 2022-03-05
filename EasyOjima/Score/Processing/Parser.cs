@@ -8,9 +8,9 @@ namespace EasyOjima.Score.Processing {
     internal class Parser {
         public Score Score { get; private set; }
         public List<Token> Tokens { get; private set; }
-        public int Fps { get; private set; }
+        public double Fps { get; private set; }
 
-        public Parser(Score score, int fps) {
+        public Parser(Score score, double fps) {
             this.Score = score;
             this.Fps = fps;
             this.Tokens = new List<Token>();

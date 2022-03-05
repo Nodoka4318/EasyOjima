@@ -25,7 +25,7 @@ namespace EasyOjima.Score.Processing {
             loadingDialog.Show();
             Score sc = new Score(score, bpm);
             loadingDialog.UpdateDialog(1);
-            Parser ps = new Parser(sc, (int)video.FrameRate);
+            Parser ps = new Parser(sc, video.FrameRate);
             loadingDialog.UpdateDialog(2);
             this.Processor = new FrameProcessor(ps, startFrame, endFrame);
             Processor.Process(video);

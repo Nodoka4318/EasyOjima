@@ -20,6 +20,19 @@ namespace EasyOjima.Forms {
 
         public MainView() {
             InitializeComponent();
+            this.FormClosing += MainView_FormClosing;
+        }
+
+        private void MainView_FormClosing(object sender, FormClosingEventArgs e) {
+            if (this.video == null) {
+                return;
+            }
+            if (e.CloseReason == CloseReason.UserClosing) {
+                var _dlg = MessageUtil.InfoYesNo("終了してもよろしいですか？");
+                if (_dlg == DialogResult.No) {
+                    e.Cancel = true;
+                }
+            }
         }
 
         private void 動画を読み込むToolStripMenuItem_Click(object sender, EventArgs e) {

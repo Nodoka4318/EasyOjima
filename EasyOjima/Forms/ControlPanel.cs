@@ -104,14 +104,28 @@ namespace EasyOjima.Forms {
             selectDialog.Dispose();
         }
 
+        int bpm;
+        int beginFrame;
+        int endFrame;
+        double fps;
+
         private void launchButton_Click(object sender, EventArgs e) {
+            var _dlg = MessageUtil.InfoYesNo("実行しますか？");
+            if (_dlg == DialogResult.No)
+                return;
+                
             ProcessManager process;
             try {
-                var bpm = int.Parse(bpmBox.Text);
-                var beginFrame = int.Parse(BeginFrameBox.Text);
-                var endFrame = int.Parse(EndFrameBox.Text);
-                var fps = Program.mainView.video.FrameRate;
+                bpm = int.Parse(bpmBox.Text);
+                beginFrame = int.Parse(BeginFrameBox.Text);
+                endFrame = int.Parse(EndFrameBox.Text);
+                fps = Program.mainView.video.FrameRate;
+            } catch {
+                MessageUtil.WarnMessage("入力内容が不正です。");
+                return;
+            }
 
+            try {
                 bool flag1 = bpm == 0;
                 bool flag2 = beginFrame > endFrame;
                 bool flag3 = beginFrame > Program.mainView.video.FrameSize || beginFrame <= 0;

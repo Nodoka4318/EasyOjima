@@ -20,7 +20,7 @@ namespace EasyOjima.Enums {
                 _temp.Add(@SCORES);
                 _temp.Add(@DATA);
                 _temp.Add(@EXPORT_CACHE);
-                _temp.Add(APPCONF);
+                _temp.Add(@APPCONF);
                 return _temp;
             }
         }
