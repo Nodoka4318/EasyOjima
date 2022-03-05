@@ -37,7 +37,7 @@ namespace EasyOjima {
         }
 
         static void FirstLaunch() {
-            string _write = "";
+            string _write = "askwhenclosing\n";
             var _up = MessageUtil.InfoYesNo("起動時にアップデートを確認しますか？");
             if (_up == DialogResult.Yes) {
                 _write += "checkupdate\n";

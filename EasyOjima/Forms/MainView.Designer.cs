@@ -29,10 +29,10 @@
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.動画を読み込むToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playerTick = new System.Windows.Forms.Timer(this.components);
             this.かんたん大島ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playerTick = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ViewBox)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -71,20 +71,16 @@
             // 動画を読み込むToolStripMenuItem
             // 
             this.動画を読み込むToolStripMenuItem.Name = "動画を読み込むToolStripMenuItem";
-            this.動画を読み込むToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.動画を読み込むToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.動画を読み込むToolStripMenuItem.Text = "動画を読み込む";
             this.動画を読み込むToolStripMenuItem.Click += new System.EventHandler(this.動画を読み込むToolStripMenuItem_Click);
             // 
             // エクスポートToolStripMenuItem
             // 
             this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
-            this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.エクスポートToolStripMenuItem.Text = "エクスポート";
             this.エクスポートToolStripMenuItem.Click += new System.EventHandler(this.エクスポートToolStripMenuItem_Click);
-            // 
-            // playerTick
-            // 
-            this.playerTick.Tick += new System.EventHandler(this.playerTick_Tick);
             // 
             // かんたん大島ToolStripMenuItem
             // 
@@ -100,12 +96,18 @@
             this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
             this.設定ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.設定ToolStripMenuItem.Text = "設定";
+            this.設定ToolStripMenuItem.Click += new System.EventHandler(this.設定ToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // playerTick
+            // 
+            this.playerTick.Tick += new System.EventHandler(this.playerTick_Tick);
             // 
             // MainView
             // 

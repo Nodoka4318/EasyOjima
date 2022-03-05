@@ -24,7 +24,7 @@ namespace EasyOjima.Forms {
         }
 
         private void MainView_FormClosing(object sender, FormClosingEventArgs e) {
-            if (this.video == null) {
+            if (this.video == null || !Preference.Settings.Contains("askwhenclosing")) {
                 return;
             }
             if (e.CloseReason == CloseReason.UserClosing) {
@@ -116,6 +116,14 @@ namespace EasyOjima.Forms {
                     ve.Export(this.video);
                 }
             }
+        }
+
+        private void 設定ToolStripMenuItem_Click(object sender, EventArgs e) {
+            (new Preference()).ShowDialog(this);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+            MessageBox.Show($"EasyOjima v{Program.VERSION}\n\nAuthor: @Nodoka_Oto_Mad\nIcon: @Yunon_oto_mad\n\nCredits:\n  OpenCvSharp3-AnyCPU", "かんたん大島");
         }
     }
 }
