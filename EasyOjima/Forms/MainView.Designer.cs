@@ -28,8 +28,11 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.動画を読み込むToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playerTick = new System.Windows.Forms.Timer(this.components);
             this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playerTick = new System.Windows.Forms.Timer(this.components);
+            this.かんたん大島ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ViewBox)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -47,9 +50,11 @@
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ファイルToolStripMenuItem});
+            this.ファイルToolStripMenuItem,
+            this.かんたん大島ToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
+            this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.menuStrip.Size = new System.Drawing.Size(384, 24);
             this.menuStrip.TabIndex = 1;
             this.menuStrip.Text = "menuStrip1";
@@ -70,16 +75,37 @@
             this.動画を読み込むToolStripMenuItem.Text = "動画を読み込む";
             this.動画を読み込むToolStripMenuItem.Click += new System.EventHandler(this.動画を読み込むToolStripMenuItem_Click);
             // 
-            // playerTick
-            // 
-            this.playerTick.Tick += new System.EventHandler(this.playerTick_Tick);
-            // 
             // エクスポートToolStripMenuItem
             // 
             this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
             this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.エクスポートToolStripMenuItem.Text = "エクスポート";
             this.エクスポートToolStripMenuItem.Click += new System.EventHandler(this.エクスポートToolStripMenuItem_Click);
+            // 
+            // playerTick
+            // 
+            this.playerTick.Tick += new System.EventHandler(this.playerTick_Tick);
+            // 
+            // かんたん大島ToolStripMenuItem
+            // 
+            this.かんたん大島ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.設定ToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.かんたん大島ToolStripMenuItem.Name = "かんたん大島ToolStripMenuItem";
+            this.かんたん大島ToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.かんたん大島ToolStripMenuItem.Text = "かんたん大島";
+            // 
+            // 設定ToolStripMenuItem
+            // 
+            this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
+            this.設定ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.設定ToolStripMenuItem.Text = "設定";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // MainView
             // 
@@ -107,5 +133,8 @@
         private System.Windows.Forms.ToolStripMenuItem 動画を読み込むToolStripMenuItem;
         private System.Windows.Forms.Timer playerTick;
         private System.Windows.Forms.ToolStripMenuItem エクスポートToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem かんたん大島ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }

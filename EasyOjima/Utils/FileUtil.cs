@@ -15,6 +15,16 @@ namespace EasyOjima.Utils {
             }
         }
 
+        public static void CreateTextFile(string path, string content) {
+            try {
+                var sw = File.CreateText(path);
+                sw.Write(content);
+                sw.Close();
+            } catch (Exception ex) {
+                MessageUtil.ErrorMessage(ex.Message);
+            }
+        }
+
         public static void CreateDirectory(string path) {
             try {
                 Directory.CreateDirectory(path);

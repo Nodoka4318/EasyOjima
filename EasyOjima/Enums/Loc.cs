@@ -5,9 +5,14 @@ using System.Text;
 namespace EasyOjima.Enums {
     //これenumじゃないけど許して
     internal class Loc {
+        //フォルダ
         public static readonly string SCORES = @"scores";
         public static readonly string DATA = @"data";
         public static readonly string EXPORT_CACHE = @"data\export";
+        public static readonly string LOCALAPPDATA = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        public static readonly string APPCONF = $@"{LOCALAPPDATA}\EasyOjima";
+        //ファイル
+        public static readonly string PREFERENCE = $@"{APPCONF}\conf";
 
         public static List<string> Locs {
             get {
@@ -15,6 +20,15 @@ namespace EasyOjima.Enums {
                 _temp.Add(@SCORES);
                 _temp.Add(@DATA);
                 _temp.Add(@EXPORT_CACHE);
+                _temp.Add(APPCONF);
+                return _temp;
+            }
+        }
+
+        public static List<string> Files {
+            get {
+                var _temp = new List<string>();
+                _temp.Add(PREFERENCE);
                 return _temp;
             }
         }

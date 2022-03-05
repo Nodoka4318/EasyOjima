@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
 using EasyOjima.Video;
 using EasyOjima.Utils;
 

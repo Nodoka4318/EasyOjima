@@ -16,5 +16,10 @@ namespace EasyOjima.Utils {
         public static void InfoMessage(string msg) {
             MessageBox.Show(msg, "かんたん大島", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        public static DialogResult InfoYesNo(string msg) {
+            var _dlg = MessageBox.Show(msg, "かんたん大島", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            return _dlg;
+        }
     }
 }
