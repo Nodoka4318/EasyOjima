@@ -119,7 +119,7 @@ namespace EasyOjima.Forms {
         }
 
         private void 設定ToolStripMenuItem_Click(object sender, EventArgs e) {
-            (new Preference()).ShowDialog(this);
+            (new Preference()).ShowDialog();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {

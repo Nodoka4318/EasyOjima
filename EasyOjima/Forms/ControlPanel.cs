@@ -108,8 +108,21 @@ namespace EasyOjima.Forms {
         int beginFrame;
         int endFrame;
         double fps;
+        int easeRate;
+        string easingType;
+        int frameDensityRate;
+        int frameInterpolationFps;
+        bool userFrameInterpolation;
 
         private void launchButton_Click(object sender, EventArgs e) {
+            /*
+            var _d = FrameProcessor.GetFrameBase(100, 10);
+            foreach (var i in _d) {
+                Debug.WriteLine(i);
+            }
+            
+            return;
+            */
             var _dlg = MessageUtil.InfoYesNo("実行しますか？");
             if (_dlg == DialogResult.No)
                 return;
@@ -120,6 +133,18 @@ namespace EasyOjima.Forms {
                 beginFrame = int.Parse(BeginFrameBox.Text);
                 endFrame = int.Parse(EndFrameBox.Text);
                 fps = Program.mainView.video.FrameRate;
+                easeRate = (int)easingRateUpDown.Value;
+                easingType = this.easingTypeBox.Text;
+                frameDensityRate = (int)this.frameDensityBox.Value;
+                frameInterpolationFps = (int)this.frameInterpolationBox.Value;
+                userFrameInterpolation = this.useFrameInterpolationCheck.Enabled;
+
+                if (easingType == "イーズアウト") {
+                    easeRate = -easeRate;
+                } else if (easingType != "イーズイン") {
+                    easeRate = 0;
+                }
+
             } catch {
                 MessageUtil.WarnMessage("入力内容が不正です。");
                 return;
@@ -137,10 +162,10 @@ namespace EasyOjima.Forms {
                     return;
                 }
 
-                process = new ProcessManager(ScoreText, bpm, beginFrame, endFrame);
+                process = new ProcessManager(ScoreText, bpm, beginFrame, endFrame, easeRate, frameDensityRate);
                 process.Process(Program.mainView.video);
                 Program.mainView.video.Dispose();
-                Program.mainView.video = new Video.Video(process.Processor.Frames, (int)fps);
+                Program.mainView.video = new Video.Video(process.Processor.Frames, (int)(fps * frameDensityRate));
                 this.trackBar.Maximum = Program.mainView.video.FrameSize;
             } catch (Exception ex) {
                 MessageUtil.ErrorMessage(ex.Message);

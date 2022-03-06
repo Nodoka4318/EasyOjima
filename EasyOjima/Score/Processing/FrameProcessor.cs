@@ -13,11 +13,13 @@ namespace EasyOjima.Score.Processing {
         public List<Bitmap> Frames { get; set; }
         private int startFrame;
         private int endFrame;
+        private int easeRate;
 
-        public FrameProcessor(Parser parser, int startFrame, int endFrame) { 
+        public FrameProcessor(Parser parser, int startFrame, int endFrame, int easeRate) { 
             this.Score = parser;
             this.startFrame = startFrame;
             this.endFrame = endFrame;
+            this.easeRate = easeRate;
             this.Frames = new List<Bitmap>();
 
             Debug.WriteLine("frameprocessorはいったよ");
@@ -79,10 +81,16 @@ namespace EasyOjima.Score.Processing {
                 return _base;
             if (actualSize > reqSize) {
                 _base = GetFrameBase(actualSize, 0);
+                var _counter = 1;
                 while (_base.Where(c => c == 1).Count() != reqSize) {
                     if (_base.Where(c => c == 1).Count() > reqSize) {
                         Debug.WriteLine($"confs><< {actualSize}, {reqSize}, {_base.Where(c => c == 1).Count()}");
-                        _base[RandomInt(1, _base.Count - 2)] = 0;
+                        if (_counter >= reqSize) {
+                            _base[RandomInt(1, _base.Count - 2)] = 0;
+                        } else {
+                            _base[_counter] = 0;
+                            _counter += 2;
+                        }
                     } else {
                         Debug.WriteLine($"confs<<< {actualSize}, {reqSize}, {_base.Where(c => c == 1).Count()}");
                         _base[RandomInt(1, _base.Count - 2)] = 1;
@@ -99,19 +107,19 @@ namespace EasyOjima.Score.Processing {
 
         public static List<int> GetFrameBase(int size, int easeRate) { //TODO: イージング
             var _base = Enumerable.Repeat(0, size).ToArray();
-            double _rate = 1 - Math.Abs(easeRate) / 100;
+            double _rate = Math.Abs(easeRate) / 100;
             if (easeRate > 0) {
-                var _counter = _base.Length - 1;
+                double _counter = _base.Length - 1;
                 for (int i = 0; _counter > 1; i++) {
-                    _base[_counter] = 1;
-                    _counter -= i + (int)(i * _rate);
+                    _base[(int)_counter] = 1;
+                    _counter -= Math.Ceiling(i * _rate);
                     //Debug.WriteLine($"{_counter} {i}");
                 }
             } else if (easeRate < 0) {
                 var _counter = 0;
                 for (int i = 0; _counter < _base.Length - 1; i++) {
                     _base[_counter] = 1;
-                    _counter += i + (int)(i * _rate);
+                    _counter += (int)Math.Ceiling(i * _rate);
                     //Debug.WriteLine(_counter);
                 }
             } else {
