@@ -27,22 +27,12 @@ namespace EasyOjima.Video {
         }
 
         public static Bitmap GetMiddleFrame(Bitmap img0, Bitmap img1) {
-            var image0 = Mat.FromImageData(VideoExporter.Delegate(() => {
-                using (var ms = new MemoryStream()) {
-                    img0.Save(ms, ImageFormat.Png);
-                    return ms.GetBuffer();
+            using (var image0 = img0.ToMat()) {
+                using (var image1 = img1.ToMat()) {
+                    var midframe = image0 / 2 + image1 / 2;
+                    return midframe.ToMat().ToBitmap();
                 }
-            }));
-
-            var image1 = Mat.FromImageData(VideoExporter.Delegate(() => {
-                using (var ms = new MemoryStream()) {
-                    img1.Save(ms, ImageFormat.Png);
-                    return ms.GetBuffer();
-                }
-            }));
-            var midframe = image0 / 2 + image1 / 2;
-            return midframe.ToMat().ToBitmap();
-
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ using EasyOjima.Enums;
 using EasyOjima.Forms;
 using OpenCvSharp;
 using System.Drawing.Imaging;
+using OpenCvSharp.Extensions;
 
 namespace EasyOjima.Video {
     internal class VideoExporter {
@@ -58,14 +59,18 @@ namespace EasyOjima.Video {
             loadingDialog.Show();
             using (var writer = new VideoWriter(ExportPath, FourCC.H264, frameRate, new OpenCvSharp.Size(video.Width, video.Heigth))) {                
                 foreach (var img in video.frames) {
+                    /*
                     var image = Mat.FromImageData(Delegate(() => {
                         using (var ms = new MemoryStream()) {
                             img.Save(ms, ImageFormat.Png);
                             return ms.GetBuffer();
                         }
-                    }));
-                    //var image = Mat.FromStream(File.OpenRead(img), ImreadModes.Color);
-                    writer.Write(image);
+                    })); 
+                    */
+                    using (var image = img.ToMat()) {
+                        //var image = Mat.FromStream(File.OpenRead(img), ImreadModes.Color);
+                        writer.Write(image);
+                    }
                     loadingDialog.UpdateDialog($"動画ファイル出力中… ({counter}/{video.FrameSize})", counter);
                     counter++;
                 }
