@@ -75,12 +75,12 @@ namespace EasyOjima.Score.Processing {
         /// <param name="reqSize">ほしいおおきさ</param>
         /// <returns>消すのを0, 残すのを1, 直前のを繰り返すのを2</returns>
         //TODO: フレーム数変換の改良
-        private static List<int> ConvertFrameSize(int actualSize, int reqSize) {
+        private List<int> ConvertFrameSize(int actualSize, int reqSize) {
             var _base = Enumerable.Repeat(1, actualSize).ToList();
             if (actualSize == reqSize)
                 return _base;
             if (actualSize > reqSize) {
-                _base = GetFrameBase(actualSize, 0);
+                _base = GetFrameBase(actualSize, easeRate);
                 var _counter = 1;
                 while (_base.Where(c => c == 1).Count() != reqSize) {
                     if (_base.Where(c => c == 1).Count() > reqSize) {

@@ -111,8 +111,7 @@ namespace EasyOjima.Forms {
         int easeRate;
         string easingType;
         int frameDensityRate;
-        int frameInterpolationFps;
-        bool userFrameInterpolation;
+        int frameInterpolationRate;
 
         private void launchButton_Click(object sender, EventArgs e) {
             /*
@@ -136,13 +135,16 @@ namespace EasyOjima.Forms {
                 easeRate = (int)easingRateUpDown.Value;
                 easingType = this.easingTypeBox.Text;
                 frameDensityRate = (int)this.frameDensityBox.Value;
-                frameInterpolationFps = (int)this.frameInterpolationBox.Value;
-                userFrameInterpolation = this.useFrameInterpolationCheck.Enabled;
+                frameInterpolationRate = (int)this.frameInterpolationBox.Value;
 
                 if (easingType == "イーズアウト") {
                     easeRate = -easeRate;
                 } else if (easingType != "イーズイン") {
                     easeRate = 0;
+                }
+
+                if (!useFrameInterpolationCheck.Enabled) {
+                    frameInterpolationRate = 1;
                 }
 
             } catch {
@@ -162,7 +164,7 @@ namespace EasyOjima.Forms {
                     return;
                 }
 
-                process = new ProcessManager(ScoreText, bpm, beginFrame, endFrame, easeRate, frameDensityRate);
+                process = new ProcessManager(ScoreText, bpm, beginFrame, endFrame, easeRate, frameDensityRate, frameInterpolationRate);
                 process.Process(Program.mainView.video);
                 Program.mainView.video.Dispose();
                 Program.mainView.video = new Video.Video(process.Processor.Frames, (int)(fps * frameDensityRate));

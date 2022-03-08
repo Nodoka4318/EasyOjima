@@ -12,28 +12,32 @@ namespace EasyOjima.Score.Processing {
         private int endFrame;
         private int easeRate;
         private int frameDensityRate;
+        private int interpolateRate;
 
         public FrameProcessor Processor { get; private set; }
 
         public LoadingDialog loadingDialog = new LoadingDialog("処理中です…", 4);
 
         //パラメーター多すぎて草
-        public ProcessManager(string score, int bpm, int startFrame, int endFrame, int easeRate, int frameDensityRate) {
+        public ProcessManager(string score, int bpm, int startFrame, int endFrame, int easeRate, int frameDensityRate, int interpolateRate) {
             this.score = score;
             this.bpm = bpm;
             this.startFrame = startFrame;
             this.endFrame = endFrame;
             this.easeRate = easeRate;
             this.frameDensityRate = frameDensityRate;
+            this.interpolateRate = interpolateRate;
         }
 
         public void Process(Video.Video video) {
             loadingDialog.Show();
             Score sc = new Score(score, bpm);
             loadingDialog.UpdateDialog(1);
-            Parser ps = new Parser(sc, video.FrameRate * frameDensityRate);
+            FrameInterpolator.Interpolate(ref video, interpolateRate);           
             loadingDialog.UpdateDialog(2);
-            this.Processor = new FrameProcessor(ps, startFrame, endFrame, easeRate);
+            Parser ps = new Parser(sc, video.FrameRate * frameDensityRate);
+            loadingDialog.UpdateDialog(3);
+            this.Processor = new FrameProcessor(ps, startFrame * (int)Math.Pow(2, interpolateRate - 1), endFrame * (int)Math.Pow(2, interpolateRate - 1), easeRate);
             Processor.Process(video);
             loadingDialog.UpdateDialog(4);
             loadingDialog.Dispose();

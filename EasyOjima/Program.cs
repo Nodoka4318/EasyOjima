@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace EasyOjima {
     internal static class Program {
-        public const string VERSION = "1.0.0β";
+        public const string VERSION = "-1";
         public static MainView mainView = new MainView();
 
         /// <summary>
@@ -60,17 +60,19 @@ namespace EasyOjima {
                 var web = new WebClient();
                 var st = web.OpenRead(_remote);
                 var sr = new StreamReader(st);
-                var _latest = sr.ReadToEnd().Replace("\r\n", "\n").Split(new[] { '\n', '\r' })[0];
+                var _latest = sr.ReadToEnd().Replace("\r\n", "\n").Split(new[] { '\n', '\r' });
                 int _current = int.Parse(VERSION.Replace(".", "").Replace("β", "").Replace("α", ""));
 
-                if (int.Parse(_latest.Replace(".", "").Replace("β", "").Replace("α", "")) > _current) {
-                    var _dlg = MessageUtil.InfoYesNo($"現在のバージョン: {VERSION}\n最新版: {_latest}\n\nダウンロードページを開きますか？");
+                if (int.Parse(_latest[0].Replace(".", "").Replace("β", "").Replace("α", "")) > _current) {
+                    var _updatemsg = string.Join("\n", _latest[1].Split("<br>").Select(s => "*" + s));
+                    var _dlg = MessageUtil.InfoYesNo($"現在のバージョン: {VERSION}\n最新版: {_latest[0]}\n\n更新情報:\n{_updatemsg}\n\nダウンロードページを開きますか？");
                     if (_dlg == DialogResult.Yes) {
                         OpenUrl(@"https://github.com/Nodoka4318/EasyOjima/releases");
                     }
                 } else if (VERSION.Contains('β') || VERSION.Contains('α')) {
-                    if (int.Parse(_latest.Replace(".", "").Replace("β", "").Replace("α", "")) == _current) {
-                        var _dlg = MessageUtil.InfoYesNo($"現在のバージョン: {VERSION}\n最新版: {_latest}\n\nダウンロードページを開きますか？");
+                    if (int.Parse(_latest[0].Replace(".", "").Replace("β", "").Replace("α", "")) == _current) {
+                        var _updatemsg = string.Join("\n", _latest[1].Split("<br>").Select(s => "*" + s));
+                        var _dlg = MessageUtil.InfoYesNo($"現在のバージョン: {VERSION}\n最新版: {_latest[0]}\n\n更新情報:\n{_updatemsg}\n\nダウンロードページを開きますか？");
                         if (_dlg == DialogResult.Yes) {
                             OpenUrl(@"https://github.com/Nodoka4318/EasyOjima/releases");
                         }

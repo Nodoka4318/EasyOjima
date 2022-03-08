@@ -324,12 +324,12 @@
             // 
             this.frameInterpolationBox.Location = new System.Drawing.Point(107, 46);
             this.frameInterpolationBox.Maximum = new decimal(new int[] {
-            240,
+            10,
             0,
             0,
             0});
             this.frameInterpolationBox.Minimum = new decimal(new int[] {
-            30,
+            1,
             0,
             0,
             0});
@@ -337,7 +337,7 @@
             this.frameInterpolationBox.Size = new System.Drawing.Size(49, 23);
             this.frameInterpolationBox.TabIndex = 1;
             this.frameInterpolationBox.Value = new decimal(new int[] {
-            60,
+            1,
             0,
             0,
             0});
@@ -345,11 +345,6 @@
             // frameDensityBox
             // 
             this.frameDensityBox.Location = new System.Drawing.Point(100, 12);
-            this.frameDensityBox.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
             this.frameDensityBox.Minimum = new decimal(new int[] {
             1,
             0,
@@ -369,9 +364,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 48);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(95, 15);
+            this.label7.Size = new System.Drawing.Size(88, 15);
             this.label7.TabIndex = 0;
-            this.label7.Text = "フレーム補間 (FPS)";
+            this.label7.Text = "フレーム補間 (倍)";
             // 
             // label6
             // 

@@ -13,8 +13,8 @@ namespace EasyOjima.Video {
         public string path;
         public List<Bitmap> frames = new List<Bitmap>();
         public int CurrentFrame { get; set; } = 0;
-        public int FrameSize { get; private set; }
-        public double FrameRate { get; private set; }
+        public int FrameSize => this.frames.Count;
+        public double FrameRate { get; set; }
         public int Width { get; private set; }
         public int Heigth { get; private set; }
 
@@ -24,7 +24,7 @@ namespace EasyOjima.Video {
 
         public Video(List<Bitmap> frames, int frameRate) {
             this.frames = frames.ToList();
-            FrameSize = frames.Count;
+            //FrameSize = frames.Count;
             FrameRate = frameRate;
             Width = frames[0].Width;
             Heigth = frames[0].Height;
@@ -38,12 +38,12 @@ namespace EasyOjima.Video {
                 return;
 
             using (VideoCapture vcap = new VideoCapture(path)) {
-                this.FrameSize = vcap.FrameCount;
+                //this.FrameSize = vcap.FrameCount;
                 this.FrameRate = vcap.Fps;
                 this.Width = vcap.FrameWidth;
                 this.Heigth = vcap.FrameHeight;
                 var frameCounter = 0;
-                var loadingDialog = new LoadingDialog(FrameSize);
+                var loadingDialog = new LoadingDialog(vcap.FrameCount);
                 loadingDialog.Show();
 
                 while (vcap.IsOpened()) {
@@ -59,10 +59,10 @@ namespace EasyOjima.Video {
                         }
                     }
                     frameCounter++;
-                    loadingDialog.UpdateDialog($"動画を読み込み中… ({frameCounter}/{FrameSize})", frameCounter);
+                    loadingDialog.UpdateDialog($"動画を読み込み中… ({frameCounter}/{vcap.FrameCount})", frameCounter);
                 }
                 loadingDialog.Dispose();
-                FrameSize = frames.Count;
+                //FrameSize = frames.Count;
             }
         }
 
@@ -82,8 +82,7 @@ namespace EasyOjima.Video {
         /// エセDispose
         /// </summary>
         public void Dispose() {
-            frames = null;
-            path = null;
+            GC.SuppressFinalize(this);
         }
     }
 }
