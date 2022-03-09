@@ -125,5 +125,11 @@ namespace EasyOjima.Forms {
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             MessageBox.Show($"EasyOjima v{Program.VERSION}\n\nAuthor: @Nodoka_Oto_Mad\nIcon: @Yunon_Oto_mad\n\nCredits:\n  OpenCvSharp3-AnyCPU", "かんたん大島");
         }
+
+        private void バグ報告要望ToolStripMenuItem_Click(object sender, EventArgs e) {
+            ReportDialog dlg = new ReportDialog();
+            dlg.ShowDialog();
+            dlg.Dispose();
+        }
     }
 }

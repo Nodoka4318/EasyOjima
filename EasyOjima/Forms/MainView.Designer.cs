@@ -33,6 +33,7 @@
             this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerTick = new System.Windows.Forms.Timer(this.components);
+            this.バグ報告要望ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ViewBox)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -71,14 +72,14 @@
             // 動画を読み込むToolStripMenuItem
             // 
             this.動画を読み込むToolStripMenuItem.Name = "動画を読み込むToolStripMenuItem";
-            this.動画を読み込むToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.動画を読み込むToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.動画を読み込むToolStripMenuItem.Text = "動画を読み込む";
             this.動画を読み込むToolStripMenuItem.Click += new System.EventHandler(this.動画を読み込むToolStripMenuItem_Click);
             // 
             // エクスポートToolStripMenuItem
             // 
             this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
-            this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.エクスポートToolStripMenuItem.Text = "エクスポート";
             this.エクスポートToolStripMenuItem.Click += new System.EventHandler(this.エクスポートToolStripMenuItem_Click);
             // 
@@ -86,6 +87,7 @@
             // 
             this.かんたん大島ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.設定ToolStripMenuItem,
+            this.バグ報告要望ToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.かんたん大島ToolStripMenuItem.Name = "かんたん大島ToolStripMenuItem";
             this.かんたん大島ToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
@@ -108,6 +110,13 @@
             // playerTick
             // 
             this.playerTick.Tick += new System.EventHandler(this.playerTick_Tick);
+            // 
+            // バグ報告要望ToolStripMenuItem
+            // 
+            this.バグ報告要望ToolStripMenuItem.Name = "バグ報告要望ToolStripMenuItem";
+            this.バグ報告要望ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.バグ報告要望ToolStripMenuItem.Text = "バグ報告・要望";
+            this.バグ報告要望ToolStripMenuItem.Click += new System.EventHandler(this.バグ報告要望ToolStripMenuItem_Click);
             // 
             // MainView
             // 
@@ -138,5 +147,6 @@
         private System.Windows.Forms.ToolStripMenuItem かんたん大島ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem バグ報告要望ToolStripMenuItem;
     }
 }

@@ -28,6 +28,10 @@ namespace EasyOjima {
                 FirstLaunch();
             }
 
+            if (!File.Exists(Loc.IDENT)) {
+                CreateID();
+            }
+
             CheckUpdate();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
@@ -79,6 +83,13 @@ namespace EasyOjima {
                     }
                 }
             } catch { /*ƒlƒbƒg‚É‚Â‚È‚ª‚Á‚Ä‚È‚¢‚Æ‚«*/ }
+        }
+
+        static void CreateID() {
+            Ident ident = new Ident() {
+                Id = Guid.NewGuid().ToString()
+            };
+            ident.Write();
         }
 
         static Process OpenUrl(string url) {

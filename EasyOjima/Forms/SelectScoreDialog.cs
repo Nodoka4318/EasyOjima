@@ -49,7 +49,7 @@ namespace EasyOjima.Forms {
             }
             this.ResultScore = FileUtil.ReadTextFile(selectedItem);
             this.ResultFileName = selectedItem.Split('\\')[selectedItem.Split('\\').Length - 1];
-            this.Close();
+            this.Close(); //Disposeしちゃだめ
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {

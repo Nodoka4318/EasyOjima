@@ -38,13 +38,19 @@ namespace EasyOjima.Score.Processing {
                     for (int i = 0; i < _frameBase.Count; i++) {
                         Debug.WriteLine($"Process SEI {_frameCounter}, {i}/{_reqFrame}");
                         var _currentVideoFrame = startFrame - 1 + _frameCounter;
-                        if (_frameBase[i] != 0) {
+
+                        if (_frameBase[i] == 2) {
+                            Debug.WriteLine($"Process 2");
+                            var _mid = FrameInterpolator.GetMiddleFrame(
+                                this.Frames[this.Frames.Count - 1],
+                                video.GetFrame(_currentVideoFrame)
+                                );
+                            this.Frames.Add(_mid);
+                            continue;
+                        } else if (_frameBase[i] != 0) {
                             this.Frames.Add(video.GetFrame(_currentVideoFrame));
                         }
 
-                        if (_frameBase[i] == 2) {
-                            continue;
-                        }
                         _frameCounter++;
                     }
                 } else if (_type == NoteType.FU) {
@@ -52,13 +58,19 @@ namespace EasyOjima.Score.Processing {
                     for (int i = 0; i < _frameBase.Count; i++) {
                         Debug.WriteLine($"Process FU {_frameCounter}, {i}/{_reqFrame}");
                         var _currentVideoFrame = startFrame - 1 + _frameCounter;
-                        if (_frameBase[i] != 0) {
+                        
+                        if (_frameBase[i] == 2) {
+                            Debug.WriteLine($"Process 2");
+                            var _mid = FrameInterpolator.GetMiddleFrame(
+                                this.Frames[this.Frames.Count - 1],
+                                video.GetFrame(_currentVideoFrame)
+                                );
+                            this.Frames.Add(_mid);
+                            continue;
+                        } else if (_frameBase[i] != 0) {
                             this.Frames.Add(video.GetFrame(_currentVideoFrame));
                         }
 
-                        if (_frameBase[i] == 2) {
-                            continue;
-                        }
                         _frameCounter--;
                     }
                 }
