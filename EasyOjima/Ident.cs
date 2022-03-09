@@ -33,7 +33,7 @@ namespace EasyOjima {
                 }
             } catch (Exception ex) {
                 Debug.WriteLine(ex.Message);
-                return new Ident() { Id = new Guid("0000000000000000000000000000000") };
+                return new Ident() { Id = Guid.Empty };
             }
         }
     }

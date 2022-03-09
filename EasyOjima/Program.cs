@@ -29,7 +29,7 @@ namespace EasyOjima {
             }
 
             if (!File.Exists(Loc.IDENT)) {
-                CreateID();
+                CreateId();
             }
 
             CheckUpdate();
@@ -85,7 +85,7 @@ namespace EasyOjima {
             } catch { /*ƒlƒbƒg‚É‚Â‚È‚ª‚Á‚Ä‚È‚¢‚Æ‚«*/ }
         }
 
-        static void CreateID() {
+        static void CreateId() {
             Ident ident = new Ident() {
                 Id = Guid.NewGuid()
             };

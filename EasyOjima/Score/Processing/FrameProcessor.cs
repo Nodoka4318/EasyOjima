@@ -25,7 +25,7 @@ namespace EasyOjima.Score.Processing {
             Debug.WriteLine("frameprocessorはいったよ");
         }
 
-        public void Process(Video.Video video) { 
+        public void Process(ref Video.Video video) { 
             var _frameRange = endFrame - startFrame;
 
             foreach (var note in Score.Tokens) {
