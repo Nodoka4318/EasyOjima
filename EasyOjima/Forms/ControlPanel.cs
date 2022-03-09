@@ -21,6 +21,19 @@ namespace EasyOjima.Forms {
             trackBar.Minimum = 0;
             trackBar.Enabled = false;
             this.FormClosing += ControlPanel_FormClosing;
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(ControlPanel_KeyDown);
+        }
+
+        private void ControlPanel_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Space) {
+                if (Program.mainView.isPlaying) {
+                    Program.mainView.PauseVideo();
+                } else {
+                    Program.mainView.PlayVideo();
+                }
+                Program.mainView.isPlaying = !Program.mainView.isPlaying;
+            }
         }
 
         private void ControlPanel_FormClosing(object sender, FormClosingEventArgs e) {

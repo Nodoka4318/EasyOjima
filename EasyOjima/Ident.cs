@@ -10,7 +10,7 @@ using System.Text;
 namespace EasyOjima {
     [Serializable]
     internal class Ident {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public Ident() { }
 
         public void Write() {
@@ -33,7 +33,7 @@ namespace EasyOjima {
                 }
             } catch (Exception ex) {
                 Debug.WriteLine(ex.Message);
-                return new Ident() { Id = "0000" };
+                return new Ident() { Id = new Guid("0000000000000000000000000000000") };
             }
         }
     }

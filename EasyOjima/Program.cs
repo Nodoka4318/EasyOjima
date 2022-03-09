@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace EasyOjima {
     internal static class Program {
-        public const string VERSION = "-1";
+        public const string VERSION = "1.0.0ƒ¿";
         public static MainView mainView = new MainView();
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace EasyOjima {
 
         static void CreateID() {
             Ident ident = new Ident() {
-                Id = Guid.NewGuid().ToString()
+                Id = Guid.NewGuid()
             };
             ident.Write();
         }

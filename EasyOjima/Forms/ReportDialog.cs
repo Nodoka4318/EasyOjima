@@ -21,7 +21,7 @@ namespace EasyOjima.Forms {
             var bug_webhook = Resource.BUGREPORT_WEBHOOK;
             var req_webhook = Resource.REQUEST_WEBHOOK;
 
-            var guid = Ident.Read().Id;
+            var guid = Ident.Read().Id.ToString();
             var app_version = Program.VERSION;
             var win_version = Environment.OSVersion.ToString();
 
@@ -32,7 +32,7 @@ namespace EasyOjima.Forms {
 
                 string content = "";
                 if (name == "" || message == "") {
-                    MessageUtil.WarnMessage("全ての項目を記入してください");
+                    MessageUtil.WarnMessage("全ての項目を記入してください。");
                     return;
                 }
 

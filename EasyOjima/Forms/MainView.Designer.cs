@@ -31,9 +31,10 @@
             this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.かんたん大島ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.バグ報告要望ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerTick = new System.Windows.Forms.Timer(this.components);
-            this.バグ報告要望ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ViewBox)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -66,21 +67,27 @@
             this.動画を読み込むToolStripMenuItem,
             this.エクスポートToolStripMenuItem});
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
-            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.ファイルToolStripMenuItem.Text = "ファイル";
+            this.ファイルToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.ファイルToolStripMenuItem.ShowShortcutKeys = false;
+            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.ファイルToolStripMenuItem.Text = "ファイル(&F)";
             // 
             // 動画を読み込むToolStripMenuItem
             // 
             this.動画を読み込むToolStripMenuItem.Name = "動画を読み込むToolStripMenuItem";
+            this.動画を読み込むToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.動画を読み込むToolStripMenuItem.ShowShortcutKeys = false;
             this.動画を読み込むToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.動画を読み込むToolStripMenuItem.Text = "動画を読み込む";
+            this.動画を読み込むToolStripMenuItem.Text = "動画を読み込む(&O)…";
             this.動画を読み込むToolStripMenuItem.Click += new System.EventHandler(this.動画を読み込むToolStripMenuItem_Click);
             // 
             // エクスポートToolStripMenuItem
             // 
             this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
+            this.エクスポートToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.エクスポートToolStripMenuItem.ShowShortcutKeys = false;
             this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.エクスポートToolStripMenuItem.Text = "エクスポート";
+            this.エクスポートToolStripMenuItem.Text = "エクスポート(&S)…";
             this.エクスポートToolStripMenuItem.Click += new System.EventHandler(this.エクスポートToolStripMenuItem_Click);
             // 
             // かんたん大島ToolStripMenuItem
@@ -88,17 +95,34 @@
             this.かんたん大島ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.設定ToolStripMenuItem,
             this.バグ報告要望ToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.aboutToolStripMenuItem});
             this.かんたん大島ToolStripMenuItem.Name = "かんたん大島ToolStripMenuItem";
-            this.かんたん大島ToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.かんたん大島ToolStripMenuItem.Text = "かんたん大島";
+            this.かんたん大島ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.かんたん大島ToolStripMenuItem.ShowShortcutKeys = false;
+            this.かんたん大島ToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
+            this.かんたん大島ToolStripMenuItem.Text = "かんたん大島(&H)";
             // 
             // 設定ToolStripMenuItem
             // 
             this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
+            this.設定ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.設定ToolStripMenuItem.ShowShortcutKeys = false;
             this.設定ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.設定ToolStripMenuItem.Text = "設定";
+            this.設定ToolStripMenuItem.Text = "設定(&E)";
             this.設定ToolStripMenuItem.Click += new System.EventHandler(this.設定ToolStripMenuItem_Click);
+            // 
+            // バグ報告要望ToolStripMenuItem
+            // 
+            this.バグ報告要望ToolStripMenuItem.Name = "バグ報告要望ToolStripMenuItem";
+            this.バグ報告要望ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.バグ報告要望ToolStripMenuItem.Text = "バグ報告・要望";
+            this.バグ報告要望ToolStripMenuItem.Click += new System.EventHandler(this.バグ報告要望ToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // aboutToolStripMenuItem
             // 
@@ -110,13 +134,6 @@
             // playerTick
             // 
             this.playerTick.Tick += new System.EventHandler(this.playerTick_Tick);
-            // 
-            // バグ報告要望ToolStripMenuItem
-            // 
-            this.バグ報告要望ToolStripMenuItem.Name = "バグ報告要望ToolStripMenuItem";
-            this.バグ報告要望ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.バグ報告要望ToolStripMenuItem.Text = "バグ報告・要望";
-            this.バグ報告要望ToolStripMenuItem.Click += new System.EventHandler(this.バグ報告要望ToolStripMenuItem_Click);
             // 
             // MainView
             // 
@@ -148,5 +165,6 @@
         private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem バグ報告要望ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
     }
 }
