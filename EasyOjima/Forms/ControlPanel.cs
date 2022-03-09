@@ -177,10 +177,18 @@ namespace EasyOjima.Forms {
                     return;
                 }
 
-                process = new ProcessManager(ScoreText, bpm, beginFrame, endFrame, easeRate, frameDensityRate, frameInterpolationRate);
+                process = new ProcessManager(
+                    ScoreText, 
+                    bpm, 
+                    beginFrame, 
+                    endFrame, 
+                    easeRate, 
+                    frameDensityRate, 
+                    frameInterpolationRate
+                    );
                 process.Process(Program.mainView.video);
                 Program.mainView.video.Dispose();
-                Program.mainView.video = new Video.Video(process.Processor.Frames, (int)(fps * frameDensityRate));
+                Program.mainView.video = new Video.Video(process.Processor.Frames, (int)(fps * frameDensityRate * Math.Pow(2, frameInterpolationRate - 1)));
                 this.trackBar.Maximum = Program.mainView.video.FrameSize;
             } catch (Exception ex) {
                 MessageUtil.ErrorMessage(ex.Message);

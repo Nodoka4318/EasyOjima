@@ -364,9 +364,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 48);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 15);
+            this.label7.Size = new System.Drawing.Size(94, 15);
             this.label7.TabIndex = 0;
-            this.label7.Text = "フレーム補間 (倍)";
+            this.label7.Text = "フレーム補間 (2倍)";
             // 
             // label6
             // 

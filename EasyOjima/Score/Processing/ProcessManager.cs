@@ -33,12 +33,28 @@ namespace EasyOjima.Score.Processing {
             loadingDialog.Show();
             Score sc = new Score(score, bpm);
             loadingDialog.UpdateDialog(1);
-            FrameInterpolator.Interpolate(ref video, interpolateRate);           
+            if (interpolateRate > 1) {
+                FrameInterpolator.Interpolate(ref video, interpolateRate);
+            }
             loadingDialog.UpdateDialog(2);
             Parser ps = new Parser(sc, video.FrameRate * frameDensityRate);
             loadingDialog.UpdateDialog(3);
-            this.Processor = new FrameProcessor(ps, startFrame * (int)Math.Pow(2, interpolateRate - 1), endFrame * (int)Math.Pow(2, interpolateRate - 1), easeRate);
-            Processor.Process(video);
+            if (interpolateRate == 1) {
+                this.Processor = new FrameProcessor(
+                    ps, 
+                    startFrame, 
+                    endFrame, 
+                    easeRate
+                    );
+            } else {
+                this.Processor = new FrameProcessor(
+                    ps,
+                    startFrame * (int)Math.Pow(2, interpolateRate - 1),
+                    endFrame * (int)Math.Pow(2, interpolateRate - 1) - 1,
+                    easeRate
+                    );
+            }
+            Processor.Process(ref video);
             loadingDialog.UpdateDialog(4);
             loadingDialog.Dispose();
         }
