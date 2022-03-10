@@ -4,7 +4,7 @@ using System.Text;
 using System.Linq;
 
 namespace EasyOjima.Score {
-    internal class Score {
+    public class Score {
         public List<char> Source { get; private set; }
         public int Length { get; private set; }
         public int CurrentIndex { get; set; } = 0;

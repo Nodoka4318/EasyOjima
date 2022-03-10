@@ -6,6 +6,6 @@ namespace EasyOjima.Plugin {
     public interface IPlugin {
         string Name { get; }
         void Run();
-        void Init(IPluginHost pluginHost);
+        PluginHost host { get; set; }
     }
 }

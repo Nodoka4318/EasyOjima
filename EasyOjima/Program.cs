@@ -9,7 +9,7 @@ using EasyOjima.Enums;
 using System.Diagnostics;
 
 namespace EasyOjima {
-    internal static class Program {
+    public static class Program {
         public const string VERSION = "1.0.0ƒ¿";
         public static MainView mainView = new MainView();
 

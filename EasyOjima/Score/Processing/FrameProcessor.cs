@@ -8,7 +8,7 @@ using EasyOjima.Enums;
 using System.Diagnostics;
 
 namespace EasyOjima.Score.Processing {
-    internal class FrameProcessor {
+    public class FrameProcessor {
         public Parser Score { get; private set; }
         public List<Bitmap> Frames { get; set; }
         private int startFrame;

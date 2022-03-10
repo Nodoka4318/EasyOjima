@@ -5,7 +5,7 @@ using EasyOjima.Forms;
 using EasyOjima.Video;
 
 namespace EasyOjima.Score.Processing {
-    internal class ProcessManager {
+    public class ProcessManager {
         private string score;
         private int bpm;
         private int startFrame;

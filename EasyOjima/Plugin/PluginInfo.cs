@@ -46,7 +46,9 @@ namespace EasyOjima.Plugin {
         public IPlugin CreateInstance() {
             try {
                 Assembly asm = Assembly.LoadFrom(this.Location);
-                return (IPlugin)asm.CreateInstance(this.ClassName);
+                var plugin = (IPlugin)asm.CreateInstance(this.ClassName);
+                plugin.host = new PluginHost();
+                return plugin;
             } catch {
                 return null;
             }

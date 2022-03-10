@@ -20,10 +20,11 @@ namespace EasyOjima.Forms {
         public string VideoPath { get; set; } //動画のパス
         public Video.Video video;
         public bool isPlaying = false; //再生中か否か
+        private IPlugin[] plugins;
 
         public MainView() {
             InitializeComponent();
-            SearchPlugins();
+            InitPlugins();
             this.FormClosing += MainView_FormClosing;
             this.拡張機能PToolStripMenuItem.DropDownItemClicked += 拡張機能PToolStripMenuItem_DropDownItemClicked;
         }       
@@ -137,12 +138,20 @@ namespace EasyOjima.Forms {
             dlg.Dispose();
         }
 
-        private void SearchPlugins() {
+        private void InitPlugins() {
             var pluginInfos = PluginInfo.FindPlugins();
-            foreach (var p in pluginInfos) {
+            if (pluginInfos.Length == 0) {
                 var _item = new ToolStripMenuItem();
-                _item.Text = p.ClassName;
+                _item.Text = "プラグインはありません";
+                _item.Enabled = false;
                 this.拡張機能PToolStripMenuItem.DropDownItems.Add(_item);
+            } else {
+                plugins = new IPlugin[pluginInfos.Length];
+                for (int i = 0; i < pluginInfos.Length; i++) {
+                    var p = pluginInfos[i].CreateInstance();
+                    this.拡張機能PToolStripMenuItem.DropDownItems.Add(p.Name);
+                    plugins[i] = p;
+                }
             }
             this.拡張機能PToolStripMenuItem.DropDownItems.Add("-");
             this.拡張機能PToolStripMenuItem.DropDownItems.Add("プラグインフォルダを開く");
@@ -154,10 +163,9 @@ namespace EasyOjima.Forms {
                 Process.Start("EXPLORER.EXE", Loc.PLUGINS);
                 return;
             }
-            var pluginInfos = PluginInfo.FindPlugins();
-            foreach (var p in pluginInfos) {
-                if (item.Text == p.ClassName) {
-                    p.CreateInstance();
+            foreach (var p in plugins) {
+                if (item.Text == p.Name) {
+                    p.Run();
                 }
             }
         }

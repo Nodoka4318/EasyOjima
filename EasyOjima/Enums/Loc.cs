@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EasyOjima.Enums {
     //これenumじゃないけど許して
-    internal class Loc {
+    public class Loc {
         //フォルダ
         public static readonly string SCORES = @"scores";
         public static readonly string DATA = @"data";

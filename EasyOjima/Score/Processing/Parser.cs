@@ -5,7 +5,7 @@ using System.Text;
 using EasyOjima.Enums;
 
 namespace EasyOjima.Score.Processing {
-    internal class Parser {
+    public class Parser {
         public Score Score { get; private set; }
         public List<Token> Tokens { get; private set; }
         public double Fps { get; private set; }
