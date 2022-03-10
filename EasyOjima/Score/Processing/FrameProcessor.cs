@@ -121,8 +121,15 @@ namespace EasyOjima.Score.Processing {
             var _base = Enumerable.Repeat(0, size).ToArray();
             double _rate = Math.Abs(easeRate) / 100;
             if (easeRate > 0) {
+
                 double _counter = _base.Length - 1;
+
+                _rate = 100;
+
                 for (int i = 0; _counter > 1; i++) {
+
+                    _rate = 100;
+
                     _base[(int)_counter] = 1;
                     _counter -= Math.Ceiling(i * _rate);
                     //Debug.WriteLine($"{_counter} {i}");
