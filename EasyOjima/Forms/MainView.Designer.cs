@@ -35,6 +35,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerTick = new System.Windows.Forms.Timer(this.components);
+            this.拡張機能PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ViewBox)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -53,6 +54,7 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ファイルToolStripMenuItem,
+            this.拡張機能PToolStripMenuItem,
             this.かんたん大島ToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -135,6 +137,13 @@
             // 
             this.playerTick.Tick += new System.EventHandler(this.playerTick_Tick);
             // 
+            // 拡張機能PToolStripMenuItem
+            // 
+            this.拡張機能PToolStripMenuItem.Name = "拡張機能PToolStripMenuItem";
+            this.拡張機能PToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.拡張機能PToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
+            this.拡張機能PToolStripMenuItem.Text = "拡張機能(&P)";
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -166,5 +175,6 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem バグ報告要望ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 拡張機能PToolStripMenuItem;
     }
 }

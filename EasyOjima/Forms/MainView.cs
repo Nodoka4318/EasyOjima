@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using EasyOjima.Video;
 using EasyOjima.Utils;
+using EasyOjima.Plugin;
+using System.Diagnostics;
+using EasyOjima.Enums;
 
 namespace EasyOjima.Forms {
     public partial class MainView : Form {
@@ -20,8 +23,10 @@ namespace EasyOjima.Forms {
 
         public MainView() {
             InitializeComponent();
+            SearchPlugins();
             this.FormClosing += MainView_FormClosing;
-        }
+            this.拡張機能PToolStripMenuItem.DropDownItemClicked += 拡張機能PToolStripMenuItem_DropDownItemClicked;
+        }       
 
         private void MainView_FormClosing(object sender, FormClosingEventArgs e) {
             if (this.video == null || !Preference.Settings.Contains("askwhenclosing")) {
@@ -130,6 +135,31 @@ namespace EasyOjima.Forms {
             ReportDialog dlg = new ReportDialog();
             dlg.ShowDialog();
             dlg.Dispose();
+        }
+
+        private void SearchPlugins() {
+            var pluginInfos = PluginInfo.FindPlugins();
+            foreach (var p in pluginInfos) {
+                var _item = new ToolStripMenuItem();
+                _item.Text = p.ClassName;
+                this.拡張機能PToolStripMenuItem.DropDownItems.Add(_item);
+            }
+            this.拡張機能PToolStripMenuItem.DropDownItems.Add("-");
+            this.拡張機能PToolStripMenuItem.DropDownItems.Add("プラグインフォルダを開く");
+        }
+
+        private void 拡張機能PToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e) {
+            var item = e.ClickedItem;
+            if (item.Text == "プラグインフォルダを開く") {
+                Process.Start("EXPLORER.EXE", Loc.PLUGINS);
+                return;
+            }
+            var pluginInfos = PluginInfo.FindPlugins();
+            foreach (var p in pluginInfos) {
+                if (item.Text == p.ClassName) {
+                    p.CreateInstance();
+                }
+            }
         }
     }
 }

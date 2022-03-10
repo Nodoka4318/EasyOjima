@@ -11,6 +11,7 @@ namespace EasyOjima.Enums {
         public static readonly string EXPORT_CACHE = @"data\export";
         public static readonly string LOCALAPPDATA = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public static readonly string APPCONF = $@"{LOCALAPPDATA}\EasyOjima";
+        public static readonly string PLUGINS = @"plugins";
         //ファイル
         public static readonly string PREFERENCE = $@"{APPCONF}\conf";
         public static readonly string IDENT = $@"{APPCONF}\hw";
@@ -22,6 +23,7 @@ namespace EasyOjima.Enums {
                 _temp.Add(@DATA);
                 _temp.Add(@EXPORT_CACHE);
                 _temp.Add(@APPCONF);
+                _temp.Add(@PLUGINS);
                 return _temp;
             }
         }

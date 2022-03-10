@@ -4,8 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
+    <AssemblyVersion>0.9.3</AssemblyVersion>
+    <FileVersion>0.9.3</FileVersion>
     <DebugType>embedded</DebugType>
     <SignAssembly>False</SignAssembly>
     <Authors>Nodoka</Authors>
