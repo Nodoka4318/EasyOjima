@@ -37,8 +37,42 @@ namespace EasyOjima.Plugin {
         /// </summary>
         /// <param name="func">デリゲート</param>
         public void FrameWhere(Func<int, bool> func) {
+            var _baseSize = Program.mainView.video.FrameSize;
             Program.mainView.video.frames = Program.mainView.video.frames.Where((bitmap, index) => func(index)).ToList();
+            Program.mainView.video.FrameRate = (int)(Program.mainView.video.FrameRate * Program.mainView.video.FrameSize / _baseSize);
             Program.mainView.controls.trackBar.Maximum = Program.mainView.video.FrameSize;
+        }
+
+        /// <summary>
+        /// MainViewの動画を再生します
+        /// </summary>
+        public void PlayVideo() {
+            Program.mainView.PlayVideo();
+        }
+
+        /// <summary>
+        /// MainViewの動画を一時停止します
+        /// </summary>
+        public void PauseVideo() {
+            Program.mainView.PauseVideo();
+        }
+
+        /// <summary>
+        /// MainViewの動画を停止します
+        /// </summary>
+        public void StopVideo() {
+            Program.mainView.StopVideo();
+        }
+
+        /// <summary>
+        /// MainViewの動画の位置を変えます
+        /// </summary>
+        /// <param name="index">フレームのインデックス番号</param>
+        /// <exception cref="Exception">フレームの大きさを超えたとき</exception>
+        public void SetViewFrame(int index) {
+            if (index >= Video.FrameSize)
+                throw new Exception("フレームが大きすぎます");
+            Program.mainView.SetFrame(index);
         }
     }
 }

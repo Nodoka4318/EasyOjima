@@ -151,6 +151,17 @@ namespace EasyOjima.Forms {
                     var p = pluginInfos[i].CreateInstance();
                     this.拡張機能PToolStripMenuItem.DropDownItems.Add(p.Name);
                     plugins[i] = p;
+
+                    //読み込み時に実行する関数があるか確認
+                    var mi = p.GetType().GetMethod("OnLoad");
+                    if (mi != null) {
+                        WorkBackground(() => {
+                            new Thread(new ThreadStart(() => {
+                                mi.Invoke(p, null);
+                            })).Start();
+                            return Task.CompletedTask;                            
+                        });                        
+                    }
                 }
             }
             this.拡張機能PToolStripMenuItem.DropDownItems.Add("-");
@@ -168,6 +179,10 @@ namespace EasyOjima.Forms {
                     p.Run();
                 }
             }
+        }
+
+        private async void WorkBackground(Func<Task> func) {
+            await func();
         }
     }
 }
