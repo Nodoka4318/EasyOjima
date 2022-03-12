@@ -180,6 +180,8 @@ namespace EasyOjima.Forms {
                 Process.Start("EXPLORER.EXE", Loc.PLUGINS);
                 return;
             }
+            if (plugins == null)
+                return;
             foreach (var p in plugins) {
                 if (item.Text == p.Name) {
                     p.Run();
