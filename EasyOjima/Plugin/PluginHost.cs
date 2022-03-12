@@ -9,11 +9,12 @@ namespace EasyOjima.Plugin {
         /// <summary>
         /// 現在MainViewウインドウに読み込まれている動画です
         /// </summary>
-        public Video.Video Video {
-            get {
-                return Program.mainView.video;
-            }
-        }
+        public Video.Video Video => Program.mainView.video;
+
+        /// <summary>
+        /// ホストのバージョンです
+        /// </summary>
+        public string AppVersion => Program.VERSION;
 
         /// <summary>
         /// MainViewの動画を差し替えます

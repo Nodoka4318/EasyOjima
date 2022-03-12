@@ -10,7 +10,6 @@ using EasyOjima.Forms;
 
 namespace EasyOjima.Video {
     public class FrameInterpolator {
-        //TODO: 参照渡しに書き換え
         public static void Interpolate(ref Video video, int rate) {
             if (rate == 1)
                 return;

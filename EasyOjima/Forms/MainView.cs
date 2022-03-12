@@ -27,6 +27,7 @@ namespace EasyOjima.Forms {
             InitPlugins();
             this.FormClosing += MainView_FormClosing;
             this.拡張機能PToolStripMenuItem.DropDownItemClicked += 拡張機能PToolStripMenuItem_DropDownItemClicked;
+            this.拡張機能PToolStripMenuItem.DropDown.ShowItemToolTips = true;
         }       
 
         private void MainView_FormClosing(object sender, FormClosingEventArgs e) {
@@ -149,7 +150,12 @@ namespace EasyOjima.Forms {
                 plugins = new IPlugin[pluginInfos.Length];
                 for (int i = 0; i < pluginInfos.Length; i++) {
                     var p = pluginInfos[i].CreateInstance();
-                    this.拡張機能PToolStripMenuItem.DropDownItems.Add(p.Name);
+
+                    var _pitem = new ToolStripMenuItem();
+                    _pitem.Text = p.Name;
+                    _pitem.ToolTipText = $"{p.Description}\nAuthor: {p.Author}";
+
+                    this.拡張機能PToolStripMenuItem.DropDownItems.Add(_pitem);
                     plugins[i] = p;
 
                     //読み込み時に実行する関数があるか確認
