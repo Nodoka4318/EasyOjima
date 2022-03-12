@@ -10,6 +10,16 @@ namespace EasyOjima.Plugin {
         string Name { get; }
 
         /// <summary>
+        /// プラグインの作者です
+        /// </summary>
+        string Author { get; }
+
+        /// <summary>
+        /// プラグインの説明です
+        /// </summary>
+        string Description { get; }
+
+        /// <summary>
         /// プラグインが呼び出された時の処理です
         /// </summary>
         void Run();
