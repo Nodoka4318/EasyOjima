@@ -2,8 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EasyOjima.Plugin {
     //参考: https://codezine.jp/article/detail/1
@@ -52,6 +55,33 @@ namespace EasyOjima.Plugin {
             } catch {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// 特定の属性を持ったメソッドを実行しちゃいます
+        /// </summary>
+        /// <param name="att">属性</param>
+        public static void InvokeEvent(string attName, IPlugin[] plugins) {
+            //var plugins = Program.mainView.plugins; なぜか動かん
+            foreach (var p in plugins) {
+                var mi = p.GetType().GetMethods()
+                    .Where(m => m.CustomAttributes.ToString() == attName)
+                    .ToList();
+                if (mi != null) {
+                    foreach (var m in mi) {
+                        WorkBackground(() => {
+                            new Thread(new ThreadStart(() => {
+                                m.Invoke(p, null);
+                            })).Start();
+                            return Task.CompletedTask;
+                        });
+                    }
+                }
+            }
+        }
+
+        private static async void WorkBackground(Func<Task> func) {
+            await func();
         }
     }
 }

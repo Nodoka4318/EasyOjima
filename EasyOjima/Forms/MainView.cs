@@ -20,7 +20,8 @@ namespace EasyOjima.Forms {
         public string VideoPath { get; set; } //動画のパス
         public Video.Video video;
         public bool isPlaying = false; //再生中か否か
-        private IPlugin[] plugins;
+
+        public IPlugin[] plugins; //TODO: プラグイン関連を整理
 
         public MainView() {
             InitializeComponent();
@@ -157,19 +158,11 @@ namespace EasyOjima.Forms {
 
                     this.拡張機能PToolStripMenuItem.DropDownItems.Add(_pitem);
                     plugins[i] = p;
-
-                    //読み込み時に実行する関数があるか確認
-                    var mi = p.GetType().GetMethod("OnLoad");
-                    if (mi != null) {
-                        WorkBackground(() => {
-                            new Thread(new ThreadStart(() => {
-                                mi.Invoke(p, null);
-                            })).Start();
-                            return Task.CompletedTask;                            
-                        });                        
-                    }
                 }
+                //OnLoadEvent実行
+                PluginInfo.InvokeEvent("OnLoadEvent", plugins);
             }
+
             this.拡張機能PToolStripMenuItem.DropDownItems.Add("-");
             this.拡張機能PToolStripMenuItem.DropDownItems.Add("プラグインフォルダを開く");
         }
@@ -187,10 +180,6 @@ namespace EasyOjima.Forms {
                     p.Run();
                 }
             }
-        }
-
-        private async void WorkBackground(Func<Task> func) {
-            await func();
         }
     }
 }
