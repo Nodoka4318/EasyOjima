@@ -56,8 +56,9 @@ namespace EasyOjima.Score.Processing {
 
                 _type = GetType(_lit);
                 _relLength += GetRelLength(_lit);
+                var _reqLength = (int)Math.Round(ToActualFrameLength(_relLength));
 
-                Tokens.Add(new Token(_type, ToActualFrameLength(_relLength), _relLength));
+                Tokens.Add(new Token(_type, _reqLength, _relLength));
             }
         }
 
@@ -91,9 +92,10 @@ namespace EasyOjima.Score.Processing {
             return _type;
         }
 
-        private int ToActualFrameLength(double relLength) {
+        //TODO: このせいでちょっとズレるんだよな
+        private double ToActualFrameLength(double relLength) {
             double _framePerBeat = Fps * 60 / Score.Bpm;
-            return (int)(_framePerBeat * relLength);
+            return _framePerBeat * relLength;
         }
     }
 }
