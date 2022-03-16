@@ -33,14 +33,19 @@ namespace EasyOjima.Forms {
 
         private void MainView_FormClosing(object sender, FormClosingEventArgs e) {
             if (this.video == null || !Preference.Settings.Contains("askwhenclosing")) {
+                //OnUnLoadEvent実行
+                PluginInfo.InvokeEvent(typeof(OnUnloadEvent), plugins);
                 return;
             }
             if (e.CloseReason == CloseReason.UserClosing) {
                 var _dlg = MessageUtil.InfoYesNo("終了してもよろしいですか？");
                 if (_dlg == DialogResult.No) {
                     e.Cancel = true;
+                    return;
                 }
             }
+            //OnUnLoadEvent実行
+            PluginInfo.InvokeEvent(typeof(OnUnloadEvent), plugins);
         }
 
         private void 動画を読み込むToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -83,6 +88,8 @@ namespace EasyOjima.Forms {
         }
 
         public void PlayVideo() {
+            //OnPlayEvent実行
+            PluginInfo.InvokeEvent(typeof(OnPlayEvent), plugins);
             this.isPlaying = true;
             this.playerTick.Start();
         }
@@ -160,7 +167,7 @@ namespace EasyOjima.Forms {
                     plugins[i] = p;
                 }
                 //OnLoadEvent実行
-                PluginInfo.InvokeEvent("OnLoadEvent", plugins);
+                PluginInfo.InvokeEvent(typeof(OnLoadEvent), plugins);
             }
 
             this.拡張機能PToolStripMenuItem.DropDownItems.Add("-");

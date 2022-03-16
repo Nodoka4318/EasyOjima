@@ -1,6 +1,7 @@
 ﻿using EasyOjima.Enums;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -60,12 +61,16 @@ namespace EasyOjima.Plugin {
         /// <summary>
         /// 特定の属性を持ったメソッドを実行しちゃいます
         /// </summary>
-        /// <param name="att">属性</param>
-        public static void InvokeEvent(string attName, IPlugin[] plugins) {
+        /// <param name="attType">属性の型</param>
+        public static void InvokeEvent(Type attType, IPlugin[] plugins) {
             //var plugins = Program.mainView.plugins; なぜか動かん
             foreach (var p in plugins) {
                 var mi = p.GetType().GetMethods()
-                    .Where(m => m.CustomAttributes.ToString() == attName)
+                    .Where(m => {
+                        var atts = m.CustomAttributes;
+                        //Type→MethodInfo→CustomAttributeData→Type… もうちょい省略できそう
+                        return atts.Select(a => a.AttributeType).Contains(attType);
+                        })
                     .ToList();
                 if (mi != null) {
                     foreach (var m in mi) {
