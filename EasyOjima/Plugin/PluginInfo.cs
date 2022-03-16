@@ -63,6 +63,8 @@ namespace EasyOjima.Plugin {
         /// </summary>
         /// <param name="attType">属性の型</param>
         public static void InvokeEvent(Type attType, IPlugin[] plugins) {
+            if (plugins == null)
+                return;
             //var plugins = Program.mainView.plugins; なぜか動かん
             foreach (var p in plugins) {
                 var mi = p.GetType().GetMethods()
