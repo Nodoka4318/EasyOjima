@@ -11,6 +11,7 @@ using System.Drawing.Imaging;
 using OpenCvSharp.Extensions;
 
 namespace EasyOjima.Video {
+    //今更だけどクラスにする意味なかったかも((
     public class VideoExporter {
         //ファイルについて
         private string cachePath = Loc.EXPORT_CACHE;

@@ -165,7 +165,7 @@ namespace EasyOjima.Forms {
                 return;
             }
 
-            try {
+            //try {
                 bool flag1 = bpm == 0;
                 bool flag2 = beginFrame > endFrame;
                 bool flag3 = beginFrame > Program.mainView.video.FrameSize || beginFrame <= 0;
@@ -190,9 +190,9 @@ namespace EasyOjima.Forms {
                 Program.mainView.video.Dispose();
                 Program.mainView.video = new Video.Video(process.Processor.Frames, (int)(fps * frameDensityRate * Math.Pow(2, frameInterpolationRate - 1)));
                 this.trackBar.Maximum = Program.mainView.video.FrameSize;
-            } catch (Exception ex) {
-                MessageUtil.ErrorMessage(ex.Message);
-            }           
+            //} catch (Exception ex) {
+            //    MessageUtil.ErrorMessage(ex.Message);
+            //}           
         }
     }
 }
