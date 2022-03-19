@@ -10,7 +10,7 @@
     <SignAssembly>False</SignAssembly>
     <Authors>Nodoka</Authors>
     <Description>大島テクニック作成支援ツール</Description>
-    <PackageProjectUrl>https://www.kankantari.net</PackageProjectUrl>
+    <PackageProjectUrl>https://www.kankantari.net/EasyOjima</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Nodoka4318/EasyOjima</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageIcon></PackageIcon>

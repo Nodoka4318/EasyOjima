@@ -66,6 +66,8 @@ namespace EasyOjima.Forms {
                     try {
                         this.controls.Show(this);
                     } catch { }
+
+                    PluginInfo.InvokeEvent(typeof(OnLoadVideoEvent), plugins);
                 }
             }
         }
@@ -79,6 +81,8 @@ namespace EasyOjima.Forms {
                 controls.trackBar.Value = video.CurrentFrame;
                 controls.SetFrameLabelText(video.CurrentFrame + 1, video.FrameSize);
                 video.CurrentFrame++;
+
+                PluginInfo.InvokeEvent(typeof(OnFrameUpdateEvent), plugins);
             } else {
                 video.CurrentFrame = 0;
                 this.isPlaying = false;
@@ -121,6 +125,9 @@ namespace EasyOjima.Forms {
                 MessageUtil.WarnMessage("エクスポートできません。");
                 return;
             }
+
+            PluginInfo.InvokeEvent(typeof(OnExportVideoEvent), plugins);
+
             using (var dlg = new SaveFileDialog() {
                 Title = "エクスポート",
                 Filter = "MP4動画|*.mp4"

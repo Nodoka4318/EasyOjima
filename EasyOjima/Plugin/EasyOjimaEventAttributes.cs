@@ -26,4 +26,19 @@ namespace EasyOjima.Plugin {
     /// 動画再生時に実行されるイベントです
     /// </summary>
     public class OnPlayEvent : EasyOjimaEventAttributes { }
+
+    /// <summary>
+    /// 再生画面のフレームが変わった後に実行されるイベントです
+    /// </summary>
+    public class OnFrameUpdateEvent : EasyOjimaEventAttributes { }
+
+    /// <summary>
+    /// 動画ファイルを読み込んだ後に実行されるイベントです
+    /// </summary>
+    public class OnLoadVideoEvent : EasyOjimaEventAttributes { }
+
+    /// <summary>
+    /// 動画をエクスポートする直前に実行されるイベントです
+    /// </summary>
+    public class OnExportVideoEvent : EasyOjimaEventAttributes { }
 }

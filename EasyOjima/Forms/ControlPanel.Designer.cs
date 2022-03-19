@@ -313,18 +313,18 @@
             // useFrameInterpolationCheck
             // 
             this.useFrameInterpolationCheck.AutoSize = true;
-            this.useFrameInterpolationCheck.Location = new System.Drawing.Point(214, 50);
+            this.useFrameInterpolationCheck.Location = new System.Drawing.Point(179, 48);
             this.useFrameInterpolationCheck.Name = "useFrameInterpolationCheck";
-            this.useFrameInterpolationCheck.Size = new System.Drawing.Size(136, 19);
+            this.useFrameInterpolationCheck.Size = new System.Drawing.Size(171, 19);
             this.useFrameInterpolationCheck.TabIndex = 2;
-            this.useFrameInterpolationCheck.Text = "フレーム補間を使用する";
+            this.useFrameInterpolationCheck.Text = "フレーム補間を使用する (危険)";
             this.useFrameInterpolationCheck.UseVisualStyleBackColor = true;
             // 
             // frameInterpolationBox
             // 
             this.frameInterpolationBox.Location = new System.Drawing.Point(107, 46);
             this.frameInterpolationBox.Maximum = new decimal(new int[] {
-            10,
+            5,
             0,
             0,
             0});
@@ -364,9 +364,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 48);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(94, 15);
+            this.label7.Size = new System.Drawing.Size(83, 15);
             this.label7.TabIndex = 0;
-            this.label7.Text = "フレーム補間 (2倍)";
+            this.label7.Text = "フレーム補間 (β)";
             // 
             // label6
             // 
