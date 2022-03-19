@@ -14,5 +14,12 @@ namespace SamplePlugin {
             InitializeComponent();
         }
 
+        public bool isLaunched = false;
+        public bool RunWhenVideoLoaded => checkBox1.Checked;
+
+        private void button1_Click(object sender, EventArgs e) {
+            isLaunched = true;
+            this.Close();
+        }
     }
 }
