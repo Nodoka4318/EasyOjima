@@ -43,6 +43,7 @@ namespace EasyOjima.Forms {
 
         public void UpdateDialog(int frame) {
             progressBar1.Value = frame;
+            label1.Update();
         }
     }
 }
