@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.selectButton = new System.Windows.Forms.Button();
+            this.rootFolderBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // listBox1
@@ -39,19 +40,32 @@
             // 
             // selectButton
             // 
-            this.selectButton.Location = new System.Drawing.Point(12, 217);
+            this.selectButton.Location = new System.Drawing.Point(154, 217);
             this.selectButton.Name = "selectButton";
-            this.selectButton.Size = new System.Drawing.Size(260, 32);
+            this.selectButton.Size = new System.Drawing.Size(118, 32);
             this.selectButton.TabIndex = 1;
             this.selectButton.Text = "決定";
             this.selectButton.UseVisualStyleBackColor = true;
             this.selectButton.Click += new System.EventHandler(this.selectButton_Click);
+            // 
+            // rootFolderBox
+            // 
+            this.rootFolderBox.FormattingEnabled = true;
+            this.rootFolderBox.Items.AddRange(new object[] {
+            "<root>"});
+            this.rootFolderBox.Location = new System.Drawing.Point(12, 223);
+            this.rootFolderBox.Name = "rootFolderBox";
+            this.rootFolderBox.Size = new System.Drawing.Size(136, 23);
+            this.rootFolderBox.TabIndex = 2;
+            this.rootFolderBox.Text = "<root>";
+            this.rootFolderBox.SelectedIndexChanged += new System.EventHandler(this.rootFolderBox_SelectedIndexChanged);
             // 
             // SelectScoreDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.rootFolderBox);
             this.Controls.Add(this.selectButton);
             this.Controls.Add(this.listBox1);
             this.MaximizeBox = false;
@@ -69,5 +83,6 @@
 
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button selectButton;
+        private System.Windows.Forms.ComboBox rootFolderBox;
     }
 }
