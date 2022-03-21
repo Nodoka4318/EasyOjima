@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EasyOjima.Video {
     public interface IEasing {
-        public string Name { get; }
-        public abstract double Calc(double x);
+        string Name { get; }
+        double Calc(double x);
     }
 }
