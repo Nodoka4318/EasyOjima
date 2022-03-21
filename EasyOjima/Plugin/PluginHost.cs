@@ -34,7 +34,7 @@ namespace EasyOjima.Plugin {
         }
 
         /// <summary>
-        /// MainViewの動画のフレームをインデックス番号の条件で取捨選択します
+        /// MainViewの動画のフレームをインデックス番号の条件で選択します
         /// </summary>
         /// <param name="func">デリゲート</param>
         public void FrameWhere(Func<int, bool> func) {

@@ -38,12 +38,11 @@
             this.openFolderButton = new System.Windows.Forms.Button();
             this.selectScoreButton = new System.Windows.Forms.Button();
             this.launchButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.easingRateUpDown = new System.Windows.Forms.NumericUpDown();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.showEasingGraphsButton = new System.Windows.Forms.Button();
             this.easingTypeBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -53,7 +52,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.easingRateUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -202,22 +200,6 @@
             this.launchButton.UseVisualStyleBackColor = true;
             this.launchButton.Click += new System.EventHandler(this.launchButton_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 15);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "割合";
-            // 
-            // easingRateUpDown
-            // 
-            this.easingRateUpDown.Location = new System.Drawing.Point(43, 12);
-            this.easingRateUpDown.Name = "easingRateUpDown";
-            this.easingRateUpDown.Size = new System.Drawing.Size(90, 23);
-            this.easingRateUpDown.TabIndex = 6;
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -261,10 +243,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.showEasingGraphsButton);
             this.tabPage3.Controls.Add(this.easingTypeBox);
-            this.tabPage3.Controls.Add(this.easingRateUpDown);
             this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -273,14 +254,22 @@
             this.tabPage3.Text = "イージング設定";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // showEasingGraphsButton
+            // 
+            this.showEasingGraphsButton.Location = new System.Drawing.Point(6, 40);
+            this.showEasingGraphsButton.Name = "showEasingGraphsButton";
+            this.showEasingGraphsButton.Size = new System.Drawing.Size(100, 27);
+            this.showEasingGraphsButton.TabIndex = 9;
+            this.showEasingGraphsButton.Text = "イージング一覧表";
+            this.showEasingGraphsButton.UseVisualStyleBackColor = true;
+            this.showEasingGraphsButton.Click += new System.EventHandler(this.showEasingGraphsButton_Click);
+            // 
             // easingTypeBox
             // 
             this.easingTypeBox.FormattingEnabled = true;
             this.easingTypeBox.Items.AddRange(new object[] {
-            "なし",
-            "イーズイン",
-            "イーズアウト"});
-            this.easingTypeBox.Location = new System.Drawing.Point(43, 44);
+            "なし"});
+            this.easingTypeBox.Location = new System.Drawing.Point(46, 11);
             this.easingTypeBox.Name = "easingTypeBox";
             this.easingTypeBox.Size = new System.Drawing.Size(121, 23);
             this.easingTypeBox.TabIndex = 8;
@@ -289,7 +278,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 48);
+            this.label5.Location = new System.Drawing.Point(6, 14);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 15);
             this.label5.TabIndex = 7;
@@ -396,7 +385,6 @@
             this.Name = "ControlPanel";
             this.Text = "コントロール";
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.easingRateUpDown)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -429,8 +417,6 @@
         private System.Windows.Forms.Button openFolderButton;
         private System.Windows.Forms.Button selectScoreButton;
         private System.Windows.Forms.Button launchButton;
-        private System.Windows.Forms.NumericUpDown easingRateUpDown;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -443,5 +429,6 @@
         private System.Windows.Forms.NumericUpDown frameDensityBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button showEasingGraphsButton;
     }
 }

@@ -13,14 +13,24 @@ namespace EasyOjima.Score.Processing {
         public List<Bitmap> Frames { get; set; }
         private int startFrame;
         private int endFrame;
-        private int easeRate;
 
-        public FrameProcessor(Parser parser, int startFrame, int endFrame, int easeRate) { 
+        private Easing _easing;
+
+        public FrameProcessor(Parser parser, int startFrame, int endFrame) { 
             this.Score = parser;
             this.startFrame = startFrame;
             this.endFrame = endFrame;
-            this.easeRate = easeRate;
             this.Frames = new List<Bitmap>();
+
+            Debug.WriteLine("frameprocessorはいったよ");
+        }
+
+        public FrameProcessor(Parser parser, int startFrame, int endFrame, Easing easing) {
+            this.Score = parser;
+            this.startFrame = startFrame;
+            this.endFrame = endFrame;
+            this.Frames = new List<Bitmap>();
+            this._easing = easing;
 
             Debug.WriteLine("frameprocessorはいったよ");
         }
@@ -33,8 +43,12 @@ namespace EasyOjima.Score.Processing {
                 var _reqFrame = note.ActualFrameLength;
                 var _frameBase = ConvertFrameSize(_frameRange, _reqFrame);
 
+                //一時的においておく、イージング用
+                var _tempFrames = new List<Bitmap>();
+
                 if (_type == NoteType.SEI) {
                     var _frameCounter = 0;
+                   
                     for (int i = 0; i < _frameBase.Count; i++) {
                         Debug.WriteLine($"Process SEI {_frameCounter}, {i}/{_reqFrame}");
                         var _currentVideoFrame = startFrame - 1 + _frameCounter;
@@ -42,13 +56,13 @@ namespace EasyOjima.Score.Processing {
                         if (_frameBase[i] == 2) {
                             Debug.WriteLine($"Process 2");
                             var _mid = FrameInterpolator.GetMiddleFrame(
-                                this.Frames[this.Frames.Count - 1],
+                                _tempFrames[_tempFrames.Count - 1],
                                 video.GetFrame(_currentVideoFrame)
                                 );
-                            this.Frames.Add(_mid);
+                            _tempFrames.Add(_mid);
                             continue;
                         } else if (_frameBase[i] != 0) {
-                            this.Frames.Add(video.GetFrame(_currentVideoFrame));
+                            _tempFrames.Add(video.GetFrame(_currentVideoFrame));
                         }
 
                         _frameCounter++;
@@ -62,18 +76,24 @@ namespace EasyOjima.Score.Processing {
                         if (_frameBase[i] == 2) {
                             Debug.WriteLine($"Process 2");
                             var _mid = FrameInterpolator.GetMiddleFrame(
-                                this.Frames[this.Frames.Count - 1],
+                                _tempFrames[_tempFrames.Count - 1],
                                 video.GetFrame(_currentVideoFrame)
                                 );
-                            this.Frames.Add(_mid);
+                            _tempFrames.Add(_mid);
                             continue;
                         } else if (_frameBase[i] != 0) {
-                            this.Frames.Add(video.GetFrame(_currentVideoFrame));
+                            _tempFrames.Add(video.GetFrame(_currentVideoFrame));
                         }
 
                         _frameCounter--;
                     }
                 }
+
+                if (this._easing != null) {
+                    Debug.WriteLine($"easing... {_easing.Selected.Name}");
+                    _easing.Ease(ref _tempFrames);
+                }
+                this.Frames.AddRange(_tempFrames);
             }
             Debug.WriteLine(Score.Tokens.Count);
         }
@@ -92,7 +112,7 @@ namespace EasyOjima.Score.Processing {
             if (actualSize == reqSize)
                 return _base;
             if (actualSize > reqSize) {
-                _base = GetFrameBase(actualSize, easeRate);
+                _base = GetFrameBase(actualSize);
                 var _counter = 1;
                 while (_base.Where(c => c == 1).Count() != reqSize) {
                     if (_base.Where(c => c == 1).Count() > reqSize) {
@@ -117,7 +137,8 @@ namespace EasyOjima.Score.Processing {
             return _base.ToList();
         }
 
-        public static List<int> GetFrameBase(int size, int easeRate) { //TODO: イージング
+        public static List<int> GetFrameBase(int size) { //TODO: イージング
+            var easeRate = 0;
             var _base = Enumerable.Repeat(0, size).ToArray();
             double _rate = Math.Abs(easeRate) / 100;
             if (easeRate > 0) {

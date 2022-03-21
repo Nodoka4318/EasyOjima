@@ -23,6 +23,10 @@ namespace EasyOjima.Forms {
             this.FormClosing += ControlPanel_FormClosing;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(ControlPanel_KeyDown);
+
+            foreach (var e in new Easing().EasingList) {
+                this.easingTypeBox.Items.Add(e.Name);
+            }
         }
 
         private void ControlPanel_KeyDown(object sender, KeyEventArgs e) {
@@ -121,7 +125,6 @@ namespace EasyOjima.Forms {
         int beginFrame;
         int endFrame;
         double fps;
-        int easeRate;
         string easingType;
         int frameDensityRate;
         int frameInterpolationRate;
@@ -145,16 +148,9 @@ namespace EasyOjima.Forms {
                 beginFrame = int.Parse(BeginFrameBox.Text);
                 endFrame = int.Parse(EndFrameBox.Text);
                 fps = Program.mainView.video.FrameRate;
-                easeRate = (int)easingRateUpDown.Value;
                 easingType = this.easingTypeBox.Text;
                 frameDensityRate = (int)this.frameDensityBox.Value;
                 frameInterpolationRate = (int)this.frameInterpolationBox.Value;
-
-                if (easingType == "イーズアウト") {
-                    easeRate = -easeRate;
-                } else if (easingType != "イーズイン") {
-                    easeRate = 0;
-                }
 
                 if (!useFrameInterpolationCheck.Enabled) {
                     frameInterpolationRate = 1;
@@ -182,7 +178,7 @@ namespace EasyOjima.Forms {
                     bpm, 
                     beginFrame, 
                     endFrame, 
-                    easeRate, 
+                    easingType, 
                     frameDensityRate, 
                     frameInterpolationRate
                     );
@@ -193,6 +189,17 @@ namespace EasyOjima.Forms {
             //} catch (Exception ex) {
             //    MessageUtil.ErrorMessage(ex.Message);
             //}           
+        }
+
+        private void showEasingGraphsButton_Click(object sender, EventArgs e) {
+            var dialog = new Form() {
+                Text = "イージング一覧",
+                ShowIcon = false,
+                BackgroundImageLayout = ImageLayout.Zoom,
+                BackgroundImage = Resource.IMAGE_EASINGS,
+                Size = new Size(Resource.IMAGE_EASINGS.Width / 2, Resource.IMAGE_EASINGS.Height / 2)
+            };
+            dialog.Show(this);
         }
     }
 }

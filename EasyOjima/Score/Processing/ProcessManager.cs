@@ -10,7 +10,7 @@ namespace EasyOjima.Score.Processing {
         private int bpm;
         private int startFrame;
         private int endFrame;
-        private int easeRate;
+        private string easeType;
         private int frameDensityRate;
         private int interpolateRate;
 
@@ -19,12 +19,12 @@ namespace EasyOjima.Score.Processing {
         public LoadingDialog loadingDialog = new LoadingDialog("処理中です…", 4);
 
         //パラメーター多すぎて草
-        public ProcessManager(string score, int bpm, int startFrame, int endFrame, int easeRate, int frameDensityRate, int interpolateRate) {
+        public ProcessManager(string score, int bpm, int startFrame, int endFrame, string easeType, int frameDensityRate, int interpolateRate) {
             this.score = score;
             this.bpm = bpm;
             this.startFrame = startFrame;
             this.endFrame = endFrame;
-            this.easeRate = easeRate;
+            this.easeType = easeType;
             this.frameDensityRate = frameDensityRate;
             this.interpolateRate = interpolateRate;
         }
@@ -39,19 +39,24 @@ namespace EasyOjima.Score.Processing {
             loadingDialog.UpdateDialog(2);
             Parser ps = new Parser(sc, video.FrameRate * frameDensityRate);
             loadingDialog.UpdateDialog(3);
+
+            Easing easing = new Easing();
+            easing.Set(easeType);
+            easing = easing.Selected.Name == "Line" ? null : easing;
+
             if (interpolateRate == 1) {
                 this.Processor = new FrameProcessor(
                     ps, 
                     startFrame, 
-                    endFrame, 
-                    easeRate
+                    endFrame,
+                    easing
                     );
             } else {
                 this.Processor = new FrameProcessor(
                     ps,
                     startFrame * (int)Math.Pow(2, interpolateRate - 1),
                     endFrame * (int)Math.Pow(2, interpolateRate - 1) - 1,
-                    easeRate
+                    easing
                     );
             }
             Processor.Process(ref video);
