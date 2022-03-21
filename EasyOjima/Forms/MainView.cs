@@ -64,6 +64,13 @@ namespace EasyOjima.Forms {
                     controls.trackBar.Maximum = video.FrameSize - 1;
 
                     try {
+                        //フレーム密度の自動設定
+                        int i = 1;
+                        var fps = Program.mainView.video.FrameRate;
+                        while (i * fps < 100)
+                            i++;
+                        this.controls.frameDensityBox.Value = i;
+
                         this.controls.Show(this);
                     } catch { }
 

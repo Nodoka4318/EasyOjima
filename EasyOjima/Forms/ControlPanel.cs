@@ -29,6 +29,10 @@ namespace EasyOjima.Forms {
             }
         }
 
+        private void ControlPanel_Load(object sender, EventArgs e) {
+            
+        }
+
         private void ControlPanel_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
                 if (Program.mainView.isPlaying) {
@@ -200,6 +204,6 @@ namespace EasyOjima.Forms {
                 Size = new Size(Resource.IMAGE_EASINGS.Width / 2, Resource.IMAGE_EASINGS.Height / 2)
             };
             dialog.Show(this);
-        }
+        }        
     }
 }

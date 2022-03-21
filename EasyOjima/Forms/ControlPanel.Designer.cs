@@ -384,6 +384,7 @@
             this.MinimumSize = new System.Drawing.Size(500, 200);
             this.Name = "ControlPanel";
             this.Text = "コントロール";
+            this.Load += new System.EventHandler(this.ControlPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -426,9 +427,9 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.CheckBox useFrameInterpolationCheck;
         private System.Windows.Forms.NumericUpDown frameInterpolationBox;
-        private System.Windows.Forms.NumericUpDown frameDensityBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button showEasingGraphsButton;
+        public System.Windows.Forms.NumericUpDown frameDensityBox;
     }
 }
