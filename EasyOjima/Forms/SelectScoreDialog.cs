@@ -13,12 +13,14 @@ using EasyOjima.Utils;
 namespace EasyOjima.Forms {
     public partial class SelectScoreDialog : Form {
         private List<string> scoreFiles;
+        private List<string> folders;
         public string ResultScore { get; private set; }
         public string ResultFileName { get; private set; }
 
         public SelectScoreDialog() {
             InitializeComponent();
             this.FormClosing += SelectScoreDialog_FormClosing;
+            this.rootFolderBox.TextChanged += rootFolderBox_SelectedIndexChanged;
         }
 
         private void SelectScoreDialog_FormClosing(object sender, FormClosingEventArgs e) {
@@ -35,6 +37,10 @@ namespace EasyOjima.Forms {
                 foreach (string file in scoreFiles) {
                     listBox1.Items.Add(file);
                 }
+
+                folders = Directory.GetDirectories(Loc.SCORES).Select(c => c.Replace($@"{Loc.SCORES}\", "")).ToList();
+                if (folders.Count != 0)
+                    rootFolderBox.Items.AddRange(folders.ToArray());
             } catch (Exception ex) {
                 MessageUtil.ErrorMessage(ex.Message);
                 this.Dispose();
@@ -54,6 +60,20 @@ namespace EasyOjima.Forms {
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {
             //何もなし
-        }       
+        }
+
+        private void rootFolderBox_SelectedIndexChanged(object sender, EventArgs e) {
+            var selectedFolder = rootFolderBox.Text;
+            if (selectedFolder == "<root>") {
+                listBox1.Items.Clear();
+                listBox1.Items.AddRange(scoreFiles.ToArray());
+                return;
+            }
+
+            var selectedScores = scoreFiles.Where(c => c.Contains($@"{Loc.SCORES}\{selectedFolder}\")).ToList();
+
+            listBox1.Items.Clear();
+            listBox1.Items.AddRange(selectedScores.ToArray());
+        }
     }
 }
