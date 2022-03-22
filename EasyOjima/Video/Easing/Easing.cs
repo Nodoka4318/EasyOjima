@@ -49,7 +49,7 @@ namespace EasyOjima.Video {
                     return;
                 }
             }
-            this.Selected = new Line();
+            this.Selected = new Linear();
             return;
         }
 

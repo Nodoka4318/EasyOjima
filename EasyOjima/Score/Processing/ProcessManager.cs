@@ -42,7 +42,7 @@ namespace EasyOjima.Score.Processing {
 
             Easing easing = new Easing();
             easing.Set(easeType);
-            easing = easing.Selected.Name == "Line" ? null : easing;
+            easing = easing.Selected.Name == "Linear" ? null : easing;
 
             if (interpolateRate == 1) {
                 this.Processor = new FrameProcessor(

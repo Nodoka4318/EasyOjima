@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace EasyOjima.Video {
-    public class Line : IEasing {
-        public string Name => "Line";
+    public class Linear : IEasing {
+        public string Name => "Linear";
         public double Calc(double x) => x;
     }
 }
