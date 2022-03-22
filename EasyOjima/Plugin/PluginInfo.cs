@@ -1,4 +1,5 @@
 ﻿using EasyOjima.Enums;
+using EasyOjima.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -59,10 +60,10 @@ namespace EasyOjima.Plugin {
         }
 
         /// <summary>
-        /// 特定の属性を持ったメソッドを実行しちゃいます
+        /// 特定の属性を持ったメソッドを別スレッドで実行しちゃいます
         /// </summary>
         /// <param name="attType">属性の型</param>
-        public static void InvokeEvent(Type attType, IPlugin[] plugins) {
+        public static void InvokeEventAsync(Type attType, IPlugin[] plugins) {
             if (plugins == null)
                 return;
             //var plugins = Program.mainView.plugins; なぜか動かん
@@ -82,6 +83,85 @@ namespace EasyOjima.Plugin {
                             })).Start();
                             return Task.CompletedTask;
                         });
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 特定の属性を持ったメソッドを引数付きで別スレッドで実行しちゃいます
+        /// </summary>
+        /// <param name="attType">属性の型</param>
+        public static void InvokeEventAsync(Type attType, object[] args, IPlugin[] plugins) {
+            if (plugins == null)
+                return;
+            foreach (var p in plugins) {
+                var mi = p.GetType().GetMethods()
+                    .Where(m => {
+                        var atts = m.CustomAttributes;
+                        return atts.Select(a => a.AttributeType).Contains(attType);
+                    })
+                    .ToList();
+                if (mi != null) {
+                    foreach (var m in mi) {
+                        WorkBackground(() => {
+                            new Thread(new ThreadStart(() => {
+                                try {
+                                    m.Invoke(p, args);
+                                } catch (Exception ex) {
+                                    MessageUtil.ErrorMessage(ex.Message);
+                                }
+                            })).Start();
+                            return Task.CompletedTask;
+                        });
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 特定の属性を持ったメソッドを実行しちゃいます
+        /// </summary>
+        /// <param name="attType">属性の型</param>
+        public static void InvokeEvent(Type attType, IPlugin[] plugins) {
+            if (plugins == null)
+                return;
+            foreach (var p in plugins) {
+                var mi = p.GetType().GetMethods()
+                    .Where(m => {
+                        var atts = m.CustomAttributes;
+                        return atts.Select(a => a.AttributeType).Contains(attType);
+                    })
+                    .ToList();
+                if (mi != null) {
+                    foreach (var m in mi) {
+                        m.Invoke(p, null);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 特定の属性を持ったメソッドを引数付きで実行しちゃいます
+        /// </summary>
+        /// <param name="attType">属性の型</param>
+        public static void InvokeEvent(Type attType, object[] args, IPlugin[] plugins) {
+            if (plugins == null)
+                return;
+            foreach (var p in plugins) {
+                var mi = p.GetType().GetMethods()
+                    .Where(m => {
+                        var atts = m.CustomAttributes;
+                        return atts.Select(a => a.AttributeType).Contains(attType);
+                    })
+                    .ToList();
+                if (mi != null) {
+                    foreach (var m in mi) {
+                        try {
+                            m.Invoke(p, args);
+                        } catch (Exception ex) {
+                            MessageUtil.ErrorMessage(ex.Message);
+                        }
                     }
                 }
             }

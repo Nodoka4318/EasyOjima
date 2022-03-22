@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SamplePlugin {
+namespace SamplePlugin_GrayscalePlugin {
     public class PluginMain : IPlugin {
         public string Name => "さんぷるぷらぐいん！";
         public string Description => "プラグインのサンプルだよ。\n動画をグレースケール化します。";

@@ -41,4 +41,10 @@ namespace EasyOjima.Plugin {
     /// 動画をエクスポートする直前に実行されるイベントです
     /// </summary>
     public class OnExportVideoEvent : EasyOjimaEventAttributes { }
+
+    /// <summary>
+    /// MainViewの、System.Drawingのpaintイベントです
+    /// この属性を使う場合、メソッドの引数に(object sender, PaintEventArgs e)を指定する必要があります
+    /// </summary>
+    public class OnPaintEvent : EasyOjimaEventAttributes { }
 }

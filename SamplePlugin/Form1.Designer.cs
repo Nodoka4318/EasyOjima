@@ -1,4 +1,4 @@
-﻿namespace SamplePlugin {
+﻿namespace SamplePlugin_GrayscalePlugin {
     partial class Form1 {
         /// <summary>
         ///  Required designer variable.

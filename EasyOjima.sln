@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyOjima", "EasyOjima\EasyOjima.csproj", "{C52B89D8-3381-415D-A613-F98A6F2A7F0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplePlugin", "SamplePlugin\SamplePlugin.csproj", "{35318A13-21B2-44C6-9130-6B77D60239C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplePlugin_GrayscalePlugin", "SamplePlugin\SamplePlugin_GrayscalePlugin.csproj", "{35318A13-21B2-44C6-9130-6B77D60239C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplePlugin_WatermarkPlugin", "SamplePlugin_WatermarkPlugin\SamplePlugin_WatermarkPlugin.csproj", "{B486EDDE-3B45-4FB2-8F34-F0785630042A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{35318A13-21B2-44C6-9130-6B77D60239C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35318A13-21B2-44C6-9130-6B77D60239C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35318A13-21B2-44C6-9130-6B77D60239C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B486EDDE-3B45-4FB2-8F34-F0785630042A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B486EDDE-3B45-4FB2-8F34-F0785630042A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B486EDDE-3B45-4FB2-8F34-F0785630042A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B486EDDE-3B45-4FB2-8F34-F0785630042A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

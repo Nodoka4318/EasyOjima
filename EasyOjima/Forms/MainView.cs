@@ -29,7 +29,12 @@ namespace EasyOjima.Forms {
             this.FormClosing += MainView_FormClosing;
             this.拡張機能PToolStripMenuItem.DropDownItemClicked += 拡張機能PToolStripMenuItem_DropDownItemClicked;
             this.拡張機能PToolStripMenuItem.DropDown.ShowItemToolTips = true;
-        }       
+            this.ViewBox.Paint += ViewBox_Paint;
+        }
+
+        private void ViewBox_Paint(object sender, PaintEventArgs e) {
+            PluginInfo.InvokeEvent(typeof(OnPaintEvent), new object[] { sender, e }, plugins);
+        }
 
         private void MainView_FormClosing(object sender, FormClosingEventArgs e) {
             if (this.video == null || !Preference.Settings.Contains("askwhenclosing")) {
@@ -45,7 +50,7 @@ namespace EasyOjima.Forms {
                 }
             }
             //OnUnLoadEvent実行
-            PluginInfo.InvokeEvent(typeof(OnUnloadEvent), plugins);
+            PluginInfo.InvokeEventAsync(typeof(OnUnloadEvent), plugins);
         }
 
         private void 動画を読み込むToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -85,6 +90,7 @@ namespace EasyOjima.Forms {
            
             if (video.CurrentFrame < video.FrameSize - 1) {
                 ViewBox.Image = video.GetCurrentFrame();
+                ViewBox.Refresh();
                 controls.trackBar.Value = video.CurrentFrame;
                 controls.SetFrameLabelText(video.CurrentFrame + 1, video.FrameSize);
                 video.CurrentFrame++;
@@ -125,6 +131,7 @@ namespace EasyOjima.Forms {
             video.CurrentFrame = frame;
             controls.trackBar.Value = video.CurrentFrame;
             ViewBox.Image = video.GetCurrentFrame();
+            ViewBox.Refresh();
         }
 
         private void エクスポートToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -181,7 +188,7 @@ namespace EasyOjima.Forms {
                     plugins[i] = p;
                 }
                 //OnLoadEvent実行
-                PluginInfo.InvokeEvent(typeof(OnLoadEvent), plugins);
+                PluginInfo.InvokeEventAsync(typeof(OnLoadEvent), plugins);
             }
 
             this.拡張機能PToolStripMenuItem.DropDownItems.Add("-");
