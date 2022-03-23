@@ -82,7 +82,7 @@ namespace EasyOjima {
                         }
                     }
                 }
-            } catch { /*ネットにつながってないとき*/ }
+            } catch (WebException) { /*ネットにつながってないとき*/ }
         }
 
         static void CreateId() {

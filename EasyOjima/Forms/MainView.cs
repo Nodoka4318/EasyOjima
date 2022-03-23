@@ -13,6 +13,7 @@ using EasyOjima.Utils;
 using EasyOjima.Plugin;
 using System.Diagnostics;
 using EasyOjima.Enums;
+using System.IO;
 
 namespace EasyOjima.Forms {
     public partial class MainView : Form {
@@ -30,6 +31,93 @@ namespace EasyOjima.Forms {
             this.拡張機能PToolStripMenuItem.DropDownItemClicked += 拡張機能PToolStripMenuItem_DropDownItemClicked;
             this.拡張機能PToolStripMenuItem.DropDown.ShowItemToolTips = true;
             this.ViewBox.Paint += ViewBox_Paint;
+            this.AllowDrop = true;
+            this.DragDrop += MainView_DragDrop;
+            this.DragEnter += MainView_DragEnter;
+            this.ViewBox.MouseClick += ViewBox_MouseClick;
+        }
+
+        private void ViewBox_MouseClick(object sender, MouseEventArgs e) {
+            if (e.Button != MouseButtons.Right)
+                return;
+
+            var menu = new ContextMenuStrip();
+            menu.RenderMode = ToolStripRenderMode.System;
+            menu.Items.Add(new ToolStripMenuItem() {
+                Text = "画像として保存",
+                Enabled = this.video == null ? false : true
+            });
+            menu.Show(this.Location.X + e.Location.X, this.Location.Y + e.Location.Y);
+            menu.ItemClicked += ViewBox_ContextMenuStripItemClick;
+        }
+
+        private void ViewBox_ContextMenuStripItemClick(object sender, ToolStripItemClickedEventArgs e) {
+            var text = e.ClickedItem.Text;
+            e.ClickedItem.Dispose();
+            if (text == "画像として保存") {
+                using (var dlg = new SaveFileDialog() {
+                    Title = "画像として保存",
+                    Filter = "PNGイメージ|*.png"
+                }) {
+                    var result = dlg.ShowDialog();
+                    if (result == DialogResult.OK) {
+                        try {
+                            var image = ViewBox.Image;
+                            image.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                        } catch (Exception ex) {
+                            MessageUtil.ErrorMessage(ex.Message);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void MainView_DragEnter(object sender, DragEventArgs e) {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
+                var drags = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (drags.Length != 1)
+                    return;
+                foreach (string d in drags) {
+                    if (!File.Exists(d)) {
+                        return;
+                    }
+                }
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        private void MainView_DragDrop(object sender, DragEventArgs e) {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length != 1)
+                return;
+            var file = files[0];
+
+            try {
+                this.VideoPath = file;
+                this.video = new Video.Video(VideoPath);
+                this.video.Init();
+                ViewBox.Image = this.video.GetCurrentFrame();
+                playerTick.Interval = (int)(1000 / video.FrameRate);
+                controls.trackBar.Enabled = true;
+                controls.trackBar.Maximum = video.FrameSize - 1;
+
+                try {
+                    //フレーム密度の自動設定
+                    int i = 1;
+                    var fps = Program.mainView.video.FrameRate;
+                    while (i * fps < 100)
+                        i++;
+                    this.controls.frameDensityBox.Value = i;
+
+                    this.controls.Show(this);
+                } catch (InvalidOperationException) { /*既にコントロールが表示されていたとき*/ }
+
+                PluginInfo.InvokeEvent(typeof(OnLoadVideoEvent), plugins);
+            } catch (Exception ex) {
+                MessageUtil.ErrorMessage(ex.Message);
+                return;
+            }
         }
 
         private void ViewBox_Paint(object sender, PaintEventArgs e) {
@@ -60,9 +148,15 @@ namespace EasyOjima.Forms {
             }) {
                 DialogResult dialogResult = dlg.ShowDialog();
                 if (dialogResult == DialogResult.OK) {
-                    this.VideoPath = dlg.FileName;
-                    this.video = new Video.Video(VideoPath);
-                    this.video.Init();
+                    try {
+                        this.VideoPath = dlg.FileName;
+                        this.video = new Video.Video(VideoPath);
+                        this.video.Init();
+                    } catch (Exception ex) {
+                        MessageUtil.ErrorMessage(ex.Message);
+                        return;
+                    }
+
                     ViewBox.Image = this.video.GetCurrentFrame();
                     playerTick.Interval = (int)(1000 / video.FrameRate);
                     controls.trackBar.Enabled = true;
@@ -77,7 +171,7 @@ namespace EasyOjima.Forms {
                         this.controls.frameDensityBox.Value = i;
 
                         this.controls.Show(this);
-                    } catch { }
+                    } catch (InvalidOperationException) { /*既にコントロールが表示されていたとき*/ }
 
                     PluginInfo.InvokeEvent(typeof(OnLoadVideoEvent), plugins);
                 }
