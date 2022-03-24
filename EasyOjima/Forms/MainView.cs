@@ -113,7 +113,7 @@ namespace EasyOjima.Forms {
                     this.controls.Show(this);
                 } catch (InvalidOperationException) { /*既にコントロールが表示されていたとき*/ }
 
-                PluginInfo.InvokeEvent(typeof(OnLoadVideoEvent), plugins);
+                PluginInfo.InvokeEvent(typeof(OnLoadVideoEventAttribute), plugins);
             } catch (Exception ex) {
                 MessageUtil.ErrorMessage(ex.Message);
                 return;
@@ -121,13 +121,13 @@ namespace EasyOjima.Forms {
         }
 
         private void ViewBox_Paint(object sender, PaintEventArgs e) {
-            PluginInfo.InvokeEvent(typeof(OnPaintEvent), new object[] { sender, e }, plugins);
+            PluginInfo.InvokeEvent(typeof(OnPaintEventAttribute), new object[] { sender, e }, plugins);
         }
 
         private void MainView_FormClosing(object sender, FormClosingEventArgs e) {
             if (this.video == null || !Preference.Settings.Contains("askwhenclosing")) {
                 //OnUnLoadEvent実行
-                PluginInfo.InvokeEvent(typeof(OnUnloadEvent), plugins);
+                PluginInfo.InvokeEvent(typeof(OnUnloadEventAttribute), plugins);
                 return;
             }
             if (e.CloseReason == CloseReason.UserClosing) {
@@ -138,7 +138,7 @@ namespace EasyOjima.Forms {
                 }
             }
             //OnUnLoadEvent実行
-            PluginInfo.InvokeEventAsync(typeof(OnUnloadEvent), plugins);
+            PluginInfo.InvokeEventAsync(typeof(OnUnloadEventAttribute), plugins);
         }
 
         private void 動画を読み込むToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -173,7 +173,7 @@ namespace EasyOjima.Forms {
                         this.controls.Show(this);
                     } catch (InvalidOperationException) { /*既にコントロールが表示されていたとき*/ }
 
-                    PluginInfo.InvokeEvent(typeof(OnLoadVideoEvent), plugins);
+                    PluginInfo.InvokeEvent(typeof(OnLoadVideoEventAttribute), plugins);
                 }
             }
         }
@@ -189,7 +189,7 @@ namespace EasyOjima.Forms {
                 controls.SetFrameLabelText(video.CurrentFrame + 1, video.FrameSize);
                 video.CurrentFrame++;
 
-                PluginInfo.InvokeEvent(typeof(OnFrameUpdateEvent), plugins);
+                PluginInfo.InvokeEvent(typeof(OnFrameUpdateEventAttribute), plugins);
             } else {
                 video.CurrentFrame = 0;
                 this.isPlaying = false;
@@ -200,7 +200,7 @@ namespace EasyOjima.Forms {
 
         public void PlayVideo() {
             //OnPlayEvent実行
-            PluginInfo.InvokeEvent(typeof(OnPlayEvent), plugins);
+            PluginInfo.InvokeEvent(typeof(OnPlayEventAttribute), plugins);
             this.isPlaying = true;
             this.playerTick.Start();
         }
@@ -234,7 +234,7 @@ namespace EasyOjima.Forms {
                 return;
             }
 
-            PluginInfo.InvokeEvent(typeof(OnExportVideoEvent), plugins);
+            PluginInfo.InvokeEvent(typeof(OnExportVideoEventAttribute), plugins);
 
             using (var dlg = new SaveFileDialog() {
                 Title = "エクスポート",
@@ -282,7 +282,7 @@ namespace EasyOjima.Forms {
                     plugins[i] = p;
                 }
                 //OnLoadEvent実行
-                PluginInfo.InvokeEventAsync(typeof(OnLoadEvent), plugins);
+                PluginInfo.InvokeEventAsync(typeof(OnLoadEventAttribute), plugins);
             }
 
             this.拡張機能PToolStripMenuItem.DropDownItems.Add("-");

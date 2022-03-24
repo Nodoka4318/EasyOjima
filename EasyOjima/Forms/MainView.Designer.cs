@@ -164,8 +164,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox ViewBox;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 動画を読み込むToolStripMenuItem;
@@ -178,5 +176,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 拡張機能PToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip1;
+        internal System.Windows.Forms.PictureBox ViewBox;
     }
 }

@@ -17,6 +17,26 @@ namespace EasyOjima.Plugin {
         public string AppVersion => Program.VERSION;
 
         /// <summary>
+        /// メインウインドウの座標です
+        /// </summary>
+        public Point MainViewLocation => Program.mainView.Location;
+
+        /// <summary>
+        /// メインウインドウの再生窓の座標です
+        /// </summary>
+        public Point ViewBoxLocation => Program.mainView.ViewBox.Location;
+
+        /// <summary>
+        /// 動画が再生中かどうかを示します
+        /// </summary>
+        public bool IsPlaying => Program.mainView.isPlaying;
+
+        /// <summary>
+        /// 読み込まれたプラグインです
+        /// </summary>
+        public IPlugin[] LoadedPlugins => Program.mainView.plugins;
+
+        /// <summary>
         /// MainViewの動画を差し替えます
         /// </summary>
         /// <param name="video">差し替えたい動画</param>
@@ -75,5 +95,24 @@ namespace EasyOjima.Plugin {
                 throw new Exception("フレームが大きすぎます");
             Program.mainView.SetFrame(index);
         }
+
+        /// <summary>
+        /// 動画の指定したフレームを取り出します
+        /// </summary>
+        /// <param name="index">フレームのインデックス番号</param>
+        /// <returns>指定したインデックス番号のフレーム</returns>
+        public Bitmap GetFrame(int index) => Program.mainView.video.GetFrame(index);
+
+        /// <summary>
+        /// 動画の指定したフレームを置き換えます
+        /// </summary>
+        /// <param name="index">置き換えたいのインデックス番号</param>
+        /// <param name="frame">置き換えたいフレーム</param>
+        public void ReplaceFrame(int index, Bitmap frame) => Program.mainView.video.frames[index] = frame;
+
+        /// <summary>
+        /// メインウインドウの再生窓を再読み込みします
+        /// </summary>
+        public void RefreshViewBox() => Program.mainView.ViewBox.Refresh(); 
     }
 }
