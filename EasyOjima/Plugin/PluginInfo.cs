@@ -31,7 +31,7 @@ namespace EasyOjima.Plugin {
             if (!Directory.Exists(folder))
                 return new PluginInfo[] { };
 
-            string[] dlls = Directory.GetFiles(folder, "*.dll");
+            string[] dlls = Directory.GetFiles(folder, "*.dll", SearchOption.AllDirectories);
 
             foreach (string dll in dlls) {
                 try {
