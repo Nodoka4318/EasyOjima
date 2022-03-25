@@ -114,5 +114,14 @@ namespace EasyOjima.Plugin {
         /// メインウインドウの再生窓を再読み込みします
         /// </summary>
         public void RefreshViewBox() => Program.mainView.ViewBox.Refresh(); 
+
+        /// <summary>
+        /// 現在のコントロールに楽譜をセットします
+        /// </summary>
+        /// <param name="score">楽譜</param>
+        /// <param name="title">名前</param>
+        public void SetScore(string score, string title) {
+            Program.mainView.controls.SetScore(score, title);
+        }
     }
 }

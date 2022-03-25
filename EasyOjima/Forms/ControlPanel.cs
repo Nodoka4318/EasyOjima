@@ -204,6 +204,13 @@ namespace EasyOjima.Forms {
                 Size = new Size(Resource.IMAGE_EASINGS.Width / 2, Resource.IMAGE_EASINGS.Height / 2)
             };
             dialog.Show(this);
-        }        
+        }
+        
+        //プラグイン用
+        public void SetScore(string scoreText, string title) {
+            this.ScoreText = scoreText;
+            selectedScoreLabel.Text = title;
+            selectedScoreLabel.Update();
+        }
     }
 }
