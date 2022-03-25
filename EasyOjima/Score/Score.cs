@@ -11,7 +11,25 @@ namespace EasyOjima.Score {
         public int Bpm { get; private set; }
 
         public Score(string source, int bpm) {
-            this.Source = source.ToCharArray().Where(
+            bool isComment = false;
+            var _tempLits = new List<char>();
+            //コメントアウト飛ばし読み
+            foreach (var c in source) {
+                if (isComment) {
+                    if (c == ')')
+                        isComment = false;
+                    continue;
+                }
+
+                if (c == '(') {
+                    isComment = true;
+                    continue;
+                }
+
+                _tempLits.Add(c);
+            }
+
+            this.Source = _tempLits.Where(
                 c => AllowedToken.Contains(c)
                 ).ToList();
             this.Length = this.Source.Count;

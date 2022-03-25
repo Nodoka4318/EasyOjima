@@ -34,6 +34,18 @@ namespace EasyOjima.Score.Processing {
                 var _lit = Score.GetChar(i);
                 double _relLength = 0;
                 NoteType _type;
+
+                //休符
+                if (_lit == '~') {
+                    _relLength = 0.5;
+                    var reqLength = (int)Math.Round(ToActualFrameLength(_relLength));
+                    _type = NoteType.YASUMI;
+                    Tokens.Add(new Token(_type, reqLength, _relLength));
+                    if (i != Score.Length - 1 && Score.GetChar(i + 1) == '-')
+                        throw new Exception("楽譜の解析に失敗しました。\n休符を伸ばすことはできません。");
+                    continue;
+                }
+
                 //ハイフン先読み
                 if (_lit != '-' && i != Score.Length - 1) {
                     //Debug.WriteLine("b");
@@ -56,16 +68,7 @@ namespace EasyOjima.Score.Processing {
                         throw new Exception($"楽譜の解析に失敗しました\nindex: {i}");
                     }
                 }
-
-                //休符
-                if (_lit == '~') {
-                    _relLength = 0.5;
-                    var reqLength = (int)Math.Round(ToActualFrameLength(_relLength));
-                    _type = NoteType.YASUMI;
-                    Tokens.Add(new Token(_type, reqLength, _relLength));
-                    continue;
-                }
-                
+                               
                 _type = GetType(_lit);
                 _relLength += GetRelLength(_lit);
                 var _reqLength = (int)Math.Round(ToActualFrameLength(_relLength));
