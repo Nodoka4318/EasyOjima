@@ -14,20 +14,28 @@ namespace EasyOjima.Score {
             bool isComment = false;
             var _tempLits = new List<char>();
             //コメントアウト飛ばし読み
-            foreach (var c in source) {
+            for (int i = 0; i < source.Length; i++) {
+                var c = source[i];
                 if (isComment) {
                     if (c == ')')
                         isComment = false;
+                    else if (c == '(')
+                        throw new Exception($"コメント中に丸括弧「()」を含めることはできません。\nindex: {i}");
                     continue;
                 }
 
                 if (c == '(') {
                     isComment = true;
                     continue;
+                } else if (c == ')') {
+                    throw new Exception($"コメントの始まり「(」がありません。\nindex: {i}");
                 }
 
                 _tempLits.Add(c);
             }
+
+            if (isComment)
+                throw new Exception($"コメントの終わり「)」がありません。\nindex: {source.Length - 1}");
 
             this.Source = _tempLits.Where(
                 c => AllowedToken.Contains(c)
