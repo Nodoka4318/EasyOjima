@@ -87,9 +87,13 @@ namespace EasyOjima.Score.Processing {
 
                         _frameCounter--;
                     }
+                } else if (_type == NoteType.YASUMI) {
+                    _tempFrames.AddRange(
+                        Enumerable.Repeat(this.Frames[this.Frames.Count - 1], _reqFrame)
+                        );
                 }
 
-                if (this._easing != null) {
+                if (this._easing != null && _type != NoteType.YASUMI) {
                     Debug.WriteLine($"easing... {_easing.Selected.Name}");
                     _easing.Ease(ref _tempFrames);
                 }

@@ -59,7 +59,10 @@ namespace EasyOjima.Score.Processing {
 
                 //休符
                 if (_lit == '~') {
-                    //TODO: 休符の実装
+                    _relLength = 0.5;
+                    var reqLength = (int)Math.Round(ToActualFrameLength(_relLength));
+                    _type = NoteType.YASUMI;
+                    Tokens.Add(new Token(_type, reqLength, _relLength));
                     continue;
                 }
                 

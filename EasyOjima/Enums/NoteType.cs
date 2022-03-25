@@ -6,8 +6,7 @@ namespace EasyOjima.Enums {
     public enum NoteType {
         SEI,
         FU,
-        YASUMI_ATAMA,
-        YASUMI_USHIRO,
+        YASUMI,
         ILLEGAL
     }
 }
