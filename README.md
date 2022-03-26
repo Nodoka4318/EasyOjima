@@ -23,13 +23,14 @@
 <!--
 <strong>このリポジトリのファイルだけで作ることは可能ですが、準備が面倒な方は`@Nodoka_Oto_Mad`(twiter)または`Nodoka#7342`(Discord)までDMください。テンプレートを押し付けます。</strong>
 -->
-
+プラグインは、C#、VB.NET、F#で作ることができます。
 ### つくりかた
 1. このリポジトリをローカルにクローン。
 2. `Resource`という名前でリソースを作り、`IMAGE_EASINGS`という名前の画像、`BUGREPORT_WEBHOOK`と`REQUEST_WEBHOOK`という名前の文字列を追加（適当でOK）。
 3. 同じソリューションに、好きな名前でプロジェクトを追加。
-4. `<プロジェクト名>.csproj`を以下のように編集。
+4. プロジェクトファイルを以下のように編集。
 ```xml
+<!--C#の場合-->
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
@@ -44,8 +45,29 @@
 
 </Project>
 ```
-5. `PluginMain.cs`（名前はなんでもOK）を追加して、以下のように編集。
+```xml
+<!--VB.NETの場合-->
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>プロジェクト名</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+    <ProjectReference Include="..\EasyOjima\EasyOjima.csproj" />
+  </ItemGroup>
+
+</Project>
+```
+5. プラグインのメインファイル（名前はなんでもOK）を追加して、以下のように編集。
 ```csharp
+// PluginMain.cs
 using EasyOjima.Plugin;
 
 namespace プラグイン名 {
@@ -61,6 +83,24 @@ namespace プラグイン名 {
         }
     }
 }
+```
+```vb.net
+' PluginMain.vb
+Imports EasyOjima.Plugin
+
+Public Class PluginMain
+    Implements IPlugin
+
+    Public ReadOnly Property Name As String = "表示させたいプラグイン名" Implements IPlugin.Name
+    Public ReadOnly Property Author As String = "作者" Implements IPlugin.Author
+    Public ReadOnly Property Description As String = "プラグインの説明" Implements IPlugin.Description
+    Public Property Host As PluginHost Implements IPlugin.Host
+    
+    ' プラグインのエントリポイント
+    Public Sub Run() Implements IPlugin.Run
+        ' 処理
+    End Sub
+End Class
 ```
 6. ビルド
 
