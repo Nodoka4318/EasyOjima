@@ -34,13 +34,13 @@
             this.listBox1.ItemHeight = 15;
             this.listBox1.Location = new System.Drawing.Point(12, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(560, 199);
+            this.listBox1.Size = new System.Drawing.Size(260, 199);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // selectButton
             // 
-            this.selectButton.Location = new System.Drawing.Point(454, 217);
+            this.selectButton.Location = new System.Drawing.Point(154, 217);
             this.selectButton.Name = "selectButton";
             this.selectButton.Size = new System.Drawing.Size(118, 32);
             this.selectButton.TabIndex = 1;
@@ -53,7 +53,7 @@
             this.rootFolderBox.FormattingEnabled = true;
             this.rootFolderBox.Items.AddRange(new object[] {
             "<root>"});
-            this.rootFolderBox.Location = new System.Drawing.Point(312, 223);
+            this.rootFolderBox.Location = new System.Drawing.Point(12, 223);
             this.rootFolderBox.Name = "rootFolderBox";
             this.rootFolderBox.Size = new System.Drawing.Size(136, 23);
             this.rootFolderBox.TabIndex = 2;
@@ -64,14 +64,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 261);
+            this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.rootFolderBox);
             this.Controls.Add(this.selectButton);
             this.Controls.Add(this.listBox1);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(600, 300);
+            this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(600, 300);
+            this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "SelectScoreDialog";
             this.Text = "楽譜を選択";
             this.Load += new System.EventHandler(this.SelectScoreDialog_Load);
