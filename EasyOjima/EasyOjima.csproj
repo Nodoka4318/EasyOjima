@@ -14,7 +14,12 @@
     <RepositoryUrl>https://github.com/Nodoka4318/EasyOjima</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageIcon></PackageIcon>
+    <ApplicationIcon>Resources\icon-64px.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\icon-64px.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="OpenCvSharp3-AnyCPU" Version="4.0.0.20181129" />

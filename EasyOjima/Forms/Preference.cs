@@ -20,6 +20,7 @@ namespace EasyOjima.Forms {
 
         public Preference() {
             InitializeComponent();
+            this.ShowIcon = false;
         }
 
         private void Preference_Load(object sender, EventArgs e) {

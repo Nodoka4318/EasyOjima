@@ -18,6 +18,7 @@ namespace EasyOjima.Forms {
 
         public ControlPanel() {
             InitializeComponent();
+            this.Icon = Resource.ICON_16;
             trackBar.Minimum = 0;
             trackBar.Enabled = false;
             this.FormClosing += ControlPanel_FormClosing;

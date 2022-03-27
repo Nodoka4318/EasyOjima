@@ -10,6 +10,7 @@ namespace EasyOjima.Forms {
     public partial class LoadingDialog : Form {
         public LoadingDialog(string message, int maxFrame) {
             InitializeComponent();
+            this.ShowIcon = false;
             FormClosing += LoadingDialog_FormClosing;
             label1.Text = message;
             label1.Update();

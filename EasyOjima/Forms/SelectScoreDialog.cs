@@ -19,6 +19,7 @@ namespace EasyOjima.Forms {
 
         public SelectScoreDialog() {
             InitializeComponent();
+            this.ShowIcon = false;
             this.FormClosing += SelectScoreDialog_FormClosing;
             this.rootFolderBox.TextChanged += rootFolderBox_SelectedIndexChanged;
         }

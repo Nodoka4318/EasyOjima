@@ -13,6 +13,7 @@ namespace EasyOjima.Forms {
     public partial class ReportDialog : Form {
         public ReportDialog() {
             InitializeComponent();
+            this.Icon = Resource.ICON_16;
             this.typeBox.TextChanged += typeBox_SelectedIndexChanged;
         }
 

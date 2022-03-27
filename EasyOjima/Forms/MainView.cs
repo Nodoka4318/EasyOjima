@@ -35,6 +35,7 @@ namespace EasyOjima.Forms {
             this.DragDrop += MainView_DragDrop;
             this.DragEnter += MainView_DragEnter;
             this.ViewBox.MouseClick += ViewBox_MouseClick;
+            this.Icon = Resource.ICON_64;
         }
 
         private void ViewBox_MouseClick(object sender, MouseEventArgs e) {
