@@ -36,8 +36,15 @@ namespace EasyOjima.Score.Processing {
                 NoteType _type;
 
                 //休符
-                if (_lit == '~') {
-                    _relLength = 0.5;
+                if (_lit == '_' || _lit == 's' || _lit == 'r') {
+                    switch (_lit) {
+                        case '_':
+                            _relLength = 4; break;
+                        case 's':
+                            _relLength = 1; break;
+                        case 'r':
+                            _relLength = 0.5; break;
+                    }
                     var reqLength = (int)Math.Round(ToActualFrameLength(_relLength));
                     _type = NoteType.YASUMI;
                     Tokens.Add(new Token(_type, reqLength, _relLength));
@@ -164,6 +171,9 @@ namespace EasyOjima.Score.Processing {
         private double GetRelLength(char lit) {
             double _rel;
             switch (lit) {
+                case 'o':
+                case 'c':
+                    _rel = 4; break;
                 case 'd':
                 case 'b':
                     _rel = 1; break;
@@ -181,9 +191,11 @@ namespace EasyOjima.Score.Processing {
             switch (lit) {
                 case 'd':
                 case 'q':
+                case 'o':
                     _type = NoteType.SEI; break;
                 case 'b':
                 case 'p':
+                case 'c':
                     _type = NoteType.FU; break;
                 default:
                     _type = NoteType.ILLEGAL; break;
