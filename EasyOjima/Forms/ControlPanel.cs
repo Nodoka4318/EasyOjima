@@ -21,6 +21,7 @@ namespace EasyOjima.Forms {
             this.Icon = Resource.ICON_16;
             trackBar.Minimum = 0;
             trackBar.Enabled = false;
+
             this.FormClosing += ControlPanel_FormClosing;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(ControlPanel_KeyDown);
@@ -31,11 +32,12 @@ namespace EasyOjima.Forms {
         }
 
         private void ControlPanel_Load(object sender, EventArgs e) {
-            
+            //何もなし
         }
 
         private void ControlPanel_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Space) {
+                this.label1.Select();
                 if (Program.mainView.isPlaying) {
                     Program.mainView.PauseVideo();
                 } else {
