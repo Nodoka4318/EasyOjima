@@ -7,7 +7,7 @@
 詳しくは[**こちら**](https://www.kankantari.net/EasyOjima)
 
 ## 使い方
-< 解説動画を作成中… >
+[説明動画](https://youtu.be/cOVb5Tohcxk)
 
 ## ダウンロード
 
