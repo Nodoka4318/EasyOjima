@@ -15,6 +15,7 @@ namespace EasyOjima.Enums {
         //ファイル
         public static readonly string PREFERENCE = $@"{APPCONF}\conf";
         public static readonly string IDENT = $@"{APPCONF}\hw";
+        public static readonly string NOTIFYHISTORY = $@"{APPCONF}\nthistory";
 
         public static List<string> Locs {
             get {
@@ -33,6 +34,7 @@ namespace EasyOjima.Enums {
                 var _temp = new List<string>();
                 _temp.Add(PREFERENCE);
                 _temp.Add(IDENT);
+                _temp.Add(NOTIFYHISTORY);
                 return _temp;
             }
         }

@@ -33,6 +33,7 @@ namespace EasyOjima {
             }
 
             CheckUpdate();
+            Notify();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
@@ -82,6 +83,8 @@ namespace EasyOjima {
                         }
                     }
                 }
+
+                web.Dispose();
             } catch (WebException) { /*ネットにつながってないとき*/ }
         }
 
@@ -98,6 +101,47 @@ namespace EasyOjima {
                 UseShellExecute = true,
             };
             return Process.Start(pi);
+        }
+
+        static void Notify() {
+            if (!File.Exists(Loc.NOTIFYHISTORY))
+                FileUtil.CreateTextFile(Loc.NOTIFYHISTORY);
+
+            string remote = @"https://raw.githubusercontent.com/Nodoka4318/Nodoka4318/main/data/EasyOjimaNotify.txt";
+            try {
+                var web = new WebClient();
+                var st = web.OpenRead(remote);
+                var sr = new StreamReader(st);
+                var lines = sr.ReadToEnd().Replace("\r\n", "\n").Split(new[] { '\n', '\r' });
+
+                var hsr = new StreamReader(Loc.NOTIFYHISTORY);
+                var history = hsr.ReadToEnd().Replace("\r\n", "\n").Split(new[] { '\n', '\r' });
+
+                string notification = "";
+                string historyToWrite = "";
+                for (int i = 0; i < lines.Length; i++) {
+                    var line = lines[i];
+                    var words = line.Split(' ');
+
+                    if (words[0] == "ID") {
+                        if (!history.Contains(words[1])) {
+                            var msg = string.Join("\n", lines[i + 1].Split("<br>").Select(s => " - " + s));
+                            notification += $"{words[2]}\n{msg}\n\n";
+
+                            historyToWrite += $"{words[1]}\n";
+                        }
+                    }
+                }
+
+                web.Dispose();
+                hsr.Dispose();
+                sr.Dispose();
+
+                if (notification != "") {
+                    File.AppendAllText(Loc.NOTIFYHISTORY, historyToWrite);
+                    MessageUtil.InfoMessage($"**お知らせ**\n\n{notification}");
+                }
+            } catch (WebException) { /*ネットにつながってないとき*/ } 
         }
     }
 }
