@@ -311,7 +311,7 @@
             // 
             // frameInterpolationBox
             // 
-            this.frameInterpolationBox.Location = new System.Drawing.Point(107, 46);
+            this.frameInterpolationBox.Location = new System.Drawing.Point(100, 46);
             this.frameInterpolationBox.Maximum = new decimal(new int[] {
             5,
             0,
