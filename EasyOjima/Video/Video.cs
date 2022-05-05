@@ -17,6 +17,7 @@ namespace EasyOjima.Video {
         public double FrameRate { get; set; }
         public int Width { get; private set; }
         public int Heigth { get; private set; }
+        public bool isInitialized = false; // 動画のフレームが読み込まれたかどうか
 
         public Video(string path) {
             this.path = path;
@@ -28,6 +29,8 @@ namespace EasyOjima.Video {
             FrameRate = frameRate;
             Width = frames[0].Width;
             Heigth = frames[0].Height;
+
+            this.isInitialized = true;
         }
 
         /// <summary>
@@ -63,6 +66,7 @@ namespace EasyOjima.Video {
                 }
                 loadingDialog.Dispose();
                 //FrameSize = frames.Count;
+                this.isInitialized = true;
             }
         }
 
