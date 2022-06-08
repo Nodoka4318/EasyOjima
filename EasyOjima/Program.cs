@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace EasyOjima {
     internal static class Program {
-        public const string VERSION = "1.1.1ƒ¿";
+        public const string VERSION = "2.0.0ƒ¿";
         public static MainView mainView = new MainView();
 
         /// <summary>

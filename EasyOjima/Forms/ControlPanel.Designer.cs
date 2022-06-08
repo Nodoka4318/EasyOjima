@@ -51,6 +51,8 @@
             this.frameDensityBox = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.selectModeBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -214,6 +216,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.selectModeBox);
+            this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.EndFrameBox);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
@@ -366,6 +370,26 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "フレーム密度 (倍)";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(191, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 15);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "モード";
+            // 
+            // selectModeBox
+            // 
+            this.selectModeBox.FormattingEnabled = true;
+            this.selectModeBox.Items.AddRange(new object[] {
+            "通常",
+            "瞬間移動"});
+            this.selectModeBox.Location = new System.Drawing.Point(229, 45);
+            this.selectModeBox.Name = "selectModeBox";
+            this.selectModeBox.Size = new System.Drawing.Size(121, 23);
+            this.selectModeBox.TabIndex = 3;
+            // 
             // ControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -431,5 +455,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button showEasingGraphsButton;
         public System.Windows.Forms.NumericUpDown frameDensityBox;
+        private System.Windows.Forms.ComboBox selectModeBox;
+        private System.Windows.Forms.Label label3;
     }
 }
