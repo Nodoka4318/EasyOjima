@@ -4,6 +4,7 @@ using System.Text;
 using EasyOjima.Forms;
 using EasyOjima.Utils;
 using EasyOjima.Video;
+using EasyOjima.Enums;
 
 namespace EasyOjima.Score.Processing {
     public class ProcessManager {
@@ -14,13 +15,14 @@ namespace EasyOjima.Score.Processing {
         private string easeType;
         private int frameDensityRate;
         private int interpolateRate;
+        private Mode mode;
 
         public FrameProcessor Processor { get; private set; }
 
         public LoadingDialog loadingDialog = new LoadingDialog("処理中です…", 4);
 
         //パラメーター多すぎて草
-        public ProcessManager(string score, int bpm, int startFrame, int endFrame, string easeType, int frameDensityRate, int interpolateRate) {
+        public ProcessManager(string score, int bpm, int startFrame, int endFrame, string easeType, int frameDensityRate, int interpolateRate, Mode mode) {
             this.score = score;
             this.bpm = bpm;
             this.startFrame = startFrame;
@@ -28,6 +30,7 @@ namespace EasyOjima.Score.Processing {
             this.easeType = easeType;
             this.frameDensityRate = frameDensityRate;
             this.interpolateRate = interpolateRate;
+            this.mode = mode;
         }
 
         public void Process(Video.Video video) {

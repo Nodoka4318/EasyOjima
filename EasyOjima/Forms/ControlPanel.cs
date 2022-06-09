@@ -135,6 +135,7 @@ namespace EasyOjima.Forms {
         string easingType;
         int frameDensityRate;
         int frameInterpolationRate;
+        Mode mode;
 
         private void launchButton_Click(object sender, EventArgs e) {
             /*
@@ -158,6 +159,7 @@ namespace EasyOjima.Forms {
                 easingType = this.easingTypeBox.Text;
                 frameDensityRate = (int)this.frameDensityBox.Value;
                 frameInterpolationRate = (int)this.frameInterpolationBox.Value;
+                mode = selectModeBox.Text.GetModeFromName();
 
                 if (!useFrameInterpolationCheck.Enabled) {
                     frameInterpolationRate = 1;
@@ -187,7 +189,8 @@ namespace EasyOjima.Forms {
                     endFrame, 
                     easingType, 
                     frameDensityRate, 
-                    frameInterpolationRate
+                    frameInterpolationRate,
+                    mode
                     );
                 process.Process(Program.mainView.video);
                 Program.mainView.video.Dispose();
