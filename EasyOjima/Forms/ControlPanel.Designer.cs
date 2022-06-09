@@ -40,6 +40,8 @@
             this.launchButton = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.selectModeBox = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.showEasingGraphsButton = new System.Windows.Forms.Button();
@@ -51,8 +53,6 @@
             this.frameDensityBox = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.selectModeBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -230,6 +230,24 @@
             this.tabPage1.Text = "範囲設定";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // selectModeBox
+            // 
+            this.selectModeBox.FormattingEnabled = true;
+            this.selectModeBox.Location = new System.Drawing.Point(229, 45);
+            this.selectModeBox.Name = "selectModeBox";
+            this.selectModeBox.Size = new System.Drawing.Size(121, 23);
+            this.selectModeBox.TabIndex = 3;
+            this.selectModeBox.Text = "通常";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(191, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 15);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "モード";
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.openFolderButton);
@@ -369,26 +387,6 @@
             this.label6.Size = new System.Drawing.Size(88, 15);
             this.label6.TabIndex = 0;
             this.label6.Text = "フレーム密度 (倍)";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(191, 48);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 15);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "モード";
-            // 
-            // selectModeBox
-            // 
-            this.selectModeBox.FormattingEnabled = true;
-            this.selectModeBox.Items.AddRange(new object[] {
-            "通常",
-            "瞬間移動"});
-            this.selectModeBox.Location = new System.Drawing.Point(229, 45);
-            this.selectModeBox.Name = "selectModeBox";
-            this.selectModeBox.Size = new System.Drawing.Size(121, 23);
-            this.selectModeBox.TabIndex = 3;
             // 
             // ControlPanel
             // 

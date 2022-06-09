@@ -29,6 +29,11 @@ namespace EasyOjima.Forms {
             foreach (var e in new Easing().EasingList) {
                 this.easingTypeBox.Items.Add(e.Name);
             }
+
+            foreach (var o in ModeExtention.modes.Values) {
+                this.selectModeBox.Items.Add(o);
+            }
+            this.selectModeBox.Items.Remove("unknown");
         }
 
         private void ControlPanel_Load(object sender, EventArgs e) {
@@ -194,7 +199,12 @@ namespace EasyOjima.Forms {
                     );
                 process.Process(Program.mainView.video);
                 Program.mainView.video.Dispose();
-                Program.mainView.video = new Video.Video(process.Processor.Frames, (int)(fps * frameDensityRate * Math.Pow(2, frameInterpolationRate - 1)));
+                
+                if (mode == Mode.NORMAL) {
+                    Program.mainView.video = new Video.Video(process.Processor.Frames, (int)(fps * frameDensityRate * Math.Pow(2, frameInterpolationRate - 1)));
+                } else {
+                    Program.mainView.video = new Video.Video(process.Option.Selected.GetFrames(), (int)(fps * frameDensityRate * Math.Pow(2, frameInterpolationRate - 1)));
+                }
                 this.trackBar.Maximum = Program.mainView.video.FrameSize;
             } catch (Exception ex) {
                 MessageUtil.ErrorMessage(ex.Message);

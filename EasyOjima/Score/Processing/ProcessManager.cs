@@ -18,6 +18,7 @@ namespace EasyOjima.Score.Processing {
         private Mode mode;
 
         public FrameProcessor Processor { get; private set; }
+        public OptionManager Option { get; private set; }
 
         public LoadingDialog loadingDialog = new LoadingDialog("処理中です…", 4);
 
@@ -47,7 +48,7 @@ namespace EasyOjima.Score.Processing {
 
                 Easing easing = new Easing();
                 easing.Set(easeType);
-                easing = easing.Selected.Name == "Linear" ? null : easing;
+                //easing = easing.Selected.Name == "Linear" ? null : easing;
 
                 if (interpolateRate == 1) {
                     this.Processor = new FrameProcessor(
@@ -64,7 +65,15 @@ namespace EasyOjima.Score.Processing {
                         easing
                         );
                 }
-                Processor.Process(ref video);
+
+                if (mode == Mode.NORMAL) { //オプションなし通常
+                    Processor.Process(ref video);
+                } else { //オプションあり
+                    Option = new OptionManager(Processor);
+                    Option.Set(mode.GetName());
+                    Option.Process(ref video);
+                }
+
                 loadingDialog.UpdateDialog(4);
                 loadingDialog.Dispose();
             } catch (Exception ex) {

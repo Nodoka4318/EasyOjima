@@ -11,10 +11,10 @@ namespace EasyOjima.Score.Processing {
     public class FrameProcessor {
         public Parser Score { get; private set; }
         public List<Bitmap> Frames { get; set; }
-        private int startFrame;
-        private int endFrame;
+        public int startFrame;
+        public int endFrame;
 
-        private Easing _easing;
+        public Easing easing;
 
         public FrameProcessor(Parser parser, int startFrame, int endFrame) { 
             this.Score = parser;
@@ -24,18 +24,18 @@ namespace EasyOjima.Score.Processing {
 
             Debug.WriteLine("frameprocessorはいったよ");
         }
-
+        
         public FrameProcessor(Parser parser, int startFrame, int endFrame, Easing easing) {
             this.Score = parser;
             this.startFrame = startFrame;
             this.endFrame = endFrame;
             this.Frames = new List<Bitmap>();
-            this._easing = easing;
+            this.easing = easing;
 
             Debug.WriteLine("frameprocessorはいったよ");
         }
 
-        public void Process(ref Video.Video video) { 
+        public virtual void Process(ref Video.Video video) { 
             var _frameRange = endFrame - startFrame;
 
             foreach (var note in Score.Tokens) {
@@ -93,14 +93,15 @@ namespace EasyOjima.Score.Processing {
                         );
                 }
 
-                if (this._easing != null && _type != NoteType.YASUMI) {
-                    Debug.WriteLine($"easing... {_easing.Selected.Name}");
-                    _easing.Ease(ref _tempFrames);
+                if (this.easing.Selected.Name != "Linear" && _type != NoteType.YASUMI) {
+                    Debug.WriteLine($"easing... {easing.Selected.Name}");
+                    easing.Ease(ref _tempFrames);
                 }
                 this.Frames.AddRange(_tempFrames);
             }
             Debug.WriteLine(Score.Tokens.Count);
         }
+
 
         /// <summary>
         /// フレーム数変換
@@ -111,7 +112,7 @@ namespace EasyOjima.Score.Processing {
         /// <param name="reqSize">ほしいおおきさ</param>
         /// <returns>消すのを0, 残すのを1, 直前のを繰り返すのを2</returns>
         //TODO: フレーム数変換の改良
-        private List<int> ConvertFrameSize(int actualSize, int reqSize) {
+        public List<int> ConvertFrameSize(int actualSize, int reqSize) {
             var _base = Enumerable.Repeat(1, actualSize).ToList();
             if (actualSize == reqSize)
                 return _base;

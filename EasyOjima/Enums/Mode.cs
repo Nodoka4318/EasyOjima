@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 
 namespace EasyOjima.Enums {
+    // TODO: 省略できる気がする
     public enum Mode {
         NORMAL, //通常モード
         KAKUKAKU,　//瞬間移動モード
@@ -12,7 +13,7 @@ namespace EasyOjima.Enums {
 
     //参照用
     public static class ModeExtention {
-        private static Dictionary<Mode, string> modes = new Dictionary<Mode, string>() {
+        public static Dictionary<Mode, string> modes = new Dictionary<Mode, string>() {
             { Mode.NORMAL, "通常" },
             { Mode.KAKUKAKU, "瞬間移動" },
             { Mode.UNKNOWN, "unknown" }
