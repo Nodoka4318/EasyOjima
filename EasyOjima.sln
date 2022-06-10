@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyOjima", "EasyOjima\EasyOjima.csproj", "{C52B89D8-3381-415D-A613-F98A6F2A7F0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyOjima", "src\EasyOjima\EasyOjima.csproj", "{C52B89D8-3381-415D-A613-F98A6F2A7F0B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplePlugin_GrayscalePlugin", "SamplePlugin\SamplePlugin_GrayscalePlugin.csproj", "{35318A13-21B2-44C6-9130-6B77D60239C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplePlugin_GrayscalePlugin", "src\SamplePlugin\SamplePlugin_GrayscalePlugin.csproj", "{35318A13-21B2-44C6-9130-6B77D60239C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplePlugin_WatermarkPlugin", "SamplePlugin_WatermarkPlugin\SamplePlugin_WatermarkPlugin.csproj", "{B486EDDE-3B45-4FB2-8F34-F0785630042A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplePlugin_WatermarkPlugin", "src\SamplePlugin_WatermarkPlugin\SamplePlugin_WatermarkPlugin.csproj", "{B486EDDE-3B45-4FB2-8F34-F0785630042A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyOjima.Bezier", "EasyOjima.Bezier\EasyOjima.Bezier.csproj", "{DBAE4EFC-2B6B-455B-A337-F8CECA071828}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyOjima.Bezier", "src\EasyOjima.Bezier\EasyOjima.Bezier.csproj", "{DBAE4EFC-2B6B-455B-A337-F8CECA071828}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2CE9CDFC-4EE3-4DB2-82A7-41AC2B468700}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{19EC2A74-BBB3-48BA-A5A6-31097D65D91E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BezierEditor", "tests\BezierEditor\BezierEditor.csproj", "{A1A860A0-7097-4308-994C-D35B3A4CFD63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,20 @@ Global
 		{DBAE4EFC-2B6B-455B-A337-F8CECA071828}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBAE4EFC-2B6B-455B-A337-F8CECA071828}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBAE4EFC-2B6B-455B-A337-F8CECA071828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1A860A0-7097-4308-994C-D35B3A4CFD63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1A860A0-7097-4308-994C-D35B3A4CFD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1A860A0-7097-4308-994C-D35B3A4CFD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1A860A0-7097-4308-994C-D35B3A4CFD63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C52B89D8-3381-415D-A613-F98A6F2A7F0B} = {2CE9CDFC-4EE3-4DB2-82A7-41AC2B468700}
+		{35318A13-21B2-44C6-9130-6B77D60239C2} = {2CE9CDFC-4EE3-4DB2-82A7-41AC2B468700}
+		{B486EDDE-3B45-4FB2-8F34-F0785630042A} = {2CE9CDFC-4EE3-4DB2-82A7-41AC2B468700}
+		{DBAE4EFC-2B6B-455B-A337-F8CECA071828} = {2CE9CDFC-4EE3-4DB2-82A7-41AC2B468700}
+		{A1A860A0-7097-4308-994C-D35B3A4CFD63} = {19EC2A74-BBB3-48BA-A5A6-31097D65D91E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F5B278DA-572B-4CAD-B180-FDBAA9C1F81E}

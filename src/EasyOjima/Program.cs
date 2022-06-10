@@ -6,6 +6,7 @@ using System.Linq;
 using EasyOjima.Forms;
 using EasyOjima.Utils;
 using EasyOjima.Enums;
+using EasyOjima.Bezier;
 using System.Diagnostics;
 
 namespace EasyOjima {
