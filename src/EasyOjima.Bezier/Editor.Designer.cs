@@ -29,10 +29,9 @@
             // 
             // editorBox
             // 
-            this.editorBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editorBox.Location = new System.Drawing.Point(0, 0);
             this.editorBox.Name = "editorBox";
-            this.editorBox.Size = new System.Drawing.Size(284, 261);
+            this.editorBox.Size = new System.Drawing.Size(284, 284);
             this.editorBox.TabIndex = 0;
             this.editorBox.TabStop = false;
             this.editorBox.Click += new System.EventHandler(this.editorBox_Click);
@@ -41,7 +40,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 370);
             this.Controls.Add(this.editorBox);
             this.Location = new System.Drawing.Point(300, 300);
             this.MaximizeBox = false;
