@@ -25,8 +25,8 @@ namespace EasyOjima.Bezier.Extentions {
         }
 
         internal static bool IsOnDot(this Point cursor, int dotcX, int dotcY) {
-            var rad = Editor.DOT_DIAMETER;
-            return (cursor.X <= dotcX + rad && dotcX <= cursor.X && cursor.Y <= dotcY + rad && dotcY <= cursor.Y);
+            var rad = Editor.DOT_RADIUS;
+            return (cursor.X <= dotcX + rad && dotcX <= cursor.X + rad && cursor.Y <= dotcY + rad && dotcY <= cursor.Y + rad);
         }
     }
 }

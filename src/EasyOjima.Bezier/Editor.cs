@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace EasyOjima.Bezier {
@@ -18,7 +19,9 @@ namespace EasyOjima.Bezier {
         public int Cx2 => X2.ToSizeX();
         public int Cy1 => Y1.ToSizeY();
         public int Cy2 => Y2.ToSizeY();
+
         private Point Center => new Point(this.Width / 2, editorBox.Height / 2);
+        private string DotCoordsText => $"(x1, y1, x2, y2) = ({X1}, {Y1}, {X2}, {Y2})";
 
         private bool _isMovingDot1 = false;
         private bool _isMovingDot2 = false;
@@ -32,9 +35,11 @@ namespace EasyOjima.Bezier {
             this.Y1 = 20;
             this.X2 = 80;
             this.Y2 = 80;
-
             
             InitializeComponent();
+
+            this.dotCoordsBox.Text = this.DotCoordsText;
+
             this.editorBox.Paint += EditorBox_Paint;
             this.editorBox.MouseDown += EditorBox_MouseDown;
             this.editorBox.MouseMove += EditorBox_MouseMove;
@@ -53,14 +58,28 @@ namespace EasyOjima.Bezier {
             if (_isMovingDot1) {
                 X1 = e.X.ToRateX();
                 Y1 = e.Y.ToRateY();
+                KeepXInner();
                 editorBox.Refresh();
             }
 
             if (_isMovingDot2) {
                 X2 = e.X.ToRateX();
                 Y2 = e.Y.ToRateY();
+                KeepXInner();
                 editorBox.Refresh();
             }
+            this.dotCoordsBox.Text = this.DotCoordsText;
+        }
+
+        private void KeepXInner() {
+            if (X1 >= 100)
+                X1 = 100;
+            if (X2 >= 100)
+                X2 = 100;
+            if (X1 <= 0)
+                X1 = 0;
+            if (X2 <= 0)
+                X2 = 0;
         }
 
         private void EditorBox_MouseDown(object sender, MouseEventArgs e) {
@@ -100,6 +119,28 @@ namespace EasyOjima.Bezier {
             // none
         }
 
-        
+        private void resetButton_Click(object sender, EventArgs e) {
+            this.X1 = 20;
+            this.Y1 = 20;
+            this.X2 = 80;
+            this.Y2 = 80;
+            editorBox.Refresh();
+            this.dotCoordsBox.Text = this.DotCoordsText;
+        }
+
+        private void dotCoordsBox_TextChanged(object sender, EventArgs e) {
+            var reg = new Regex("[(x1, y1, x2, y2) = (](?<x1>[+-]?[0-9]+$*), (?<y1>[+-]?[0-9]+$*), (?<x2>[+-]?[0-9]+$*), (?<y2>[+-]?[0-9]+$*)[)]");
+            var match = reg.Match(dotCoordsBox.Text);
+
+            try {
+                this.X1 = int.Parse(match.Groups["x1"].Value);
+                this.Y1 = int.Parse(match.Groups["y1"].Value);
+                this.X2 = int.Parse(match.Groups["x2"].Value);
+                this.Y2 = int.Parse(match.Groups["y2"].Value);
+
+                KeepXInner();
+                this.editorBox.Refresh();
+            } catch { }
+        }
     }
 }

@@ -40,6 +40,8 @@ namespace EasyOjima.Video {
             EasingList.Add(new EaseInCirc());
             EasingList.Add(new EaseOutCirc());
             EasingList.Add(new EaseInOutCirc());
+            //Bezier
+            EasingList.Add(new Bezier());
         }
 
         public void Set(string name) {
@@ -67,6 +69,14 @@ namespace EasyOjima.Video {
             var _temp = (int)Math.Round(range * Calc(0));
             for (double i = 0; Math.Floor(i) <= 1; i += interval) {
                 var _cur = (int)Math.Round(range * Calc(i));
+
+                //ベジェ曲線のチェック
+                if (this.Selected.Name == "ベジェ曲線") {
+                    if (Calc(i) > 1d) {
+                        throw new Exception($"ベジェ曲線の範囲が不正です。\n値: {Calc(i)}");
+                    }
+                }
+
                 if (_temp == _cur && result.Count != 0) {
                     result.Add(FrameInterpolator.GetMiddleFrame(
                         result[result.Count - 1],
