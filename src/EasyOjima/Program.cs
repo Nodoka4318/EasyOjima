@@ -75,7 +75,7 @@ namespace EasyOjima {
                     if (_dlg == DialogResult.Yes) {
                         OpenUrl(@"https://github.com/Nodoka4318/EasyOjima/releases");
                     }
-                } else if (VERSION.Contains('β') || VERSION.Contains('α')) {
+                } else if (VERSION.Contains("β") || VERSION.Contains("α")) {
                     if (int.Parse(_latest[0].Replace(".", "").Replace("β", "").Replace("α", "")) == _current) {
                         var _updatemsg = string.Join("\n", _latest[1].Split("<br>").Select(s => "*" + s));
                         var _dlg = MessageUtil.InfoYesNo($"現在のバージョン: {VERSION}\n最新版: {_latest[0]}\n\n更新情報:\n{_updatemsg}\n\nダウンロードページを開きますか？");
