@@ -6,8 +6,4 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EasyOjima.UserInterface\EasyOjima.UserInterface.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,10 +1,13 @@
 ﻿using EasyOjima.Bezier.Extentions;
+using EasyOjima.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -22,13 +25,15 @@ namespace EasyOjima.Bezier {
 
         private Point Center => new Point(this.Width / 2, editorBox.Height / 2);
         private string DotCoordsText => $"(x1, y1, x2, y2) = ({X1}, {Y1}, {X2}, {Y2})";
-
+        
         private bool _isMovingDot1 = false;
         private bool _isMovingDot2 = false;
+        private Dictionary<string, BezierCurve> _curves;
 
         //定数
         internal const int DOT_DIAMETER = 30;
         internal const int DOT_RADIUS = 15;
+        const string PATH_BEZIERS = @"data\beziers";
 
         public Editor() {
             this.X1 = 20;
@@ -44,6 +49,48 @@ namespace EasyOjima.Bezier {
             this.editorBox.MouseDown += EditorBox_MouseDown;
             this.editorBox.MouseMove += EditorBox_MouseMove;
             this.editorBox.MouseUp += EditorBox_MouseUp;
+        }
+
+        private void SetCurves() {
+            var files = Directory.GetFiles(PATH_BEZIERS, "*.obz");
+            _curves = new Dictionary<string, BezierCurve>();
+
+            foreach (var file in files) {
+                try {
+                    using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read)) {
+                        var bf = new BinaryFormatter();
+                        object obj = bf.Deserialize(fs);
+                        var name = file.Split('\\')[file.Split('\\').Length - 1].Replace(".obz", "");
+                        var curve = (BezierCurve)obj;
+                        
+                        _curves.Add(name, curve);
+                        this.beziersBox.Items.Add(name); //TODO: 重複防止
+                    }
+                    
+                } catch { }
+            }
+        }
+
+        private void SaveCurve() {
+            using (var dlg = new InputBox("保存したい名前を入力してください。")) {
+                dlg.ShowDialog();
+                if (dlg.Result == DialogResult.Cancel)
+                    return;
+
+                var curve = new BezierCurve(X1, Y1, X2, Y2);
+                try {
+                    using (var fs = new FileStream(PATH_BEZIERS + $@"\{dlg.ResultText}.obz", FileMode.Create, FileAccess.Write)) {
+                        var bf = new BinaryFormatter();
+                        bf.Serialize(fs, curve);
+                    }
+                } catch (Exception ex) { 
+                    throw ex; 
+                }
+            }
+        }
+
+        private void LoadCurve() {
+            //TODO: 書け
         }
 
         private void EditorBox_MouseUp(object sender, MouseEventArgs e) {
@@ -141,6 +188,10 @@ namespace EasyOjima.Bezier {
                 KeepXInner();
                 this.editorBox.Refresh();
             } catch { }
+        }
+
+        private void saveCurveButton_Click(object sender, EventArgs e) {
+            SaveCurve();
         }
     }
 }
