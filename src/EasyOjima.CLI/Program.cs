@@ -5,5 +5,5 @@ namespace EasyOjima.CLI {
         static void Main(string[] args) {
             Console.WriteLine("Hello EasyOjima!");
         }
-    }
+	}
 }

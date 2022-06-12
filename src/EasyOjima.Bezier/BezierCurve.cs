@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace EasyOjima.Bezier {
@@ -24,9 +25,16 @@ namespace EasyOjima.Bezier {
             this.Y2 = 0;
         }
 
-        public double Calc(double t) {
-            var tp = 1 - t;
+        public double Calc(double x) {
             //var x = t * t * t * x4 + 3 * t * t * tp * x3 + 3 * t * tp * tp * x2 + tp * tp * tp * x1;
+            var eq = new CubicEquation(1 - 3 * X1 + 3 * X2, 3 * X1 - 6 * X2, 3 * X2, -x);
+            var t = eq.Solutions
+                .Where(c => c.Imaginary == 0)
+                .Where(c => c.Real <= 1.0d && c.Real >= 0d)
+                .First()
+                .Real;
+
+            var tp = 1 - t;
             var y = t * t * t * 1 + 3 * t * t * tp * Y2 + 3 * t * tp * tp * Y1 ;
             Debug.WriteLine($"bezier: y: {y}");
             return y;

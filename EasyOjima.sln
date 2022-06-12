@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{19EC2A74
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BezierEditor", "tests\BezierEditor\BezierEditor.csproj", "{A1A860A0-7097-4308-994C-D35B3A4CFD63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyOjima.CLI", "src\EasyOjima.CLI\EasyOjima.CLI.csproj", "{95BAEB8A-5F2D-41DF-9347-BB294C3C37C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyOjima.CLI", "src\EasyOjima.CLI\EasyOjima.CLI.csproj", "{95BAEB8A-5F2D-41DF-9347-BB294C3C37C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CubicEquationUnitTest", "tests\CubicEquationUnitTest\CubicEquationUnitTest.csproj", "{88385AAB-774B-48E1-BC67-492DF438EDDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{95BAEB8A-5F2D-41DF-9347-BB294C3C37C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95BAEB8A-5F2D-41DF-9347-BB294C3C37C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95BAEB8A-5F2D-41DF-9347-BB294C3C37C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88385AAB-774B-48E1-BC67-492DF438EDDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88385AAB-774B-48E1-BC67-492DF438EDDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88385AAB-774B-48E1-BC67-492DF438EDDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88385AAB-774B-48E1-BC67-492DF438EDDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{DBAE4EFC-2B6B-455B-A337-F8CECA071828} = {2CE9CDFC-4EE3-4DB2-82A7-41AC2B468700}
 		{A1A860A0-7097-4308-994C-D35B3A4CFD63} = {19EC2A74-BBB3-48BA-A5A6-31097D65D91E}
 		{95BAEB8A-5F2D-41DF-9347-BB294C3C37C3} = {2CE9CDFC-4EE3-4DB2-82A7-41AC2B468700}
+		{88385AAB-774B-48E1-BC67-492DF438EDDE} = {19EC2A74-BBB3-48BA-A5A6-31097D65D91E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F5B278DA-572B-4CAD-B180-FDBAA9C1F81E}
