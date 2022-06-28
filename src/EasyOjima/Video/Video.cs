@@ -17,6 +17,8 @@ namespace EasyOjima.Video {
         public double FrameRate { get; set; }
         public int Width { get; private set; }
         public int Heigth { get; private set; }
+        public int Height => Heigth; // タイポしちゃったけど修正するとプラグインの互換性がなくなるから
+
         public bool isInitialized = false; // 動画のフレームが読み込まれたかどうか
 
         public Video(string path) {

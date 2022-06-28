@@ -22,6 +22,7 @@ namespace EasyOjima.Bezier {
         public int Cx2 => X2.ToSizeX();
         public int Cy1 => Y1.ToSizeY();
         public int Cy2 => Y2.ToSizeY();
+        public BezierCurve Curve { get; private set; }
 
         private Point Center => new Point(this.Width / 2, editorBox.Height / 2);
         private string DotCoordsText => $"(x1, y1, x2, y2) = ({X1}, {Y1}, {X2}, {Y2})";
@@ -40,7 +41,9 @@ namespace EasyOjima.Bezier {
             this.Y1 = 20;
             this.X2 = 80;
             this.Y2 = 80;
-            
+
+            this.Curve = new BezierCurve(X1, Y1, X2, Y2);
+
             InitializeComponent();
 
             this.dotCoordsBox.Text = this.DotCoordsText;
@@ -236,6 +239,25 @@ namespace EasyOjima.Bezier {
             }
 
             LoadCurve(name);
+        }
+
+        private void deleteCurveButton_Click(object sender, EventArgs e) {
+            var name = this.beziersBox.Text;
+            if (!File.Exists(PATH_BEZIERS + $@"\{name}.obz")) {
+                MessageBox.Show("指定した曲線が見つかりませんでした。", "かんたん大島", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var yn = MessageBox.Show($"{name} を削除してよろしいですか？", "かんたん大島", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (yn == DialogResult.Yes) {
+                File.Delete(PATH_BEZIERS + $@"\{name}.obz");
+                SetCurves();
+            }
+        }
+
+        private void submitButton_Click(object sender, EventArgs e) {
+            this.Curve = new BezierCurve(X1, Y1, X2, Y2);
+            this.Close();
         }
     }
 }

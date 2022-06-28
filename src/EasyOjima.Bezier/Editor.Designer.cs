@@ -100,6 +100,7 @@
             this.deleteCurveButton.TabIndex = 3;
             this.deleteCurveButton.Text = "削除する";
             this.deleteCurveButton.UseVisualStyleBackColor = true;
+            this.deleteCurveButton.Click += new System.EventHandler(this.deleteCurveButton_Click);
             // 
             // setCurveButton
             // 
@@ -136,6 +137,7 @@
             this.submitButton.TabIndex = 0;
             this.submitButton.Text = "使用する";
             this.submitButton.UseVisualStyleBackColor = true;
+            this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
             // 
             // Editor
             // 
