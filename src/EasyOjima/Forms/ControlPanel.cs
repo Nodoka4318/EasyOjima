@@ -11,6 +11,7 @@ using EasyOjima.Utils;
 using EasyOjima.Video;
 using EasyOjima.Score;
 using EasyOjima.Score.Processing;
+using EasyOjima.Bezier;
 
 namespace EasyOjima.Forms {
     public partial class ControlPanel : Form {
@@ -21,10 +22,12 @@ namespace EasyOjima.Forms {
             this.Icon = Resource.ICON_16;
             trackBar.Minimum = 0;
             trackBar.Enabled = false;
+            bezierSettingButton.Visible = false;
 
             this.FormClosing += ControlPanel_FormClosing;
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(ControlPanel_KeyDown);
+            this.easingTypeBox.TextChanged += EasingTypeBox_TextChanged;
 
             foreach (var e in new Easing().EasingList) {
                 this.easingTypeBox.Items.Add(e.Name);
@@ -34,6 +37,14 @@ namespace EasyOjima.Forms {
                 this.selectModeBox.Items.Add(o);
             }
             this.selectModeBox.Items.Remove("unknown");
+        }
+
+        private void EasingTypeBox_TextChanged(object sender, EventArgs e) {
+            var text = easingTypeBox.Text;
+            if (text == "ベジェ曲線")
+                bezierSettingButton.Visible = true;
+            else
+                bezierSettingButton.Visible = false;
         }
 
         private void ControlPanel_Load(object sender, EventArgs e) {
@@ -227,6 +238,12 @@ namespace EasyOjima.Forms {
             this.ScoreText = scoreText;
             selectedScoreLabel.Text = title;
             selectedScoreLabel.Update();
+        }
+
+        private void bezierSettingButton_Click(object sender, EventArgs e) {
+            var editor = new Editor();
+            editor.Icon = Resource.ICON_16;
+            editor.ShowDialog(this);
         }
     }
 }

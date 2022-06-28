@@ -109,6 +109,7 @@
             this.setCurveButton.TabIndex = 3;
             this.setCurveButton.Text = "選択した曲線を呼び出す";
             this.setCurveButton.UseVisualStyleBackColor = true;
+            this.setCurveButton.Click += new System.EventHandler(this.setCurveButton_Click);
             // 
             // label1
             // 

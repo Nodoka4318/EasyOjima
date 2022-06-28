@@ -1,4 +1,4 @@
-﻿using EasyOjima.Bezier.Extentions;
+﻿using EasyOjima.Bezier.Extensions;
 using EasyOjima.UserInterface;
 using System;
 using System.Collections.Generic;
@@ -49,12 +49,15 @@ namespace EasyOjima.Bezier {
             this.editorBox.MouseDown += EditorBox_MouseDown;
             this.editorBox.MouseMove += EditorBox_MouseMove;
             this.editorBox.MouseUp += EditorBox_MouseUp;
+
+            this.SetCurves();
         }
 
         private void SetCurves() {
             var files = Directory.GetFiles(PATH_BEZIERS, "*.obz");
             _curves = new Dictionary<string, BezierCurve>();
 
+            this.beziersBox.Items.Clear();
             foreach (var file in files) {
                 try {
                     using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read)) {
@@ -77,20 +80,51 @@ namespace EasyOjima.Bezier {
                 if (dlg.Result == DialogResult.Cancel)
                     return;
 
+                if (dlg.ResultText == "" || dlg.ResultText.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) {
+                    MessageBox.Show("名前が不正です。\n他の名前を試してください。", "かんたん大島", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 var curve = new BezierCurve(X1, Y1, X2, Y2);
                 try {
+                    if (File.Exists(PATH_BEZIERS + $@"\{dlg.ResultText}.obz")) {
+                        var yn = MessageBox.Show("同じ名前の曲線が見つかりました。\n上書きしますか？", "かんたん大島", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (yn == DialogResult.No)
+                            return;
+                        else
+                            File.Delete(PATH_BEZIERS + $@"\{dlg.ResultText}.obz");
+                    }
+
                     using (var fs = new FileStream(PATH_BEZIERS + $@"\{dlg.ResultText}.obz", FileMode.Create, FileAccess.Write)) {
                         var bf = new BinaryFormatter();
                         bf.Serialize(fs, curve);
                     }
+
+                    this.SetCurves();
                 } catch (Exception ex) { 
                     throw ex; 
                 }
             }
         }
 
-        private void LoadCurve() {
-            //TODO: 書け
+        private void LoadCurve(string name) {
+            try {
+                using (var fs = new FileStream(PATH_BEZIERS + $@"\{name}.obz", FileMode.Open, FileAccess.Read)) {
+                    var bf = new BinaryFormatter();
+                    var obj = bf.Deserialize(fs);
+                    var curve = (BezierCurve)obj;
+                    
+                    this.X1 = curve.X1;
+                    this.Y1 = curve.Y1;
+                    this.X2 = curve.X2;
+                    this.Y2 = curve.Y2;
+
+                    editorBox.Refresh();
+                    this.dotCoordsBox.Text = this.DotCoordsText;
+                }
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
 
         private void EditorBox_MouseUp(object sender, MouseEventArgs e) {
@@ -150,12 +184,12 @@ namespace EasyOjima.Bezier {
                 new Point(Cx2, Cy2),
                 new Point(this.editorBox.Width, 0)
                 );
-            e.Graphics.DrawLine(
+            g.DrawLine(
                 new Pen(Brushes.DarkCyan, 2),
                 new Point(0, this.editorBox.Height),
                 new Point(Cx1, Cy1)
                 );
-            e.Graphics.DrawLine(
+            g.DrawLine(
                 new Pen(Brushes.DarkCyan, 2),
                 new Point(Cx2, Cy2),
                 new Point(this.editorBox.Width, 0)
@@ -192,6 +226,16 @@ namespace EasyOjima.Bezier {
 
         private void saveCurveButton_Click(object sender, EventArgs e) {
             SaveCurve();
+        }
+
+        private void setCurveButton_Click(object sender, EventArgs e) {
+            var name = this.beziersBox.Text;
+            if (!File.Exists(PATH_BEZIERS + $@"\{name}.obz")) {
+                MessageBox.Show("指定した曲線が見つかりませんでした。", "かんたん大島", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            LoadCurve(name);
         }
     }
 }

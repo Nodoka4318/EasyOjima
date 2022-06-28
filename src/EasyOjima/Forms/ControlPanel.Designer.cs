@@ -53,6 +53,7 @@
             this.frameDensityBox = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.bezierSettingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -265,6 +266,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.bezierSettingButton);
             this.tabPage3.Controls.Add(this.showEasingGraphsButton);
             this.tabPage3.Controls.Add(this.easingTypeBox);
             this.tabPage3.Controls.Add(this.label5);
@@ -388,6 +390,16 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "フレーム密度 (倍)";
             // 
+            // bezierSettingButton
+            // 
+            this.bezierSettingButton.Location = new System.Drawing.Point(173, 11);
+            this.bezierSettingButton.Name = "bezierSettingButton";
+            this.bezierSettingButton.Size = new System.Drawing.Size(106, 23);
+            this.bezierSettingButton.TabIndex = 10;
+            this.bezierSettingButton.Text = "ベジェ曲線の設定";
+            this.bezierSettingButton.UseVisualStyleBackColor = true;
+            this.bezierSettingButton.Click += new System.EventHandler(this.bezierSettingButton_Click);
+            // 
             // ControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -455,5 +467,6 @@
         public System.Windows.Forms.NumericUpDown frameDensityBox;
         private System.Windows.Forms.ComboBox selectModeBox;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button bezierSettingButton;
     }
 }

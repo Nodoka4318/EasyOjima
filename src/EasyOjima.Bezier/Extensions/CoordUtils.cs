@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-namespace EasyOjima.Bezier.Extentions {
+namespace EasyOjima.Bezier.Extensions {
     internal static class CoordUtils {
         // 定数
         const double SIZE = 284d;
