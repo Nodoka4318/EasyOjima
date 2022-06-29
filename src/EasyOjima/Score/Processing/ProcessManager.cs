@@ -5,17 +5,19 @@ using EasyOjima.Forms;
 using EasyOjima.Utils;
 using EasyOjima.Video;
 using EasyOjima.Enums;
+using EasyOjima.Bezier;
 
 namespace EasyOjima.Score.Processing {
     public class ProcessManager {
-        private string score;
-        private int bpm;
-        private int startFrame;
-        private int endFrame;
-        private string easeType;
-        private int frameDensityRate;
-        private int interpolateRate;
-        private Mode mode;
+        private string _score;
+        private int _bpm;
+        private int _startFrame;
+        private int _endFrame;
+        private string _easeType;
+        private int _frameDensityRate;
+        private int _interpolateRate;
+        private Mode _mode;
+        private BezierCurve _bezierCurve;
 
         public FrameProcessor Processor { get; private set; }
         public OptionManager Option { get; private set; }
@@ -23,63 +25,65 @@ namespace EasyOjima.Score.Processing {
         public LoadingDialog loadingDialog = new LoadingDialog("処理中です…", 4);
 
         //パラメーター多すぎて草
-        public ProcessManager(string score, int bpm, int startFrame, int endFrame, string easeType, int frameDensityRate, int interpolateRate, Mode mode) {
-            this.score = score;
-            this.bpm = bpm;
-            this.startFrame = startFrame;
-            this.endFrame = endFrame;
-            this.easeType = easeType;
-            this.frameDensityRate = frameDensityRate;
-            this.interpolateRate = interpolateRate;
-            this.mode = mode;
+        public ProcessManager(string score, int bpm, int startFrame, int endFrame, string easeType, int frameDensityRate, int interpolateRate, Mode mode, BezierCurve curve) {
+            this._score = score;
+            this._bpm = bpm;
+            this._startFrame = startFrame;
+            this._endFrame = endFrame;
+            this._easeType = easeType;
+            this._frameDensityRate = frameDensityRate;
+            this._interpolateRate = interpolateRate;
+            this._mode = mode;
+            this._bezierCurve = curve;
         }
 
         public void Process(Video.Video video) {
-            try {
+            //try {
                 loadingDialog.Show();
-                Score sc = new Score(score, bpm);
+                Score sc = new Score(_score, _bpm);
                 loadingDialog.UpdateDialog(1);
-                if (interpolateRate > 1) {
-                    FrameInterpolator.Interpolate(ref video, interpolateRate);
+                if (_interpolateRate > 1) {
+                    FrameInterpolator.Interpolate(ref video, _interpolateRate);
                 }
                 loadingDialog.UpdateDialog(2);
-                Parser ps = new Parser(sc, video.FrameRate * frameDensityRate);
+                Parser ps = new Parser(sc, video.FrameRate * _frameDensityRate);
                 loadingDialog.UpdateDialog(3);
 
                 Easing easing = new Easing();
-                easing.Set(easeType);
+                easing.BezierCurve = _bezierCurve;
+                easing.Set(_easeType);
                 //easing = easing.Selected.Name == "Linear" ? null : easing;
 
-                if (interpolateRate == 1) {
+                if (_interpolateRate == 1) {
                     this.Processor = new FrameProcessor(
                         ps,
-                        startFrame,
-                        endFrame,
+                        _startFrame,
+                        _endFrame,
                         easing
                         );
                 } else {
                     this.Processor = new FrameProcessor(
                         ps,
-                        startFrame * (int)Math.Pow(2, interpolateRate - 1),
-                        endFrame * (int)Math.Pow(2, interpolateRate - 1) - 1,
+                        _startFrame * (int)Math.Pow(2, _interpolateRate - 1),
+                        _endFrame * (int)Math.Pow(2, _interpolateRate - 1) - 1,
                         easing
                         );
                 }
 
-                if (mode == Mode.NORMAL) { //オプションなし通常
+                if (_mode == Mode.NORMAL) { //オプションなし通常
                     Processor.Process(ref video);
                 } else { //オプションあり
                     Option = new OptionManager(Processor);
-                    Option.Set(mode.GetName());
+                    Option.Set(_mode.GetName());
                     Option.Process(ref video);
                 }
 
                 loadingDialog.UpdateDialog(4);
                 loadingDialog.Dispose();
-            } catch (Exception ex) {
-                loadingDialog.Dispose();
-                throw ex;
-            }
+            //} catch (Exception ex) {
+            //    loadingDialog.Dispose();
+            //    throw ex;
+            //}
         }
     }
 }

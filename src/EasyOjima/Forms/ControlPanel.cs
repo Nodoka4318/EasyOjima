@@ -17,6 +17,8 @@ namespace EasyOjima.Forms {
     public partial class ControlPanel : Form {
         public string ScoreText { get; private set; }
 
+        private BezierCurve _curve;
+
         public ControlPanel() {
             InitializeComponent();
             this.Icon = Resource.ICON_16;
@@ -28,6 +30,8 @@ namespace EasyOjima.Forms {
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(ControlPanel_KeyDown);
             this.easingTypeBox.TextChanged += EasingTypeBox_TextChanged;
+
+            _curve = new BezierCurve(20, 20, 80, 80);
 
             foreach (var e in new Easing().EasingList) {
                 this.easingTypeBox.Items.Add(e.Name);
@@ -186,7 +190,7 @@ namespace EasyOjima.Forms {
                 return;
             }
 
-            try {
+            //try {
                 bool flag1 = bpm == 0;
                 bool flag2 = beginFrame > endFrame;
                 bool flag3 = beginFrame > Program.mainView.video.FrameSize || beginFrame <= 0;
@@ -206,7 +210,8 @@ namespace EasyOjima.Forms {
                     easingType, 
                     frameDensityRate, 
                     frameInterpolationRate,
-                    mode
+                    mode,
+                    _curve
                     );
                 process.Process(Program.mainView.video);
                 Program.mainView.video.Dispose();
@@ -217,9 +222,9 @@ namespace EasyOjima.Forms {
                     Program.mainView.video = new Video.Video(process.Option.Selected.GetFrames(), (int)(fps * frameDensityRate * Math.Pow(2, frameInterpolationRate - 1)));
                 }
                 this.trackBar.Maximum = Program.mainView.video.FrameSize;
-            } catch (Exception ex) {
-                MessageUtil.ErrorMessage(ex.Message);
-            }           
+            //} catch (Exception ex) {
+            //    MessageUtil.ErrorMessage(ex.Message);
+            //}           
         }
 
         private void showEasingGraphsButton_Click(object sender, EventArgs e) {
@@ -244,6 +249,9 @@ namespace EasyOjima.Forms {
             var editor = new Editor();
             editor.Icon = Resource.ICON_16;
             editor.ShowDialog(this);
+
+            _curve = editor.Curve;
+            editor.Dispose();
         }
     }
 }

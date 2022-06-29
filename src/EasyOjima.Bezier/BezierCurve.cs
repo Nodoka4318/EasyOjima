@@ -31,9 +31,14 @@ namespace EasyOjima.Bezier {
         public double Calc(double x) {
             //var x = t * t * t * x4 + 3 * t * t * tp * x3 + 3 * t * tp * tp * x2 + tp * tp * tp * x1;
             var eq = new CubicEquation(1 - 3 * Dx1 + 3 * Dx2, 3 * Dx1 - 6 * Dx2, 3 * Dx2, -x);
+
+            foreach (var s in eq.Solutions) {
+                Debug.WriteLine($"CubicSolutions: {s.ToString()}");
+            }
+
             var t = eq.Solutions
                 .Where(c => c.Imaginary == 0)
-                .Where(c => c.Real <= 1.0d && c.Real >= 0d)
+                //.Where(c => c.Real <= 1.0d && c.Real >= 0d)
                 .First()
                 .Real;
 

@@ -4,14 +4,18 @@ using System.Text;
 using System.Linq;
 using System.Drawing;
 using System.Diagnostics;
+using EasyOjima.Bezier;
 
 namespace EasyOjima.Video {
     public class Easing {
         public List<IEasing> EasingList { get; private set; }
         public IEasing Selected { get; set; }
+        public BezierCurve BezierCurve { get; set; }
 
         public Easing() {
             EasingList = new List<IEasing>();
+            //Bezier
+            EasingList.Add(new Bezier());
             //Sine
             EasingList.Add(new EaseInSine());
             EasingList.Add(new EaseOutSine());
@@ -39,15 +43,21 @@ namespace EasyOjima.Video {
             //Circ
             EasingList.Add(new EaseInCirc());
             EasingList.Add(new EaseOutCirc());
-            EasingList.Add(new EaseInOutCirc());
-            //Bezier
-            EasingList.Add(new Bezier());
+            EasingList.Add(new EaseInOutCirc());            
         }
 
         public void Set(string name) {
             foreach (var item in EasingList) {
                 if (name == item.Name) {
                     this.Selected = item;
+
+                    // ベジェ曲線の曲線セット
+                    if (this.Selected.GetType() == typeof(Bezier)) {
+                        var b = (Bezier)this.Selected;
+                        b.Curve = this.BezierCurve;
+                        this.Selected = b;
+                    }
+
                     return;
                 }
             }
