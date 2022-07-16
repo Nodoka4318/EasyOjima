@@ -17,6 +17,8 @@ namespace EasyOjima.Forms {
         public string ResultScore { get; private set; }
         public string ResultFileName { get; private set; }
 
+        const string customScore = "< カスタム >"; //スコアエディタを使用する場合
+
         public SelectScoreDialog() {
             InitializeComponent();
             this.ShowIcon = false;
@@ -31,10 +33,13 @@ namespace EasyOjima.Forms {
         private void SelectScoreDialog_Load(object sender, EventArgs e) {
             try {
                 scoreFiles = Directory.GetFiles(Loc.SCORES, "*.score", SearchOption.AllDirectories).ToList();
+                listBox1.Items.Add(customScore);
+                /*
                 if (scoreFiles.Count < 1) {
                     MessageUtil.InfoMessage("楽譜ファイルが見つかりませんでした。");
                     this.Dispose();
                 }
+                */
                 foreach (string file in scoreFiles) {
                     listBox1.Items.Add(file);
                 }
@@ -54,8 +59,14 @@ namespace EasyOjima.Forms {
                 MessageUtil.InfoMessage("いずれかの項目を選択してください。");
                 return;
             }
-            this.ResultScore = FileUtil.ReadTextFile(selectedItem);
-            this.ResultFileName = selectedItem.Split('\\')[selectedItem.Split('\\').Length - 1];
+
+            // スコアエディタの起動
+            if (selectedItem == customScore) {
+                
+            } else {
+                this.ResultScore = FileUtil.ReadTextFile(selectedItem);
+                this.ResultFileName = selectedItem.Split('\\')[selectedItem.Split('\\').Length - 1];
+            }
             this.Close(); //Disposeしちゃだめ
         }
 
@@ -67,6 +78,7 @@ namespace EasyOjima.Forms {
             var selectedFolder = rootFolderBox.Text;
             if (selectedFolder == "<root>") {
                 listBox1.Items.Clear();
+                listBox1.Items.Add(customScore);
                 listBox1.Items.AddRange(scoreFiles.ToArray());
                 return;
             }
@@ -74,6 +86,7 @@ namespace EasyOjima.Forms {
             var selectedScores = scoreFiles.Where(c => c.Contains($@"{Loc.SCORES}\{selectedFolder}\")).ToList();
 
             listBox1.Items.Clear();
+            listBox1.Items.Add(customScore);
             listBox1.Items.AddRange(selectedScores.ToArray());
         }
     }
